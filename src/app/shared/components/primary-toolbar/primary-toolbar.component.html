@@ -1,0 +1,26 @@
+<ion-toolbar color="primary">
+  <ion-title>{{moduleTitle}}</ion-title>
+  <ion-buttons slot="start" *ngIf="showMainMenuButton">
+    <ion-menu-button></ion-menu-button>
+  </ion-buttons>
+
+  <ion-buttons slot="start" *ngIf="showBackButton">
+    <ion-back-button [defaultHref]="backUrl"></ion-back-button>
+  </ion-buttons>
+  <ion-buttons slot="end" *ngIf="showHomeButton">
+    <ion-button slot="icon-only" name="home-outline" routerLink="/">
+      <ion-icon name="home-outline"></ion-icon>
+    </ion-button>
+  </ion-buttons>
+  <ion-buttons slot="end">
+    <ion-title>{{opTitle}}</ion-title>
+  </ion-buttons>
+  <ion-buttons slot="end" >
+    <ion-button>
+      <ion-title>
+       User name 
+      </ion-title>
+    </ion-button>
+    <ion-icon name="person-circle-outline"></ion-icon>
+  </ion-buttons>
+</ion-toolbar>

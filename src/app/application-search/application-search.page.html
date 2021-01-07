@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-header >
+    <app-primary-toolbar
+     [showHomeButton]="true" 
+     [showBackButton]="false" 
+     [backUrl]="'/home'"
+     [moduleTitle]="'Applications'" 
+     [opTitle]="'Company Name'">
+    </app-primary-toolbar>
+    <ion-buttons>
+      <ion-back-button text="back"></ion-back-button>
+    </ion-buttons>
+  </ion-header>
+</ion-header>
+
+<ion-content>
+<app-application-table></app-application-table>
+</ion-content>

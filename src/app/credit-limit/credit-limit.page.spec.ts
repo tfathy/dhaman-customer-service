@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { ApplicationSearchPage } from './application-search.page';
+import { CreditLimitPage } from './credit-limit.page';
 
-describe('ApplicationSearchPage', () => {
-  let component: ApplicationSearchPage;
-  let fixture: ComponentFixture<ApplicationSearchPage>;
+describe('CreditLimitPage', () => {
+  let component: CreditLimitPage;
+  let fixture: ComponentFixture<CreditLimitPage>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ApplicationSearchPage ],
+      declarations: [ CreditLimitPage ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(ApplicationSearchPage);
+    fixture = TestBed.createComponent(CreditLimitPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

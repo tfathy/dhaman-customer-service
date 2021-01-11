@@ -11,6 +11,10 @@ const routes: Routes = [
   {
     path: 'application-form',
     loadChildren: () => import('./application-form/application-form.module').then( m => m.ApplicationFormPageModule)
+  },
+  {
+    path: 'application-form/:applicationId',
+    loadChildren: () => import('./application-form/application-form.module').then( m => m.ApplicationFormPageModule)
   }
 ];
 

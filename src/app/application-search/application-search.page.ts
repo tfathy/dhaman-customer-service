@@ -1,5 +1,6 @@
 import {  Component, OnInit} from "@angular/core";
-
+import { Plugins } from '@capacitor/core';
+import { Platform } from '@ionic/angular';
 
 
 @Component({
@@ -8,11 +9,13 @@ import {  Component, OnInit} from "@angular/core";
   styleUrls: ["./application-search.page.scss"],
 })
 export class ApplicationSearchPage implements OnInit {
-  
-  constructor() {}
+  ismobile = false;
+  constructor(private platfrom: Platform) {}
 
   ngOnInit() {
-    
+    this.ismobile =this.platfrom.is('android') || this.platfrom.is('ios');
+    console.log(this.ismobile);
+  
   }
  
  

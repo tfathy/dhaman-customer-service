@@ -1,0 +1,56 @@
+<ion-header>
+  <app-primary-toolbar [moduleTitle]="'Add New Buyer Shipment '">
+  </app-primary-toolbar>
+  <ion-toolbar color="secondary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Add New Buyer Shipment </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+  <form>
+    <ion-item>
+      <ion-label position="floating">Buyer Name</ion-label>
+      <ion-select>
+        <ion-select-option> Buyer 1 </ion-select-option>
+        <ion-select-option> Buyer 2 </ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Revolving</ion-label>
+     <ion-input></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Rate</ion-label>
+      <ion-input></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Invoice Number </ion-label>
+      <ion-input></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">invoice Value</ion-label>
+      <ion-input></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Premuium Value</ion-label>
+      <ion-input></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Shipment Date</ion-label>
+      <ion-datetime></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Maturity Date</ion-label>
+      <ion-datetime></ion-datetime>
+    </ion-item>
+    <div class="ion-text-center">
+      <ion-button color="success">Save</ion-button>
+      <ion-button color="danger">Submit</ion-button>
+    </div>
+  </form>
+
+</ion-content>

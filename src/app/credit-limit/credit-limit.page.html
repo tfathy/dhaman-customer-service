@@ -1,0 +1,44 @@
+<ion-header>
+  <app-primary-toolbar [moduleTitle]="'Modify Credit Limit '">
+  </app-primary-toolbar>
+  <ion-toolbar color="secondary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title> Modification Requests </ion-title>
+    <ion-buttons slot="end">
+      <ion-button>
+        <ion-icon name="search"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- fab placed to the (vertical) center and end -->
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button color="success" (click)="createRequest()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  <ion-list>
+    <ion-item-sliding *ngFor="let req of requests" #slidingItem>
+      <ion-item button detail>
+        <ion-label>
+          <h1>{{ req.buyer }}</h1>
+          <div class="ion-text-start">
+            <div>Credit Limit :{{ req.creditLimit }}</div>
+            <div>Period :{{ req.period }}</div>
+          </div>
+        </ion-label>
+      </ion-item>
+      <ion-item-options side="end">
+        <ion-item-option
+          color="secondary"
+          (click)="onEdit(req.buyer, slidingItem)"
+          >Edit</ion-item-option
+        >
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+</ion-content>

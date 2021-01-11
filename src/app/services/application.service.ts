@@ -11,6 +11,9 @@ url = environment.backendUrl;
   constructor(private http: HttpClient) { }
 
   getAll(){
-     return this.http.get<IApplication>(this.url+'/application.json');
+     return this.http.get<IApplication[]>(this.url+'/application.json');
+  }
+  findById(appid){
+    return this.http.get<IApplication>(this.url+'/application.json/'+appid);
   }
 }

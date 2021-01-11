@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-primary-toolbar',
@@ -7,13 +8,25 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class PrimaryToolbarComponent implements OnInit {
   @Input() moduleTitle = 'Module title here';
-  @Input() opTitle = 'Operating unit here';
+  _companyName = '';
+  _userName;
   @Input() showHomeButton = false;
   @Input() showMainMenuButton = false;
   @Input() showBackButton = false;
   @Input() backUrl: string;
-  constructor() { }
+  constructor(private authService: AuthService) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.authService.getUserName().subscribe(
+      data=>{
+        this._userName = data;
+      }
+    );
+    this.authService.getCompanyName().subscribe(
+      data =>{
+        this._companyName = data;
+      }
+    )
+  }
 
 }

@@ -1,18 +1,27 @@
-<ion-header>
-  <ion-header >
-    <app-primary-toolbar
-     [showHomeButton]="true" 
-     [showBackButton]="false" 
-     [backUrl]="'/home'"
-     [moduleTitle]="'Applications'" 
-     [opTitle]="'Company Name'">
-    </app-primary-toolbar>
-    <ion-buttons>
-      <ion-back-button text="back"></ion-back-button>
-    </ion-buttons>
+
+  <ion-header>
+    <app-primary-toolbar [moduleTitle]="'Applications'"> </app-primary-toolbar>
+  
+    <ion-toolbar color="secondary" >
+      <ion-buttons slot="start">
+        <ion-back-button></ion-back-button>
+      </ion-buttons>
+      <ion-title>
+      All Applications
+      </ion-title>
+      <ion-buttons slot="end">
+        <ion-button>
+          <ion-icon name="search"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
   </ion-header>
-</ion-header>
+
 
 <ion-content>
-<app-application-table></app-application-table>
+  <!--   <app-application-table *ngIf="!ismobile"></app-application-table>
+
+  -->
+
+  <app-application-list></app-application-list>
 </ion-content>

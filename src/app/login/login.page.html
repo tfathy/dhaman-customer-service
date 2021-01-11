@@ -1,12 +1,12 @@
 <ion-header>
 </ion-header>
 <ion-content>  
+  <div class="app-logo">
+  </div>
   <ion-grid >
     <ion-row>
       <ion-col class="ion-text-center">
-        <div class="login-logo">
-          <img src="assets/icon/dhamanlogo.png" alt="Dhaman Customer service">
-        </div>
+       
         <form #loginForm="ngForm" novalidate>
           <ion-list>
             <!--  User name -->
@@ -30,7 +30,7 @@
           <!--  login button -->
           <ion-row>
             <ion-col>
-              <ion-button  type="submit" expand="block">Login</ion-button>
+              <ion-button  (click)="onLogin()" expand="block">Login</ion-button>
             </ion-col>            
           </ion-row>
           

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { IonItemSliding } from '@ionic/angular';
 import { ApplicationService } from 'src/app/services/application.service';
 import { IApplication } from 'src/app/shared/models/application.model';
 
@@ -9,15 +11,23 @@ import { IApplication } from 'src/app/shared/models/application.model';
 })
 export class ApplicationListComponent implements OnInit {
 applicationData: IApplication[]=[];
-  constructor(private applicationService: ApplicationService) { }
+  constructor(private applicationService: ApplicationService, private router: Router) { }
 
   ngOnInit() {
-    this.applicationService.getAll().subscribe(
-      data =>{
-        this.applicationData = data as IApplication[];
-      }
-    );
-
+   console.log('ng on init');  
+   this.applicationService.getAll().subscribe(
+     data =>{
+       console.log(data);
+       this.applicationData=(data);
+     }
+   );
   }
 
+  onEdit(applicationId, slidingItem: IonItemSliding) {
+    slidingItem.close();
+    this.router.navigate(['/', 'application-search','application-form', applicationId]);    
+  }
+  createApp(){
+    this.router.navigate(['/','application-search', 'application-form']);   
+  }
 }

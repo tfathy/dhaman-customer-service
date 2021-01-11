@@ -15,6 +15,7 @@ const ELEMENT_DATA: IApplication[] = [];
 })
 export class ApplicationTableComponent implements OnInit {
   displayedColumns: string[] = [
+    "edit",
     "buyerNameAr",
     "buyerNameEn",
     "address",
@@ -29,7 +30,7 @@ export class ApplicationTableComponent implements OnInit {
     "email",
     "fax",
   ];
-  dataSource = new MatTableDataSource<IApplication>(ELEMENT_DATA);
+  dataSource = new MatTableDataSource<any>(ELEMENT_DATA);
   selection = new SelectionModel<IApplication>(false, []);
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -38,7 +39,7 @@ export class ApplicationTableComponent implements OnInit {
   ngOnInit() {
     this.applicationService.getAll().subscribe((data) => {
       console.log("table data:", data);
-      this.dataSource.data = data as IApplication[];
+      this.dataSource.data = data ;
     });
   }
 

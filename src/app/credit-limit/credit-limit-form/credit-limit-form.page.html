@@ -1,0 +1,55 @@
+<ion-header>
+  <app-primary-toolbar [moduleTitle]="'Modify Credit Limit '">
+  </app-primary-toolbar>
+  <ion-toolbar color="secondary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Modification Requests </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form>
+    <ion-item>
+      <ion-label position="floating">Buyer Name</ion-label>
+      <ion-select>
+        <ion-select-option> Buyer 1 </ion-select-option>
+        <ion-select-option> Buyer 2 </ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Status</ion-label>
+      <ion-select>
+        <ion-select-option> Normal </ion-select-option>
+        <ion-select-option> status 2 </ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Operation Type</ion-label>
+      <ion-select>
+        <ion-select-option> Increase Credit Limit </ion-select-option>
+        <ion-select-option> Decrease Crredit Limit </ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Credit Limit </ion-label>
+      <ion-input></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Credit Limit Period(Days)</ion-label>
+      <ion-input></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Payment Mode</ion-label>
+      <ion-select>
+        <ion-select-option> Open Account </ion-select-option>
+        <ion-select-option> Closed Account </ion-select-option>
+      </ion-select>
+    </ion-item>
+    <div class="ion-text-center">
+      <ion-button color="success">Save</ion-button>
+      <ion-button color="danger">Submit</ion-button>
+    </div>
+  </form>
+</ion-content>

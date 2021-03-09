@@ -28,4 +28,10 @@ _isAuthorized = false;
   set isAuthorized(value:boolean){
     this._isAuthorized = value;
   }
+  getUserInfo(){
+    return new Observable(observer=>{
+      observer.next('tarek');
+      observer.complete();
+    })
+  }
 }

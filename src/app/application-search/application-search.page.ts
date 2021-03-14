@@ -1,5 +1,5 @@
 import {  Component, OnInit} from "@angular/core";
-import { Plugins } from '@capacitor/core';
+
 import { Platform } from '@ionic/angular';
 
 

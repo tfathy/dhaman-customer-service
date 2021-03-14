@@ -12,7 +12,7 @@
             <!--  User name -->
             <ion-item>
               <ion-label position="stacked" color="primary">Username</ion-label>
-              <ion-input name="username" type="text"  spellcheck="false"
+              <ion-input [(ngModel)]="creds.loginName" name="loginName" #loginName="ngModel" type="text"  spellcheck="false"
                 autocapitalize="off" required >
               </ion-input>
             </ion-item>
@@ -21,7 +21,7 @@
             <!--  password -->
             <ion-item>
               <ion-label position="stacked" color="primary">Password</ion-label>
-              <ion-input  name="password" type="password"  required>
+              <ion-input [(ngModel)]="creds.password" name="password" type="password" #password="ngModel" required>
               </ion-input>
             </ion-item>
 
@@ -30,7 +30,7 @@
           <!--  login button -->
           <ion-row>
             <ion-col>
-              <ion-button  (click)="onLogin()" expand="block">Login</ion-button>
+              <ion-button  (click)="onLogin(loginForm)" expand="block">Login</ion-button>
             </ion-col>            
           </ion-row>
           

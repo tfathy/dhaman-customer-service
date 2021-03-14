@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
+import { sessionData } from '../../shared/session.storage';
 
 @Component({
   selector: 'app-primary-toolbar',
@@ -14,19 +15,15 @@ export class PrimaryToolbarComponent implements OnInit {
   @Input() showMainMenuButton = false;
   @Input() showBackButton = false;
   @Input() backUrl: string;
+
+  authToken: sessionData;
+
   constructor(private authService: AuthService) { }
 
   ngOnInit() {
-    this.authService.getUserName().subscribe(
-      data=>{
-        this._userName = data;
-      }
-    );
-    this.authService.getCompanyName().subscribe(
-      data =>{
-        this._companyName = data;
-      }
-    )
+    this._companyName = sessionStorage.getItem("compNameE");
+    this._userName = sessionStorage.getItem("loginName");
+  
   }
 
 }

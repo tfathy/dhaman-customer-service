@@ -8,7 +8,7 @@ import { ApplicationSearchPageRoutingModule } from './application-search-routing
 
 import { ApplicationSearchPage } from './application-search.page';
 import { SharedModule } from '../shared/shared/shared.module';
-import { ApplicationTableComponent } from './components/application-table/application-table.component';
+
 import { ApplicationListComponent } from './components/application-list/application-list.component';
 
 
@@ -20,6 +20,6 @@ import { ApplicationListComponent } from './components/application-list/applicat
     ApplicationSearchPageRoutingModule,
     SharedModule
   ],
-  declarations: [ApplicationSearchPage,ApplicationTableComponent,ApplicationListComponent]
+  declarations: [ApplicationSearchPage,ApplicationListComponent]
 })
 export class ApplicationSearchPageModule {}

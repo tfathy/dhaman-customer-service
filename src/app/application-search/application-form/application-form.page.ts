@@ -2,8 +2,10 @@ import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { NavController } from "@ionic/angular";
 import { ApplicationService } from "src/app/services/application.service";
-import { IApplication } from "src/app/shared/models/application.model";
+
 import {  map, tap } from "rxjs/operators";
+import { getSessionInfo, sessionData } from "src/app/shared/shared/session.storage";
+import { ComprehensiveLimit } from "src/app/shared/models/comp-limit.model";
 
 @Component({
   selector: "app-application-form",
@@ -11,6 +13,7 @@ import {  map, tap } from "rxjs/operators";
   styleUrls: ["./application-form.page.scss"],
 })
 export class ApplicationFormPage implements OnInit {
+  authToken: sessionData;
   app={
     buyerNameAr:'',
     buyerNameEn:'',
@@ -28,8 +31,8 @@ export class ApplicationFormPage implements OnInit {
 
   }
   title='New Application';
-  selectedApplication: IApplication;
-  applications: IApplication[] = [];
+  selectedApplication: ComprehensiveLimit;
+  applications: ComprehensiveLimit[] = [];
   applicationId;
   constructor(
     private route: ActivatedRoute,
@@ -37,16 +40,18 @@ export class ApplicationFormPage implements OnInit {
     private applicationService: ApplicationService
   ) {}
 
-  ngOnInit() {}
+  async ngOnInit() {
+    this.authToken = await getSessionInfo("authData");
+  }
   ionViewWillEnter() {
     this.route.paramMap.subscribe((param) => {
       this.applicationId = param.get("applicationId");
     });
     console.log(this.applicationId);
     this.applicationService
-      .getAll()
+      .findAll("Bearer " + this.authToken.token)
       .pipe(
-        map((items) => items.filter((item) => item.id === this.applicationId))
+        map((items) => items.filter((item) => item.clRef === this.applicationId))
         ,tap( row =>{console.log(row)})
       )
       .subscribe(data=>{

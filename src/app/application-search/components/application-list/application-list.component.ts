@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { IonItemSliding } from '@ionic/angular';
 import { ApplicationService } from 'src/app/services/application.service';
-import { IApplication } from 'src/app/shared/models/application.model';
+import { ComprehensiveLimit } from 'src/app/shared/models/comp-limit.model';
+
+import { getSessionInfo, sessionData } from 'src/app/shared/shared/session.storage';
 
 @Component({
   selector: 'app-application-list',
@@ -10,12 +12,14 @@ import { IApplication } from 'src/app/shared/models/application.model';
   styleUrls: ['./application-list.component.scss'],
 })
 export class ApplicationListComponent implements OnInit {
-applicationData: IApplication[]=[];
+  authToken: sessionData;
+applicationData: ComprehensiveLimit[]=[];
   constructor(private applicationService: ApplicationService, private router: Router) { }
 
-  ngOnInit() {
-   console.log('ng on init');  
-   this.applicationService.getAll().subscribe(
+  async ngOnInit() {
+   console.log('ng on init');
+   this.authToken = await getSessionInfo("authData");  
+   this.applicationService.findAll("Bearer " + this.authToken.token).subscribe(
      data =>{
        console.log(data);
        this.applicationData=(data);

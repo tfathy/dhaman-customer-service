@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
 import { CreditLimitPage } from './credit-limit.page';
@@ -7,7 +7,7 @@ describe('CreditLimitPage', () => {
   let component: CreditLimitPage;
   let fixture: ComponentFixture<CreditLimitPage>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ CreditLimitPage ],
       imports: [IonicModule.forRoot()]

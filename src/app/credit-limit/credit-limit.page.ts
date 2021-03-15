@@ -1,7 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CreditLimitService } from '../services/credit-limit.service';
-import { ICreditLimit } from '../shared/models/credit-limit';
+import { Config, IonRouterOutlet, ModalController } from '@ionic/angular';
+
+import {
+  getSessionInfo,
+  sessionData,
+} from "src/app/shared/shared/session.storage";
+import { ApplicationService } from '../services/application.service';
+import { ComprehensiveLimit } from '../shared/models/comp-limit.model';
 
 @Component({
   selector: 'app-credit-limit',
@@ -9,20 +15,75 @@ import { ICreditLimit } from '../shared/models/credit-limit';
   styleUrls: ['./credit-limit.page.scss'],
 })
 export class CreditLimitPage implements OnInit {
-  requests:ICreditLimit[]=[];
-  constructor(private crService: CreditLimitService, private router: Router) { }
+  authToken: sessionData;
+  applicationData: ComprehensiveLimit[] = [];  
+  showSearchbar: boolean;
+  queryText = '';
+  ios: boolean;
+  excludeTracks: any = [];
 
-  ngOnInit() {
-    this.crService.getAll().subscribe(
-      data=>{
-        this.requests = data;
+
+  constructor(
+    private applicationService: ApplicationService,
+    private router: Router,
+    public config: Config,
+    public modalCtrl: ModalController,
+    public routerOutlet: IonRouterOutlet
+  ) {}
+
+
+  async ngOnInit() { 
+    this.updateSchedule();
+    this.ios = this.config.get('mode') === 'ios';
+    this.authToken = await getSessionInfo("authData");
+    this.applicationService
+      .findAll("Bearer " + this.authToken.token)
+      .subscribe((data) => {
+        console.log(data);
+        this.applicationData = data;
+      });
+  }
+  updateSchedule() {
+    // filter data here using services    
+  }
+
+
+
+
+  viewRecord(applicationId) {  
+    console.log(applicationId) ;
+    this.router.navigate([
+      "/",
+      "credit-limit",
+      "credit-limit-form",
+      applicationId,
+    ]);
+  }
+  createApp() {
+    this.router.navigate(["/", "credit-limit", "credit-limit-form"]);
+  }
+  async doRefresh(event){
+    this.authToken = await getSessionInfo("authData");
+    this.applicationService
+      .findAll("Bearer " + this.authToken.token)
+      .subscribe((data) => {
+        console.log(data);
+        this.applicationData = data;
+        event.target.complete();
+      });
+  }
+   getRiskName(id): string{
+    let output: string = 'unknown';
+    if(id){
+      if(id ===  1) {
+        output = 'Commercial and Non-Commercial';
+      }else if(id===2){
+        output = 'Non-Commercial';
+      }else if(id=== 3){
+        output = 'Commercial';
       }
-    )
+    }
+    return output;
   }
-  createRequest(){
-    this.router.navigate(['/','credit-limit', 'credit-limit-form']);   
-  }
-  onEdit(id){
-    this.router.navigate(['/','credit-limit', 'credit-limit-form']);   
-  }
+
 }

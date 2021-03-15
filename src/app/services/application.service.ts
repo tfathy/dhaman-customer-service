@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ComprehensiveLimit } from '../shared/models/comp-limit.model';
 
@@ -10,20 +11,19 @@ import { getSessionInfo } from '../shared/shared/session.storage';
   providedIn: 'root'
 })
 export class ApplicationService {
-  loginCustomer: ICompany;
+  loginCustomer={};
 url = environment.backendUrl;
   constructor(private http: HttpClient) { }
 
-  findAll(token: string){
+  findAll(token: string): Observable<ComprehensiveLimit[]>{
     const headerInfo = new HttpHeaders({
       "Authorization": token
     });
-    this.setLoginCustomer();
-    console.log("********this.loginCustomer *******");
-    console.log(this.loginCustomer);
+    this.setLoginCustomer(); 
+
      return this.http.post<ComprehensiveLimit[]>(this.url+'/crm-operations/application/compRef',this.loginCustomer,{headers: headerInfo});
   }
-  findById(token: string,appid){
+  findById(token: string,appid): Observable<ComprehensiveLimit>{
     const headerInfo = new HttpHeaders({
       "Authorization": token
     });
@@ -31,6 +31,10 @@ url = environment.backendUrl;
   }
 
   async setLoginCustomer(){
-    this.loginCustomer =  await getSessionInfo("customer");
+    let customer =  await getSessionInfo("customer");
+    console.log("*****************************");
+    this.loginCustomer = customer;
+    console.log(this.loginCustomer);
+    console.log("*****************************");
   }
 }

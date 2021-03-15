@@ -15,19 +15,13 @@ import { ComprehensiveLimit } from "src/app/shared/models/comp-limit.model";
 export class ApplicationFormPage implements OnInit {
   authToken: sessionData;
   app={
-    buyerNameAr:'',
-    buyerNameEn:'',
-    address:'',
-    phone:'',
-    comNumber:'',
-    vat:0,
-    avgShipment:0,
-    crLimit:0,
-    tenorDays:0,
-    payMode:'',
-    buyerBank:'',
-    email:'',
-    fax:'',
+    clRef:'',
+    transType:'',
+    riskRef:'',
+    hsCode:'',
+    status:'',
+    customer:null,
+    currency:null   
 
   }
   title='New Application';
@@ -60,7 +54,7 @@ export class ApplicationFormPage implements OnInit {
   }
 
   getApplication(id: number) {
-    return this.applications.find((app: any) => app.id === id);
+    return this.applications.find((app: ComprehensiveLimit) => app.clRef === id);
   }
 
 }

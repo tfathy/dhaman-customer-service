@@ -15,11 +15,7 @@ const routes: Routes = [
   {
     path: 'home',
     loadChildren: () => import('./home/home.module').then( m => m.HomePageModule),canLoad:[AuthGuard]
-  },
-  {
-    path: 'application-search',
-    loadChildren: () => import('./application-search/application-search.module').then( m => m.ApplicationSearchPageModule),canLoad:[AuthGuard]
-  },
+  }, 
   {
     path: 'credit-limit',
     loadChildren: () => import('./credit-limit/credit-limit.module').then( m => m.CreditLimitPageModule),canLoad:[AuthGuard]
@@ -27,6 +23,10 @@ const routes: Routes = [
   {
     path: 'declaration',
     loadChildren: () => import('./declaration/declaration.module').then( m => m.DeclarationPageModule),canLoad:[AuthGuard]
+  },
+  {
+    path: 'credit-limit-filter',
+    loadChildren: () => import('./credit-limit-filter/credit-limit-filter.module').then( m => m.CreditLimitFilterPageModule)
   }
 ];
 

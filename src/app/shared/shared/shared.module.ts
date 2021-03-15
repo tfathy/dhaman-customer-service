@@ -4,9 +4,7 @@ import { HttpClientModule } from "@angular/common/http";
 import { PrimaryToolbarComponent } from "../components/primary-toolbar/primary-toolbar.component";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { IonicModule } from "@ionic/angular";
-import {  MatTableModule } from '@angular/material/table';
-import { MatSortModule } from '@angular/material/sort';
-import { MatPaginatorModule } from '@angular/material/paginator';
+
 
 @NgModule({
   declarations: [PrimaryToolbarComponent],
@@ -22,10 +20,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     FormsModule,
     HttpClientModule,
     IonicModule,
-    ReactiveFormsModule,
-    MatTableModule,
-    MatSortModule,
-    MatPaginatorModule,
+    ReactiveFormsModule
+  
   ],
 })
 export class SharedModule {}

@@ -27,12 +27,19 @@
       <ion-row>
         <ion-col size="12" size-md="6">
           <ion-item>
-            <ion-label position="floating">Risk</ion-label>
-            <ion-input
-              type="text"
-              [(ngModel)]="model.riskRef"
-              name="clRef"
-            ></ion-input>
+            <ion-label position="floating">Requested Risk</ion-label>
+            <ion-select
+              name="riskRef"
+              [(ngModel)]="model.riskRef"            
+              [selectedText]="getSelectedDesc(model.riskRef)"
+            >
+              <ion-select-option
+                *ngFor="let rsk of riskList"
+                [value]="rsk.riskRef"
+              >
+                {{rsk.desce}}
+              </ion-select-option>
+            </ion-select>
           </ion-item>
         </ion-col>
         <ion-col size="12" size-md="6">
@@ -68,8 +75,5 @@
       </ion-item>
     </ion-card>
   </ion-list>
-  
-
-   
   </form>
 </ion-content>

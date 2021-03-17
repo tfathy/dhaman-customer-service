@@ -13,6 +13,6 @@ export class ComprehensiveLimit {
     public customer?: ICompany,
     public currency?: ICurrency,
     public whoColumns?: WhoColumns,
-    public comprehensiveLimitsDetailsEntity?: ComprehensiveLimitsDetailsEntity
+    public comprehensiveLimitsDetailsEntity?: ComprehensiveLimitsDetailsEntity[]
   ) {}
 }

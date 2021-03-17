@@ -25,8 +25,8 @@ export class ApplicationListComponent implements OnInit {
   async ngOnInit() {
     console.log("ng on init");
     this.authToken = await getSessionInfo("authData");
-    this.applicationService
-      .findAll("Bearer " + this.authToken.token)
+    (await this.applicationService
+      .findAll("Bearer " + this.authToken.token))
       .subscribe((data) => {
         console.log(data);
         this.applicationData = data;
@@ -47,8 +47,8 @@ export class ApplicationListComponent implements OnInit {
   }
   async doRefresh(event){
     this.authToken = await getSessionInfo("authData");
-    this.applicationService
-      .findAll("Bearer " + this.authToken.token)
+    (await this.applicationService
+      .findAll("Bearer " + this.authToken.token))
       .subscribe((data) => {
         console.log(data);
         this.applicationData = data;

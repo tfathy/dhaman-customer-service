@@ -1,40 +1,74 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { environment } from 'src/environments/environment';
-import { ComprehensiveLimit } from '../shared/models/comp-limit.model';
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { Observable } from "rxjs";
+import { filter, flatMap, map } from "rxjs/operators";
+import { environment } from "src/environments/environment";
+import { ComprehensiveLimit } from "../shared/models/comp-limit.model";
 
-import { ICompany } from '../shared/models/company.model';
-import { getSessionInfo } from '../shared/shared/session.storage';
+import { getSessionInfo } from "../shared/shared/session.storage";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class ApplicationService {
-  loginCustomer={};
-url = environment.backendUrl;
-  constructor(private http: HttpClient) { }
+  loginCustomer = {};
+  url = environment.backendUrl;
+  constructor(private http: HttpClient) {}
 
-  findAll(token: string): Observable<ComprehensiveLimit[]>{
+  async findAll(token: string): Promise<Observable<ComprehensiveLimit[]>> {
+    console.log("findAll called token=" + token);
+    console.log(this.url + "/crm-operations/application/compRef");
+    let customer = await getSessionInfo("customer");
     const headerInfo = new HttpHeaders({
-      "Authorization": token
+      Authorization: token,
     });
-    this.setLoginCustomer(); 
 
-     return this.http.post<ComprehensiveLimit[]>(this.url+'/crm-operations/application/compRef',this.loginCustomer,{headers: headerInfo});
+    return this.http.post<ComprehensiveLimit[]>(
+      this.url + "/crm-operations/application/compRef",
+      customer,
+      { headers: headerInfo }
+    );
   }
-  findById(token: string,appid): Observable<ComprehensiveLimit>{
+
+  async filterAll(
+    token: string,
+    queryText: string
+  ): Promise<Observable<ComprehensiveLimit[]>> {
+    let customer = await getSessionInfo("customer");
     const headerInfo = new HttpHeaders({
-      "Authorization": token
+      Authorization: token,
     });
-    return this.http.get<ComprehensiveLimit>(this.url+'/crm-operations/application/'+appid,{headers: headerInfo});
+    let text = queryText.toLowerCase();
+    return this.http
+      .post<ComprehensiveLimit[]>(
+        this.url + "/crm-operations/application/compRef",
+        customer,
+        { headers: headerInfo }
+      )
+      .pipe(
+        map((items) => 
+
+           items.filter((item) => 
+            item.comprehensiveLimitsDetailsEntity?.some((row) =>
+             row.cldDebtorNameEn.toLowerCase().indexOf(text) > -1
+            )
+
+           
+          )
+
+
+
+        )
+      );
   }
 
-  async setLoginCustomer(){
-    let customer =  await getSessionInfo("customer");
-    console.log("*****************************");
-    this.loginCustomer = customer;
-    console.log(this.loginCustomer);
-    console.log("*****************************");
+  findById(token: string, appid): Observable<ComprehensiveLimit> {
+    const headerInfo = new HttpHeaders({
+      Authorization: token,
+    });
+    return this.http.get<ComprehensiveLimit>(
+      this.url + "/crm-operations/application/" + appid,
+      { headers: headerInfo }
+    );
   }
 }

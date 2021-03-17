@@ -37,13 +37,13 @@ export class ApplicationFormPage implements OnInit {
   async ngOnInit() {
     this.authToken = await getSessionInfo("authData");
   }
-  ionViewWillEnter() {
+  async ionViewWillEnter() {
     this.route.paramMap.subscribe((param) => {
       this.applicationId = param.get("applicationId");
     });
     console.log(this.applicationId);
-    this.applicationService
-      .findAll("Bearer " + this.authToken.token)
+    (await this.applicationService
+      .findAll("Bearer " + this.authToken.token))
       .pipe(
         map((items) => items.filter((item) => item.clRef === this.applicationId))
         ,tap( row =>{console.log(row)})

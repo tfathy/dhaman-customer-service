@@ -15,9 +15,14 @@ import {
 })
 export class CreditLimitFormPage implements OnInit {
   authToken: sessionData;
-  model: ComprehensiveLimit = new ComprehensiveLimit() ;
-  title = "Credit Limit";  
+  model: ComprehensiveLimit = new ComprehensiveLimit();
+  title = "Credit Limit";
   applicationId;
+  riskList: { riskRef: number; desce: string }[] = [
+    { riskRef: 1, desce: "Commercial and Non-Commercial" },
+    { riskRef: 2, desce: "Non-Commercial" },
+    { riskRef: 3, desce: "Commercial" },
+  ];
   constructor(
     private route: ActivatedRoute,
     private navCtrl: NavController,
@@ -41,7 +46,7 @@ export class CreditLimitFormPage implements OnInit {
             this.model.riskRef = data.riskRef;
             this.model.status = data.status;
             this.model.transType = data.transType;
-            this.model.whoColumns= data.whoColumns;
+            this.model.whoColumns = data.whoColumns;
             this.model.comprehensiveLimitsDetailsEntity =
               data.comprehensiveLimitsDetailsEntity;
           }),
@@ -52,5 +57,15 @@ export class CreditLimitFormPage implements OnInit {
     });
   }
 
- 
+  getSelectedDesc(id: number){
+    let desce: string = '';
+    if(id===1){
+      desce = 'Commercial and Non-Commercial';
+    }else if(id===2){
+      desce = 'Non-Commercial';
+    }else if(id ===3){
+      desce = 'Commercial';
+    }
+    return desce;
+  }
 }

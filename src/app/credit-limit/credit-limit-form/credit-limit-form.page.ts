@@ -1,8 +1,11 @@
 import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { NavController } from "@ionic/angular";
+import { IonicSelectableComponent } from "ionic-selectable";
 import { ApplicationService } from "src/app/services/application.service";
+import { CurrencyService } from "src/app/services/currency.service";
 import { ComprehensiveLimit } from "src/app/shared/models/comp-limit.model";
+import { ICurrency } from "src/app/shared/models/icurrency.model";
 import {
   sessionData,
   getSessionInfo,
@@ -23,19 +26,27 @@ export class CreditLimitFormPage implements OnInit {
     { riskRef: 2, desce: "Non-Commercial" },
     { riskRef: 3, desce: "Commercial" },
   ];
+  currencyList: ICurrency[] = [];
   constructor(
     private route: ActivatedRoute,
     private navCtrl: NavController,
-    private applicationService: ApplicationService
+    private applicationService: ApplicationService,
+    private currencyService: CurrencyService,
+    private router: Router
   ) {}
 
   async ngOnInit() {
-    this.authToken = await getSessionInfo("authData");
+     await getSessionInfo("authData").then(result=>{      
+      this.authToken = result;
+       this.populateCurrencies();
+    });
+   
   }
   ionViewWillEnter() {
     this.route.paramMap.subscribe((param) => {
       this.applicationId = param.get("applicationId");
       if (this.applicationId) {
+        
         this.applicationService
           .findById("Bearer " + this.authToken.token, this.applicationId)
           .subscribe((data) => {
@@ -56,7 +67,13 @@ export class CreditLimitFormPage implements OnInit {
       }
     });
   }
+private populateCurrencies(){
+  this.currencyService.findAll("Bearer " + this.authToken.token).subscribe( data=>{
+    this.currencyList = data;
+  }
 
+  )
+}
   getSelectedDesc(id: number){
     let desce: string = '';
     if(id===1){
@@ -67,5 +84,19 @@ export class CreditLimitFormPage implements OnInit {
       desce = 'Commercial';
     }
     return desce;
+  }
+
+  currencyChange(event: {
+    component: IonicSelectableComponent,
+    value: any
+  }){
+    console.log('Currency:', event.value);
+  }
+  addBuyer(){
+    console.log();
+    this.router.navigate(['/','credit-limit','credit-limit-form','buyer',-1]);
+  }
+  openBuyerPage(detailId: number){    
+    this.router.navigate(['/','credit-limit','credit-limit-form','buyer',detailId]);
   }
 }

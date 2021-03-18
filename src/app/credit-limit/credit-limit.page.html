@@ -1,9 +1,9 @@
 <ion-header>
-  <app-primary-toolbar ></app-primary-toolbar>
+  <app-primary-toolbar></app-primary-toolbar>
 
   <ion-toolbar color="secondary">
-    <ion-buttons slot="start" *ngIf="!showSearchbar" >
-      <ion-back-button></ion-back-button>     
+    <ion-buttons slot="start" *ngIf="!showSearchbar">
+      <ion-back-button></ion-back-button>
     </ion-buttons>
     <ion-title *ngIf="!showSearchbar"> Credit Limit </ion-title>
     <ion-searchbar
@@ -17,7 +17,7 @@
     <ion-buttons slot="end">
       <ion-button *ngIf="!ios && !showSearchbar" (click)="showSearchbar = true">
         <ion-icon slot="icon-only" name="search"></ion-icon>
-      </ion-button>     
+      </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -42,16 +42,16 @@
     <ion-item-group *ngFor="let app of applicationData">
       <ion-card color="light">
         <ion-item button (click)="viewRecord(app.clRef)">
-          <ion-label>
-            <div>Ref#: {{ app.clRef }}</div>
-            <div>Risk : {{getRiskName(app.riskRef)}}</div>
-            <div>
-              Currency :{{
-              app.currency?app.currency.cuDescriptionE:'Unknown'
-              }}
-            </div>
+          <div>
+            <ion-label>Ref#: {{ app.clRef }}</ion-label>
+            <ion-label>Risk : {{getRiskName(app.riskRef)}}</ion-label>
+            <ion-label
+              >Currency :{{ app.currency?app.currency.cuDescriptionE:'Unknown'
+              }}</ion-label
+            >
             <ion-label> Date: {{app.whoColumns.updDate}}</ion-label>
-          </ion-label>
+            <ion-label color="primary"> No of Buyers: {{app.buyersCount}}</ion-label>
+          </div>
         </ion-item>
       </ion-card>
     </ion-item-group>

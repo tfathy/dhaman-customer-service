@@ -4,6 +4,8 @@ import { HttpClientModule } from "@angular/common/http";
 import { PrimaryToolbarComponent } from "../components/primary-toolbar/primary-toolbar.component";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { IonicModule } from "@ionic/angular";
+import { IonicSelectableModule } from 'ionic-selectable';
+
 
 
 @NgModule({
@@ -14,13 +16,15 @@ import { IonicModule } from "@ionic/angular";
     HttpClientModule,
     IonicModule,
     ReactiveFormsModule,
+    IonicSelectableModule
   ],
   exports: [
     PrimaryToolbarComponent,
     FormsModule,
     HttpClientModule,
     IonicModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    IonicSelectableModule
   
   ],
 })

@@ -1,0 +1,183 @@
+<ion-header>
+  <app-primary-toolbar> </app-primary-toolbar>
+  <ion-toolbar color="secondary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title> {{title}} </ion-title>
+    <ion-buttons slot="end">
+      <ion-button color="primary" (click)="save()">
+        <ion-icon name="save"></ion-icon>
+        Save
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div>
+    <ion-segment
+      (ionChange)="onSegmentChanged($event)"
+      color="secondary"
+      scrollable="true"
+      value="basicInfo"
+    >
+      <ion-segment-button value="basicInfo">
+        <ion-label>Basic Info.</ion-label>
+        <ion-icon name="albums"></ion-icon>
+      </ion-segment-button>
+      <ion-segment-button value="Address" color="secondary">
+        <ion-label>Address</ion-label>
+        <ion-icon name="location"></ion-icon>
+      </ion-segment-button>
+      <ion-segment-button value="lastYears" color="secondary">
+        <ion-label>Last 3 Years</ion-label>
+        <ion-icon name="calendar-number"></ion-icon>
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+
+  <div [ngSwitch]="segmentModel">
+    <!-- basicInfo  -->
+    <ion-grid class="ion-padding" *ngSwitchCase="'basicInfo'">
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating">English Name</ion-label>
+            <ion-input
+              name="cldDebtorNameEn"
+              [(ngModel)]="buyer.cldDebtorNameEn"
+            ></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating">Comm. Registeration</ion-label>
+            <ion-input
+              name="clsCommercialReg"
+              [(ngModel)]="buyer.clsCommercialReg"
+            ></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating">Avg. Shipment</ion-label>
+            <ion-input
+              name="cldAvgShip"
+              [(ngModel)]="buyer.cldAvgShip"
+            ></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating">Credit Limit</ion-label>
+            <ion-input
+              name="clsCreditLimitRequested"
+              [(ngModel)]="buyer.clsCreditLimitRequested"
+            ></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating">Bank</ion-label>
+            <ion-input name="cldBank" [(ngModel)]="buyer.cldBank"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating">Vat</ion-label>
+            <ion-input name="cldVat" [(ngModel)]="buyer.cldVat"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating">Tenor</ion-label>
+            <ion-input name="cldTenor" [(ngModel)]="buyer.cldTenor"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating">Payment Mode</ion-label>
+            <ion-input
+              name="paymentMode"
+              [(ngModel)]="buyer.paymentMode"
+            ></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating">Dispute</ion-label>
+            <ion-input
+              name="cldDispute"
+              [(ngModel)]="buyer.cldDispute"
+            ></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating">Relation With Buyer</ion-label>
+            <ion-select
+              name="cldRelationDebtor"
+              [(ngModel)]="buyer.cldRelationDebtor"
+            ></ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <!-- Address  -->
+    <ion-grid class="ion-padding" *ngSwitchCase="'Address'">
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating"> Country</ion-label>
+            <ionic-selectable
+              [(ngModel)]="buyer.country"
+              name="country"
+              [items]="countryList"
+              itemValueField="couReference"
+              itemTextField="couOfficialNameE"
+              [canSearch]="true"
+              (onChange)="countryChange($event)"
+            >
+            </ionic-selectable>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-label position="floatin">Phone</ion-label>
+          <ion-input name="cldPhone" [(ngModel)]="buyer.cldPhone"></ion-input>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-label position="floating">Address</ion-label>
+          <ion-textarea
+            name="cldAddress"
+            [(ngModel)]="buyer.cldAddress"
+          ></ion-textarea>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+     <!-- three Years  -->
+
+  </div>
+</ion-content>

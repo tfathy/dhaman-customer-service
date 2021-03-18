@@ -13,7 +13,7 @@
       Credit Limit
     </ion-title>
     <ion-buttons slot="end">
-      <ion-button  color="dark">
+      <ion-button  color="dark" (click)="addBuyer()" >
         <ion-icon name="add-circle"></ion-icon>
         Add Buyer</ion-button>   
     </ion-buttons>
@@ -44,34 +44,35 @@
         </ion-col>
         <ion-col size="12" size-md="6">
           <ion-item>
-            <ion-label position="floating">Currency</ion-label>
-            <ion-input
+            <ion-label>Currency</ion-label>
+            <ionic-selectable
               [(ngModel)]="model.currency"
               name="currency"
-            ></ion-input>
+              [items]="currencyList"
+              itemValueField="cuCode"
+              itemTextField="cuDescriptionE"
+              [canSearch]="true"
+              (onChange)="currencyChange($event)">
+            </ionic-selectable>
           </ion-item>
         </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col>
-          <ion-item>
-            <ion-label position="floating">Status</ion-label>
-            <ion-input
-              [(ngModel)]="model.status"
-              name="status"
-            ></ion-input>
-          </ion-item>
-        </ion-col>
-      </ion-row>     
+      </ion-row>         
     </ion-grid>
   <ion-list>
     <ion-list-header *ngIf="model.comprehensiveLimitsDetailsEntity">List of Buyers</ion-list-header>
-    <div *ngIf="!model.comprehensiveLimitsDetailsEntity">
-      <h1> No Buyers found in this request. Click add Buyer button</h1>
+    <div class="ion-text-center" *ngIf="!model.comprehensiveLimitsDetailsEntity">
+      <p class="ion-padding"> No Buyers found in this request. Click add Buyer button</p>
     </div>
     <ion-card *ngFor="let buyer of model.comprehensiveLimitsDetailsEntity">
-      <ion-item>
-        <ion-label>{{buyer.cldDebtorNameEn}}</ion-label>
+      <ion-item button (click)="openBuyerPage(buyer.cLDRef)">
+        <ion-icon slot="start" name="school"></ion-icon>
+        <div>
+          <ion-label>Name:{{buyer.cldDebtorNameEn}}</ion-label>
+          <ion-label>{{buyer.cldDebtorNameAr}}</ion-label>
+          <ion-label>Avg Ship.{{buyer.cldAvgShip}}</ion-label>
+          <ion-label>Crd.Limit:{{buyer.clsCreditLimitRequested}}</ion-label>
+        </div>
+        
       </ion-item>
     </ion-card>
   </ion-list>

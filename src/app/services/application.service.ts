@@ -16,18 +16,35 @@ export class ApplicationService {
   constructor(private http: HttpClient) {}
 
   async findAll(token: string): Promise<Observable<ComprehensiveLimit[]>> {
-    console.log("findAll called token=" + token);
-    console.log(this.url + "/crm-operations/application/compRef");
     let customer = await getSessionInfo("customer");
     const headerInfo = new HttpHeaders({
       Authorization: token,
     });
 
-    return this.http.post<ComprehensiveLimit[]>(
-      this.url + "/crm-operations/application/compRef",
-      customer,
-      { headers: headerInfo }
-    );
+    return this.http
+      .post<ComprehensiveLimit[]>(
+        this.url + "/crm-operations/application/compRef",
+        customer,
+        { headers: headerInfo }
+      )
+      .pipe(
+        map((responseArray) => {
+          return responseArray.map((record) => {
+            return new ComprehensiveLimit(
+              record.clRef,
+              record.transType,
+              record.riskRef,
+              record.hsCode,
+              record.status,
+              record.customer,
+              record.currency,
+              record.whoColumns,
+              record.comprehensiveLimitsDetailsEntity,
+              record.comprehensiveLimitsDetailsEntity.length
+            );
+          });
+        })
+      );
   }
 
   async filterAll(
@@ -46,18 +63,12 @@ export class ApplicationService {
         { headers: headerInfo }
       )
       .pipe(
-        map((items) => 
-
-           items.filter((item) => 
-            item.comprehensiveLimitsDetailsEntity?.some((row) =>
-             row.cldDebtorNameEn.toLowerCase().indexOf(text) > -1
+        map((items) =>
+          items.filter((item) =>
+            item.comprehensiveLimitsDetailsEntity?.some(
+              (row) => row.cldDebtorNameEn.toLowerCase().indexOf(text) > -1
             )
-
-           
           )
-
-
-
         )
       );
   }

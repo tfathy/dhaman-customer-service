@@ -11,6 +11,10 @@ const routes: Routes = [
   {
     path: ':applicationId',
     component: CreditLimitFormPage
+  },  
+  {
+    path: 'buyer/:cldId',
+    loadChildren: () => import('./buyer/buyer.module').then( m => m.BuyerPageModule)
   }
 ];
 

@@ -42,7 +42,8 @@ export class LoginPage implements OnInit {
             this.router.navigateByUrl("/home");
           }),
           (error) => {
-            console.log("Login error >>" + error);
+            console.log("Login error >>" );
+            console.log(error);
             loadingElement.dismiss();
             this.showAlert(error);
           };

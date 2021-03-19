@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  backendUrl: 'http://customer.dhaman.org:9092'
+  backendUrl: 'http://130.61.19.12:9092'
 };
 
 /*

@@ -4,6 +4,7 @@ import { Observable } from "rxjs";
 import { filter, flatMap, map } from "rxjs/operators";
 import { environment } from "src/environments/environment";
 import { ComprehensiveLimit } from "../shared/models/comp-limit.model";
+import { ComprehensiveLimitsDetailsEntity } from "../shared/models/comprehensiveLimitsDetailsEntity.model";
 
 import { getSessionInfo } from "../shared/shared/session.storage";
 
@@ -20,11 +21,11 @@ export class ApplicationService {
     const headerInfo = new HttpHeaders({
       Authorization: token,
     });
-
+ let compRef = customer.compRef;
     return this.http
-      .post<ComprehensiveLimit[]>(
-        this.url + "/crm-operations/application/compRef",
-        customer,
+      .get<ComprehensiveLimit[]>(
+        `${this.url}/crm-operations/application/compRef/${compRef}`,
+        
         { headers: headerInfo }
       )
       .pipe(
@@ -79,6 +80,26 @@ export class ApplicationService {
     });
     return this.http.get<ComprehensiveLimit>(
       this.url + "/crm-operations/application/" + appid,
+      { headers: headerInfo }
+    );
+  }
+
+  findByCldId(token: string, cldId): Observable<ComprehensiveLimitsDetailsEntity> {
+    const headerInfo = new HttpHeaders({
+      Authorization: token,
+    });
+    return this.http.get<ComprehensiveLimitsDetailsEntity>(
+      this.url + "/crm-operations/application/detail/" + cldId,
+      { headers: headerInfo }
+    );
+  }
+
+  update(token: string, appid,body: ComprehensiveLimit): Observable<ComprehensiveLimit> {
+    const headerInfo = new HttpHeaders({
+      Authorization: token,
+    });
+    return this.http.put<ComprehensiveLimit>(
+      this.url + "/crm-operations/application/" + appid,body,
       { headers: headerInfo }
     );
   }

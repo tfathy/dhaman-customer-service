@@ -5,9 +5,9 @@ import { IRelationDebtor } from "./relationDebtor.model";
 
 export class BuyerRequestModel {
   constructor(
-    public cldDebtorNameAr: string,
-    public cldDebtorNameEn: string,
-    public cldAddress: string,
+    public cldDebtorNameAr?: string,
+    public cldDebtorNameEn?: string,
+    public cldAddress?: string,
     public cldPhone?: string,
     public country?: ICountry,
     public cldVat?: string,

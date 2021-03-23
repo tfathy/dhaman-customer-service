@@ -119,7 +119,7 @@ export class BuyerPage implements OnInit {
       .then((loadinElmnt) => {
         loadinElmnt.present();
         this.applicationService
-          .update("Bearer " + this.authToken.token, id, this.model)
+          .updateDetail("Bearer " + this.authToken.token, id, this.buyer)
           .subscribe((responseData) => {
             loadinElmnt.dismiss();
             this.showToast("Record updated successfully");

@@ -45,6 +45,17 @@
       <ion-row>
         <ion-col>
           <ion-item>
+            <ion-label position="floating">Arabic Name</ion-label>
+            <ion-input
+              name="cldDebtorNameAr"
+              [(ngModel)]="buyer.cldDebtorNameAr"
+            ></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
             <ion-label position="floating">English Name</ion-label>
             <ion-input
               name="cldDebtorNameEn"
@@ -68,7 +79,8 @@
         <ion-col>
           <ion-item>
             <ion-label position="floating">Avg. Shipment</ion-label>
-            <ion-input
+            <ion-input 
+            type="number"
               name="cldAvgShip"
               [(ngModel)]="buyer.cldAvgShip"
             ></ion-input>
@@ -79,7 +91,7 @@
         <ion-col>
           <ion-item>
             <ion-label position="floating">Credit Limit</ion-label>
-            <ion-input
+            <ion-input type="number"
               name="clsCreditLimitRequested"
               [(ngModel)]="buyer.clsCreditLimitRequested"
             ></ion-input>
@@ -105,7 +117,7 @@
       <ion-row>
         <ion-col>
           <ion-item>
-            <ion-label position="floating">Tenor</ion-label>
+            <ion-label type="number" position="floating">Tenor</ion-label>
             <ion-input name="cldTenor" [(ngModel)]="buyer.cldTenor"></ion-input>
           </ion-item>
         </ion-col>
@@ -125,17 +137,7 @@
           </ion-item>
         </ion-col>
       </ion-row>
-      <ion-row>
-        <ion-col>
-          <ion-item>
-            <ion-label position="floating">Dispute</ion-label>
-            <ion-input
-              name="cldDispute"
-              [(ngModel)]="buyer.cldDispute"
-            ></ion-input>
-          </ion-item>
-        </ion-col>
-      </ion-row>
+      
       <ion-row>
         <ion-col>
           <ion-item>
@@ -170,25 +172,38 @@
             >
             </ionic-selectable>
           </ion-item>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col>
-          <ion-label position="floatin">Phone</ion-label>
-          <ion-input name="cldPhone" [(ngModel)]="buyer.cldPhone"></ion-input>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col>
-          <ion-label position="floating">Address</ion-label>
-          <ion-textarea
+          <ion-item>
+            <ion-label position="floatin">Phone</ion-label>
+            <ion-input type="tel" name="cldPhone" [(ngModel)]="buyer.cldPhone"></ion-input>
+          </ion-item>
+          <ion-item>
+              <ion-label position="floating">Address</ion-label>
+          <ion-textarea color="dark"
             name="cldAddress"
             [(ngModel)]="buyer.cldAddress"
           ></ion-textarea>
+          </ion-item>
         </ion-col>
       </ion-row>
     </ion-grid>
      <!-- three Years  -->
-
+<ion-grid class="ion-padding" *ngSwitchCase="'lastYears'">
+  <ion-row>
+    <ion-col>
+      <ion-item>
+          <ion-label position="floating">First Previous Dealing</ion-label>
+          <ion-input type="number" name="cldPreviousDealing1" [(ngModel)]="buyer.cldPreviousDealing1"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Second Previous Dealing</ion-label>
+        <ion-input type="number" name="cldPreviousDealing2" [(ngModel)]="buyer.cldPreviousDealing2"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Third Previous Dealing</ion-label>
+      <ion-input type="number" name="cldPreviousDealing3" [(ngModel)]="buyer.cldPreviousDealing3"></ion-input>
+  </ion-item>
+    </ion-col>
+  </ion-row>
+</ion-grid>
   </div>
 </ion-content>

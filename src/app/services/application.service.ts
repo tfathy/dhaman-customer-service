@@ -103,4 +103,16 @@ export class ApplicationService {
       { headers: headerInfo }
     );
   }
+
+  updateDetail(token: string, appid,body: ComprehensiveLimitsDetailsEntity): Observable<ComprehensiveLimitsDetailsEntity> {
+    console.log(">>>>>>>>>body=");
+    console.log(body);
+    const headerInfo = new HttpHeaders({
+      Authorization: token,
+    });
+    return this.http.put<ComprehensiveLimitsDetailsEntity>(
+      this.url + "/crm-operations/application/detail/" + appid,body,
+      { headers: headerInfo }
+    );
+  }
 }

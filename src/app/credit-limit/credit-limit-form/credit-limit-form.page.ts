@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
-import { NavController } from "@ionic/angular";
+import { NavController, ToastController } from "@ionic/angular";
 import { IonicSelectableComponent } from "ionic-selectable";
 import { ApplicationService } from "src/app/services/application.service";
 import { CurrencyService } from "src/app/services/currency.service";
@@ -29,7 +29,7 @@ export class CreditLimitFormPage implements OnInit {
   currencyList: ICurrency[] = [];
   constructor(
     private route: ActivatedRoute,
-    private navCtrl: NavController,
+    private toastCtrl: ToastController,
     private applicationService: ApplicationService,
     private currencyService: CurrencyService,
     private router: Router
@@ -93,10 +93,22 @@ private populateCurrencies(){
     console.log('Currency:', event.value);
   }
   addBuyer(){
-    console.log();
+   if(!this.model.currency || !this.model.riskRef){
+     this.showToast("Fill in Required Fields first");
+     return;
+   }
     this.router.navigate(['/','credit-limit','credit-limit-form','buyer',-1]);
   }
   openBuyerPage(detailId: number){    
     this.router.navigate(['/','credit-limit','credit-limit-form','buyer',detailId]);
+  }
+  private showToast(msg: string){
+    this.toastCtrl.create({
+      message: msg,
+      duration: 1000,
+      position: "middle"
+    }).then(toastEl=>{
+      toastEl.present();
+    })
   }
 }

@@ -12,10 +12,7 @@
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
-</ion-header>
-
-<ion-content>
-  <div>
+   <div>
     <ion-segment
       (ionChange)="onSegmentChanged($event)"
       color="secondary"
@@ -36,6 +33,11 @@
       </ion-segment-button>
     </ion-segment>
   </div>
+</ion-header>
+
+<ion-content>
+  
+ 
 
   <div [ngSwitch]="segmentModel">
     <!-- basicInfo  -->
@@ -112,10 +114,14 @@
         <ion-col>
           <ion-item>
             <ion-label position="floating">Payment Mode</ion-label>
-            <ion-input
+            <ion-select
               name="paymentMode"
               [(ngModel)]="buyer.paymentMode"
-            ></ion-input>
+              [placeholder]="'Tap to select'"
+              [selectedText]="buyer.paymentMode?buyer.paymentMode.ptDesc:''"
+            >
+            <ion-select-option *ngFor="let p of paymodeList" [value]="p">{{p.ptDesc}}</ion-select-option>
+          </ion-select>
           </ion-item>
         </ion-col>
       </ion-row>
@@ -137,7 +143,12 @@
             <ion-select
               name="cldRelationDebtor"
               [(ngModel)]="buyer.cldRelationDebtor"
-            ></ion-select>
+              [selectedText] = "buyer.cldRelationDebtor?buyer.cldRelationDebtor.brDesc:''"
+            >
+            <ion-select-option *ngFor="let r of buyerRelationList" [value]="r">
+              {{r.brDesc}}
+            </ion-select-option>
+          </ion-select>
           </ion-item>
         </ion-col>
       </ion-row>

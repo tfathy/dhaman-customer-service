@@ -72,7 +72,7 @@ export class CreditLimitPage implements OnInit {
     ]);
   }
   createApp() {
-    this.router.navigate(["/", "credit-limit", "credit-limit-form"]);
+    this.router.navigate(["/", "credit-limit", "credit-limit-form",-1]);
   }
   async doRefresh(event) {
     this.authToken = await getSessionInfo("authData");

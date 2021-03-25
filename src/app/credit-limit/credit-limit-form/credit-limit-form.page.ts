@@ -20,7 +20,7 @@ export class CreditLimitFormPage implements OnInit {
   authToken: sessionData;
   model: ComprehensiveLimit = new ComprehensiveLimit();
   title = "Credit Limit";
-  applicationId;
+  applicationId: number;
   riskList: { riskRef: number; desce: string }[] = [
     { riskRef: 1, desce: "Commercial and Non-Commercial" },
     { riskRef: 2, desce: "Non-Commercial" },
@@ -36,79 +36,117 @@ export class CreditLimitFormPage implements OnInit {
   ) {}
 
   async ngOnInit() {
-     await getSessionInfo("authData").then(result=>{      
+    console.log(">>>>> Credit-limit-form");
+    await getSessionInfo("authData").then((result) => {
       this.authToken = result;
-       this.populateCurrencies();
+      this.populateCurrencies();
     });
-   
   }
   ionViewWillEnter() {
     this.route.paramMap.subscribe((param) => {
-      this.applicationId = param.get("applicationId");
-      if (this.applicationId) {
-        
-        this.applicationService
-          .findById("Bearer " + this.authToken.token, this.applicationId)
-          .subscribe((data) => {
-            this.model.clRef = data.clRef;
-            this.model.currency = data.currency;
-            this.model.customer = data.customer;
-            this.model.hsCode = data.hsCode;
-            this.model.riskRef = data.riskRef;
-            this.model.status = data.status;
-            this.model.transType = data.transType;
-            this.model.whoColumns = data.whoColumns;
-            this.model.comprehensiveLimitsDetailsEntity =
-              data.comprehensiveLimitsDetailsEntity;
-          }),
-          (error) => {
-            console.log(error);
-          };
+      this.applicationId = (param.get("applicationId") as unknown) as number;
+      console.log("this.applicationId =" + this.applicationId);
+      if (this.applicationId > 0) {
+        this.queryMasterRecord();
+      } else {
+        console.log(
+          "open in entery mode. you should pass -1 as a parameter to the save action"
+        );
       }
     });
   }
-private populateCurrencies(){
-  this.currencyService.findAll("Bearer " + this.authToken.token).subscribe( data=>{
-    this.currencyList = data;
+  private queryMasterRecord() {
+    this.applicationService
+      .findById("Bearer " + this.authToken.token, this.applicationId)
+      .subscribe((data) => {
+        this.model.clRef = data.clRef;
+        this.model.currency = data.currency;
+        this.model.customer = data.customer;
+        this.model.hsCode = data.hsCode;
+        this.model.riskRef = data.riskRef;
+        this.model.status = data.status;
+        this.model.transType = data.transType;
+        this.model.whoColumns = data.whoColumns;
+        this.model.comprehensiveLimitsDetailsEntity =
+          data.comprehensiveLimitsDetailsEntity;
+      }),
+      (error) => {
+        console.log(error);
+      };
   }
-
-  )
-}
-  getSelectedDesc(id: number){
-    let desce: string = '';
-    if(id===1){
-      desce = 'Commercial and Non-Commercial';
-    }else if(id===2){
-      desce = 'Non-Commercial';
-    }else if(id ===3){
-      desce = 'Commercial';
+  private populateCurrencies() {
+    this.currencyService
+      .findAll("Bearer " + this.authToken.token)
+      .subscribe((data) => {
+        this.currencyList = data;
+      });
+  }
+  getSelectedDesc(id: number) {
+    let desce: string = "";
+    if (id === 1) {
+      desce = "Commercial and Non-Commercial";
+    } else if (id === 2) {
+      desce = "Non-Commercial";
+    } else if (id === 3) {
+      desce = "Commercial";
     }
     return desce;
   }
 
-  currencyChange(event: {
-    component: IonicSelectableComponent,
-    value: any
-  }){
-    console.log('Currency:', event.value);
+  currencyChange(event: { component: IonicSelectableComponent; value: any }) {
+    console.log("Currency:", event.value);
   }
-  addBuyer(){
-   if(!this.model.currency || !this.model.riskRef){
-     this.showToast("Fill in Required Fields first");
-     return;
-   }
-    this.router.navigate(['/','credit-limit','credit-limit-form','buyer',-1]);
+  addBuyer() {
+    if (!this.model.currency || !this.model.riskRef) {
+      this.showToast("Fill in Required Fields first");
+      return;
+    }
+   let masterRecord = this.composeParams();
+    this.router.navigate(
+      [
+        "/",
+        "credit-limit",
+        "credit-limit-form",
+        this.applicationId,
+        "buyer",
+        this.applicationId,
+        -1,
+      ],
+      {
+        queryParams: {
+          modelParam:masterRecord        
+        },
+        queryParamsHandling: "merge",
+      }
+    );
   }
-  openBuyerPage(detailId: number){    
-    this.router.navigate(['/','credit-limit','credit-limit-form','buyer',detailId]);
+  private composeParams(){
+    let currency = this.model.currency;
+    let riskRef =this.model.riskRef;
+    let params = {"currency":currency,"riskRef":riskRef};
+    return JSON.stringify(params);
+
   }
-  private showToast(msg: string){
-    this.toastCtrl.create({
-      message: msg,
-      duration: 1000,
-      position: "middle"
-    }).then(toastEl=>{
-      toastEl.present();
-    })
+  openBuyerPage(detailId: number) {
+    this.router.navigate([
+      "/",
+      "credit-limit",
+      "credit-limit-form",
+      this.applicationId,
+      "buyer",
+      this.applicationId,
+      detailId,
+    ]);
+  }
+  private showToast(msg: string) {
+    this.toastCtrl
+      .create({
+        message: msg,
+        duration: 1000,
+        position: "middle",
+      })
+      .then((toastEl) => {
+        toastEl.present();
+      });
   }
 }

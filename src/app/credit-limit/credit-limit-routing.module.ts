@@ -9,7 +9,7 @@ const routes: Routes = [
     component: CreditLimitPage
   },
   {
-    path: 'credit-limit-form',
+    path: 'credit-limit-form/:applicationId',
     loadChildren: () => import('./credit-limit-form/credit-limit-form.module').then( m => m.CreditLimitFormPageModule)
   }
 ];

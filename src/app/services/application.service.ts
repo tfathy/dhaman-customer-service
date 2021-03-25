@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { filter, flatMap, map } from "rxjs/operators";
+import {  map } from "rxjs/operators";
 import { environment } from "src/environments/environment";
 import { ComprehensiveLimit } from "../shared/models/comp-limit.model";
 import { ComprehensiveLimitsDetailsEntity } from "../shared/models/comprehensiveLimitsDetailsEntity.model";
@@ -114,5 +114,22 @@ export class ApplicationService {
       this.url + "/crm-operations/application/detail/" + appid,body,
       { headers: headerInfo }
     );
+  }
+
+  addDetail(token: string, body: ComprehensiveLimitsDetailsEntity): Observable<ComprehensiveLimitsDetailsEntity> {  
+    const headerInfo = new HttpHeaders({
+      Authorization: token,
+    });
+    return this.http.post<ComprehensiveLimitsDetailsEntity>(
+      `${environment.backendUrl}/crm-operations/application/detail` ,body,
+      { headers: headerInfo }
+    );
+  }
+
+  save(token: string,body:ComprehensiveLimit):Observable<ComprehensiveLimit>{
+    const headerInfo = new HttpHeaders({
+      Authorization: token,
+    });
+    return this.http.post<ComprehensiveLimit>(`${environment.backendUrl}/crm-operations/application`,body,{headers: headerInfo});
   }
 }

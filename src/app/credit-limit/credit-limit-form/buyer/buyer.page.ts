@@ -1,12 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
-import {
-  LoadingController,
-  NavController,
-  ToastController,
-} from "@ionic/angular";
+import { LoadingController, ToastController } from "@ionic/angular";
 import { ApplicationService } from "src/app/services/application.service";
-import { BuyerRequestModel } from "src/app/shared/models/buyer.request.model";
 import { ComprehensiveLimit } from "src/app/shared/models/comp-limit.model";
 
 import { SegmentChangeEventDetail } from "@ionic/core";
@@ -21,6 +16,7 @@ import { PaymentModeService } from "src/app/services/payment-mode.service";
 import { IPaymentMode } from "src/app/shared/models/payment.mode";
 import { LookUpService } from "src/app/services/look-up.service";
 import { IRelationDebtor } from "src/app/shared/models/relationDebtor.model";
+import { WhoColumns } from "src/app/shared/models/who-columns.model";
 
 @Component({
   selector: "app-buyer",
@@ -29,7 +25,6 @@ import { IRelationDebtor } from "src/app/shared/models/relationDebtor.model";
 })
 export class BuyerPage implements OnInit {
   segmentModel = "basicInfo";
-  cldId: number;
   authToken: sessionData;
   model: ComprehensiveLimit = new ComprehensiveLimit();
   buyer: ComprehensiveLimitsDetailsEntity = new ComprehensiveLimitsDetailsEntity();
@@ -37,6 +32,8 @@ export class BuyerPage implements OnInit {
   countryList: ICountry[] = [];
   paymodeList: IPaymentMode[] = [];
   buyerRelationList: IRelationDebtor[] = [];
+  cldRef: number; // record id for the master
+  clRef: number; // record id for the detail
 
   constructor(
     private route: ActivatedRoute,
@@ -57,13 +54,25 @@ export class BuyerPage implements OnInit {
     });
 
     this.route.paramMap.subscribe((param) => {
-      this.cldId = (param.get("cldId") as unknown) as number;
-      if (this.cldId) {
-        console.log(this.cldId);
-        if (this.cldId > 0) {
+      this.cldRef = (param.get("cldId") as unknown) as number;
+      if (this.cldRef) {
+        if (this.cldRef > 0) {
           this.openForView();
+        } else {
+          this.openForInsertMasterDetail();
         }
       }
+    });
+  }
+  private openForInsertMasterDetail() {
+    // read the query parameter from the url. the query parameter is the master record object
+    // store it in this.model
+    console.log("openForInsertMasterDetail");
+
+    this.route.queryParams.subscribe((params) => {
+      console.log(params.modelParam);
+      this.model = JSON.parse(params.modelParam);
+      console.log(this.model);
     });
   }
   populateBuyerRelationList() {
@@ -92,9 +101,8 @@ export class BuyerPage implements OnInit {
   }
 
   openForView() {
-    console.log(">>BuyerPage open for view record ");
     this.applicationService
-      .findByCldId("Bearer " + this.authToken.token, this.cldId)
+      .findByCldId("Bearer " + this.authToken.token, this.cldRef)
       .subscribe((responseData) => {
         this.buyer = responseData;
       });
@@ -102,16 +110,53 @@ export class BuyerPage implements OnInit {
 
   save() {
     this.route.paramMap.subscribe((param) => {
-      let id = (param.get("cldId") as unknown) as number;
-      if (id > 0) {
-        this.updateRecord(id);
-      } else {
-        this.addRecord();
+      this.cldRef = (param.get("cldId") as unknown) as number; // primary key of details
+      this.clRef = (param.get("applicationId") as unknown) as number; // primary key of master
+      if (this.cldRef > 0 && this.clRef > 0) {
+        this.updateDetailsRecord(this.cldRef);
+      } else if (this.cldRef < 0 && this.clRef > 0) {
+        this.addDetailRecord();
+      } else if (this.cldRef < 0 && this.clRef < 0) {
+        this.addMasterDetails();
       }
     });
   }
+  private addMasterDetails() {
+    const whocolumns: WhoColumns = {
+      updUid: this.authToken.loginName,
+      lastUpdDate: new Date(),
+      lastUpdPc: "Mobile",
+      lastUpdUid: this.authToken.loginName,
+      updDate: new Date(),
+      updPc: "Mobile",
+    };
+    this.loadingCtrl
+      .create({
+        message: "Saving transaction ...",
+      })
+      .then((loadingEl) => {
+        loadingEl.present();
+        getSessionInfo("customer").then((data) => {
+          this.model.customer = data;
+          this.model.whoColumns = whocolumns;
+          this.model.status = "SAV";
+          if (!this.model.comprehensiveLimitsDetailsEntity) {
+            this.model.comprehensiveLimitsDetailsEntity = [];
+          }
+          this.model.comprehensiveLimitsDetailsEntity.push(this.buyer);
+          console.log(this.model);
+          this.applicationService
+            .save("Bearer " + this.authToken.token, this.model)
+            .subscribe((resData) => {
+              this.showToast("Transaction saved successfully");
+              this.router.navigate(["/", "credit-limit"]);
+              loadingEl.dismiss();
+            });
+        });
+      });
+  }
 
-  updateRecord(id) {
+  updateDetailsRecord(id) {
     this.loadingCtrl
       .create({
         message: "posting updates ..",
@@ -129,7 +174,32 @@ export class BuyerPage implements OnInit {
       });
   }
 
-  addRecord() {}
+  addDetailRecord() {
+    // developer a service that post buyer info to the server
+    // then call it
+    this.loadingCtrl
+      .create({
+        message: "adding new buyer ..",
+      })
+      .then((loadingElement) => {
+        loadingElement.present();
+        this.buyer.clRef = this.clRef;
+        this.applicationService
+          .addDetail("Bearer " + this.authToken.token, this.buyer)
+          .subscribe((respData) => {
+            loadingElement.dismiss();
+            this.showToast("New Buyer addedd successfully");
+            this.router.navigate([
+              "/",
+              "credit-limit",
+              "credit-limit-form",
+              this.clRef,
+            ]);
+          });
+      });
+
+    // in case of succcess navigate back and show success toast
+  }
 
   onSegmentChanged(event: CustomEvent<SegmentChangeEventDetail>) {
     console.log("Segment changed", event.detail);

@@ -49,7 +49,7 @@
               >Currency :{{ app.currency?app.currency.cuDescriptionE:'Unknown'
               }}</ion-label
             >
-            <ion-label> Date: {{app.whoColumns.updDate}}</ion-label>
+            <ion-label *ngIf="app.whoColumns"> Date: {{app.whoColumns.updDate}}</ion-label>
             <ion-label color="primary"> No of Buyers: {{app.buyersCount}}</ion-label>
           </div>
         </ion-item>

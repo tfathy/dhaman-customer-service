@@ -1,10 +1,12 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import {
+  AlertController,
   Config,
   IonRouterOutlet,
   LoadingController,
   ModalController,
+  ToastController,
 } from "@ionic/angular";
 import { of } from "rxjs";
 
@@ -35,7 +37,9 @@ export class CreditLimitPage implements OnInit {
     public config: Config,
     public modalCtrl: ModalController,
     public routerOutlet: IonRouterOutlet,
-    private loadingCtrl: LoadingController
+    private loadingCtrl: LoadingController,
+    private alertCtrl: AlertController,
+    private toastCtrl: ToastController
   ) {}
 
   async ngOnInit() {
@@ -151,5 +155,38 @@ export class CreditLimitPage implements OnInit {
     }
       
        );
+  }
+  async submit(slidingItem ,app){
+    const alert = await this.alertCtrl.create({
+      header: 'Submit Transaction',
+      message: 'Would you like to submit the transaction?',
+      buttons: [{
+        text: 'No',
+        handler: ()=>{slidingItem.close()}
+      },{
+        text: 'Yes',
+        handler: ()=>{
+           slidingItem.close();
+            this.submitTransaction(app);
+        }
+      }]
+    });
+    await alert.present();
+  }
+  private submitTransaction(app: ComprehensiveLimit){
+    this.applicationService.submit("Bearer "+this.authToken.token,app.clRef,app).subscribe(data=>{
+      this.showToast("Transaction Submitted");
+    })
+  }
+  private showToast(msg: string) {
+    this.toastCtrl
+      .create({
+        message: msg,
+        duration: 1000,
+        position: "middle",
+      })
+      .then((toastEl) => {
+        toastEl.present();
+      });
   }
 }

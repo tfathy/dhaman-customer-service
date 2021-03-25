@@ -40,19 +40,36 @@
 
   <ion-list>
     <ion-item-group *ngFor="let app of applicationData">
-      <ion-card color="light">
-        <ion-item button (click)="viewRecord(app.clRef)">
-          <div>
-            <ion-label>Ref#: {{ app.clRef }}</ion-label>
-            <ion-label>Risk : {{getRiskName(app.riskRef)}}</ion-label>
-            <ion-label
-              >Currency :{{ app.currency?app.currency.cuDescriptionE:'Unknown'
-              }}</ion-label
+      <ion-card color="ligth">
+        <ion-item-sliding #slidingItem >
+          <ion-item-options side="end">
+            <ion-item-option *ngIf="app.status =='SAV'" color="danger" (click)="submit(slidingItem,app)"
+              >Submit</ion-item-option
             >
-            <ion-label *ngIf="app.whoColumns"> Date: {{app.whoColumns.updDate}}</ion-label>
-            <ion-label color="primary"> No of Buyers: {{app.buyersCount}}</ion-label>
-          </div>
-        </ion-item>
+          </ion-item-options>
+          <ion-item button (click)="viewRecord(app.clRef)">
+            <ion-badge *ngIf="app.status=='SAV'" slot="end" color="primary"
+              >Submit Required</ion-badge
+            >
+            <ion-badge *ngIf="app.status=='SUB'" slot="end" color="success"
+              >Submitted</ion-badge
+            >
+            <div>
+              <ion-label>Ref#: {{ app.clRef }}</ion-label>
+              <ion-label>Risk : {{getRiskName(app.riskRef)}}</ion-label>
+              <ion-label
+                >Currency :{{ app.currency?app.currency.cuDescriptionE:'Unknown'
+                }}</ion-label
+              >
+              <ion-label *ngIf="app.whoColumns">
+                Date: {{app.whoColumns.updDate}}</ion-label
+              >
+              <ion-label color="primary">
+                No of Buyers: {{app.buyersCount}}</ion-label
+              >
+            </div>
+          </ion-item>
+        </ion-item-sliding>
       </ion-card>
     </ion-item-group>
   </ion-list>

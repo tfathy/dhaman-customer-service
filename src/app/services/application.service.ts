@@ -132,4 +132,14 @@ export class ApplicationService {
     });
     return this.http.post<ComprehensiveLimit>(`${environment.backendUrl}/crm-operations/application`,body,{headers: headerInfo});
   }
+
+  submit(token: string, appid,body: ComprehensiveLimit): Observable<ComprehensiveLimit> {
+    const headerInfo = new HttpHeaders({
+      Authorization: token,
+    });
+    return this.http.put<ComprehensiveLimit>(
+      this.url + "/crm-operations/application/submit/" + appid,body,
+      { headers: headerInfo }
+    );
+  }
 }

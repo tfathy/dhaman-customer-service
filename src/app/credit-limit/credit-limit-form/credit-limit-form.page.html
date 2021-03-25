@@ -67,7 +67,7 @@
     <ion-card *ngFor="let buyer of model.comprehensiveLimitsDetailsEntity">
       <ion-item button (click)="openBuyerPage(buyer.cLDRef)">
         <ion-icon slot="start" name="school"></ion-icon>
-        <div>
+        <div >
           <ion-label>Name:{{buyer.cldDebtorNameEn}}</ion-label>
           <ion-label>{{buyer.cldDebtorNameAr}}</ion-label>
           <ion-label>Avg Ship.{{buyer.cldAvgShip}}</ion-label>

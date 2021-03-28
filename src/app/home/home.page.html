@@ -2,52 +2,53 @@
   <app-primary-toolbar
     [showHomeButton]="false"
     [showMainMenuButton]="true"
-    [moduleTitle]="'Home Page '"    
+    [moduleTitle]="'Home Page '"
   >
   </app-primary-toolbar>
 </ion-header>
 
 <ion-content>
   <ion-grid>
-    <ion-row>     
-      <ion-col size="12" size-md="3"> 
-        <ion-card>
-          <ion-card-header>
-            <ion-img src="assets/icon/creditLimit.jpg"></ion-img>
-             </ion-card-header>
-          <ion-card-title color="primary">
-            <a class="nav-link" [routerLink]="['/credit-limit']">Credit Limit</a>
-          </ion-card-title>
-          <ion-card-content>
-            <p class="ion-padding">Click here to edit credit limit for a buyer OR add New Buyer</p>
-            <a class="nav-link" [routerLink]="['/']">Click here for help</a>
-            <ion-icon name="arrow-forward-outline"></ion-icon>
-          </ion-card-content>
+    <ion-row>
+      <ion-col size="12" size-md="3">
+        <ion-card button [routerLink]="['/credit-limit']">
+          <ion-item class="ion-padding" color="primary">
+            <ion-img             
+              slot="start"
+              class="small"
+              src="assets/icon/increase.svg"
+            ></ion-img>
+            <div>
+              <ion-label color="light">Credit Limit</ion-label>
+              <ion-note color="light" slot="start"> Click to add new Buyer</ion-note>
+            </div>
+          </ion-item>
         </ion-card>
-
       </ion-col>
-      <ion-col size="12" size-md="3"> 
-        <ion-card>
-          <ion-card-header>
-            <ion-img src="assets/icon/ship.jpg"></ion-img>
-             </ion-card-header>
-          <ion-card-title color="primary">
-            <a class="nav-link" [routerLink]="['/declaration']">Periodic Declaration</a>
-          </ion-card-title>
-          <ion-card-content>
-            <p>Click here for Periodic Declaration</p>
-            <a class="nav-link" [routerLink]="['/']">Click here for help</a>
-            <ion-icon name="arrow-forward-outline"></ion-icon>
-          </ion-card-content>
-        </ion-card>
+
+      <ion-col size="12" size-md="3">
+        <ion-card button [routerLink]="['/declaration']">
+          <ion-item class="ion-padding" color="primary">
+            <ion-img             
+              slot="start"
+              class="small"
+              src="assets/icon/ship.svg"
+            ></ion-img>
+            <div>
+              <ion-label color="light">Declaration</ion-label>
+              <ion-note color="light" slot="start"> Click here for Periodic Declaration</ion-note>
+            </div>
+          </ion-item>
+        </ion-card>       
       </ion-col>
     </ion-row>
-    <ion-row>
-      <ion-col size="12" size-md="3"> 
+    <!--
+<ion-row>
+      <ion-col size="12" size-md="3">
         <ion-card>
           <ion-card-header>
             <ion-img src="assets/icon/ship.jpg"></ion-img>
-             </ion-card-header>
+          </ion-card-header>
           <ion-card-title color="primary">
             <a class="nav-link" [routerLink]="['/']">Application Status</a>
           </ion-card-title>
@@ -58,11 +59,11 @@
           </ion-card-content>
         </ion-card>
       </ion-col>
-      <ion-col size="12" size-md="3"> 
+      <ion-col size="12" size-md="3">
         <ion-card>
           <ion-card-header>
             <ion-img src="assets/icon/ship.jpg"></ion-img>
-             </ion-card-header>
+          </ion-card-header>
           <ion-card-title color="primary">
             <a class="nav-link" [routerLink]="['/']">Contract Overview</a>
           </ion-card-title>
@@ -73,11 +74,11 @@
           </ion-card-content>
         </ion-card>
       </ion-col>
-      <ion-col size="12" size-md="3"> 
+      <ion-col size="12" size-md="3">
         <ion-card>
           <ion-card-header>
             <ion-img src="assets/icon/ship.jpg"></ion-img>
-             </ion-card-header>
+          </ion-card-header>
           <ion-card-title color="primary">
             <a class="nav-link" [routerLink]="['/']">Contract Summary</a>
           </ion-card-title>
@@ -88,11 +89,11 @@
           </ion-card-content>
         </ion-card>
       </ion-col>
-      <ion-col size="12" size-md="3"> 
+      <ion-col size="12" size-md="3">
         <ion-card>
           <ion-card-header>
             <ion-img src="assets/icon/ship.jpg"></ion-img>
-             </ion-card-header>
+          </ion-card-header>
           <ion-card-title color="primary">
             <a class="nav-link" [routerLink]="['/']">Overdue Shipments</a>
           </ion-card-title>
@@ -104,5 +105,9 @@
         </ion-card>
       </ion-col>
     </ion-row>
+
+
+    -->
+    
   </ion-grid>
 </ion-content>

@@ -12,10 +12,10 @@
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
-   <div>
+  <div>
     <ion-segment
       (ionChange)="onSegmentChanged($event)"
-      color="secondary"
+      color="primary"
       scrollable="true"
       value="basicInfo"
     >
@@ -36,9 +36,6 @@
 </ion-header>
 
 <ion-content>
-  
- 
-
   <div [ngSwitch]="segmentModel">
     <!-- basicInfo  -->
     <ion-grid class="ion-padding" *ngSwitchCase="'basicInfo'">
@@ -79,8 +76,8 @@
         <ion-col>
           <ion-item>
             <ion-label position="floating">Avg. Shipment</ion-label>
-            <ion-input 
-            type="number"
+            <ion-input
+              type="number"
               name="cldAvgShip"
               [(ngModel)]="buyer.cldAvgShip"
             ></ion-input>
@@ -91,7 +88,8 @@
         <ion-col>
           <ion-item>
             <ion-label position="floating">Credit Limit</ion-label>
-            <ion-input type="number"
+            <ion-input
+              type="number"
               name="clsCreditLimitRequested"
               [(ngModel)]="buyer.clsCreditLimitRequested"
             ></ion-input>
@@ -132,12 +130,14 @@
               [placeholder]="'Tap to select'"
               [selectedText]="buyer.paymentMode?buyer.paymentMode.ptDesc:''"
             >
-            <ion-select-option *ngFor="let p of paymodeList" [value]="p">{{p.ptDesc}}</ion-select-option>
-          </ion-select>
+              <ion-select-option *ngFor="let p of paymodeList" [value]="p"
+                >{{p.ptDesc}}</ion-select-option
+              >
+            </ion-select>
           </ion-item>
         </ion-col>
       </ion-row>
-      
+
       <ion-row>
         <ion-col>
           <ion-item>
@@ -145,12 +145,15 @@
             <ion-select
               name="cldRelationDebtor"
               [(ngModel)]="buyer.cldRelationDebtor"
-              [selectedText] = "buyer.cldRelationDebtor?buyer.cldRelationDebtor.brDesc:''"
+              [selectedText]="buyer.cldRelationDebtor?buyer.cldRelationDebtor.brDesc:''"
             >
-            <ion-select-option *ngFor="let r of buyerRelationList" [value]="r">
-              {{r.brDesc}}
-            </ion-select-option>
-          </ion-select>
+              <ion-select-option
+                *ngFor="let r of buyerRelationList"
+                [value]="r"
+              >
+                {{r.brDesc}}
+              </ion-select-option>
+            </ion-select>
           </ion-item>
         </ion-col>
       </ion-row>
@@ -174,36 +177,176 @@
           </ion-item>
           <ion-item>
             <ion-label position="floatin">Phone</ion-label>
-            <ion-input type="tel" name="cldPhone" [(ngModel)]="buyer.cldPhone"></ion-input>
+            <ion-input
+              type="tel"
+              name="cldPhone"
+              [(ngModel)]="buyer.cldPhone"
+            ></ion-input>
           </ion-item>
           <ion-item>
-              <ion-label position="floating">Address</ion-label>
-          <ion-textarea color="dark"
-            name="cldAddress"
-            [(ngModel)]="buyer.cldAddress"
-          ></ion-textarea>
+            <ion-label position="floating">Address</ion-label>
+            <ion-textarea
+              color="dark"
+              name="cldAddress"
+              [(ngModel)]="buyer.cldAddress"
+            ></ion-textarea>
           </ion-item>
         </ion-col>
       </ion-row>
     </ion-grid>
-     <!-- three Years  -->
-<ion-grid class="ion-padding" *ngSwitchCase="'lastYears'">
-  <ion-row>
-    <ion-col>
-      <ion-item>
-          <ion-label position="floating">First Previous Dealing</ion-label>
-          <ion-input type="number" name="cldPreviousDealing1" [(ngModel)]="buyer.cldPreviousDealing1"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label position="floating">Second Previous Dealing</ion-label>
-        <ion-input type="number" name="cldPreviousDealing2" [(ngModel)]="buyer.cldPreviousDealing2"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label position="floating">Third Previous Dealing</ion-label>
-      <ion-input type="number" name="cldPreviousDealing3" [(ngModel)]="buyer.cldPreviousDealing3"></ion-input>
-  </ion-item>
-    </ion-col>
-  </ion-row>
-</ion-grid>
+    <!-- three Years  -->
+    <ion-grid class="ion-padding" *ngSwitchCase="'lastYears'">
+      <ion-row>
+        <ion-col>
+          <ion-card >
+            <ion-card-title color="primary">
+              <ion-item>
+                <ion-label position="floating">Year</ion-label>
+                <ion-input
+                  type="number"
+                  [(ngModel)]="buyer.cldYear1"
+                  name="cldYear1"
+                ></ion-input>
+              </ion-item>
+            </ion-card-title>
+            <ion-card-content>
+              <ion-item>
+                <ion-label position="floating">Amount</ion-label>
+                <ion-input
+                  type="number"
+                  name="cldPreviousDealing1"
+                  [(ngModel)]="buyer.cldPreviousDealing1"
+                ></ion-input>
+                <ion-label position="floating">Payment mode</ion-label>
+
+                <ion-select
+                  name="ptPreviousRef1"
+                  [(ngModel)]="buyer.ptPreviousRef1"
+                  [selectedText]="buyer.ptPreviousRef1?buyer.ptPreviousRef1.ptDesc:''"
+                >
+                  <ion-select-option *ngFor="let p of paymodeList" [value]="p"
+                    >{{p.ptDesc}}</ion-select-option
+                  >
+                </ion-select>
+
+                <ion-label position="floating">Outstanding </ion-label>
+                <ion-input
+                  type="number"
+                  [(ngModel)]="buyer.cldOutstanding"
+                  name="cldOutstanding"
+                ></ion-input>
+                <ion-label position="floating">
+                  Reason for outstanding</ion-label
+                >
+                <ion-input
+                  [(ngModel)]="buyer.outstandingReason1"
+                  name="outstandingReason1"
+                ></ion-input>
+              </ion-item>
+            </ion-card-content>
+          </ion-card>
+
+          <ion-card >
+            <ion-card-title color="primary">
+              <ion-item>
+                <ion-label position="floating">Year</ion-label>
+                <ion-input
+                  type="number"
+                  [(ngModel)]="buyer.cldYear2"
+                  name="cldYear2"
+                ></ion-input>
+              </ion-item>
+            </ion-card-title>
+            <ion-card-content>
+              <ion-item>
+                <ion-label position="floating">Amount</ion-label>
+                <ion-input
+                  type="number"
+                  name="cldPreviousDealing2"
+                  [(ngModel)]="buyer.cldPreviousDealing2"
+                ></ion-input>
+                <ion-label position="floating">Payment mode</ion-label>
+
+                <ion-select
+                  name="ptPreviousRef2"
+                  [(ngModel)]="buyer.ptPreviousRef2"
+                  [selectedText]="buyer.ptPreviousRef2?buyer.ptPreviousRef2.ptDesc:''"
+                >
+                  <ion-select-option *ngFor="let p of paymodeList" [value]="p"
+                    >{{p.ptDesc}}</ion-select-option
+                  >
+                </ion-select>
+
+                <ion-label position="floating">Outstanding </ion-label>
+                <ion-input
+                  type="number"
+                  [(ngModel)]="buyer.cldOutstanding2"
+                  name="cldOutstanding2"
+                ></ion-input>
+                <ion-label position="floating">
+                  Reason for outstanding</ion-label
+                >
+                <ion-input
+                  [(ngModel)]="buyer.outstandingReason2"
+                  name="outstandingReason2"
+                ></ion-input>
+              </ion-item>
+            </ion-card-content>
+
+            <ion-card >
+              <ion-card-title color="primary">
+                <ion-item>
+                  <ion-label position="floating">Year</ion-label>
+                  <ion-input
+                    type="number"
+                    [(ngModel)]="buyer.cldYear3"
+                    name="cldYear3"
+                  ></ion-input>
+                </ion-item>
+              </ion-card-title>
+              <ion-card-content>
+                <ion-item>
+                  <ion-label position="floating">Amount</ion-label>
+                  <ion-input
+                    type="number"
+                    name="cldPreviousDealing3"
+                    [(ngModel)]="buyer.cldPreviousDealing3"
+                  ></ion-input>
+                  <ion-label position="floating">Payment mode</ion-label>
+  
+                  <ion-select
+                    name="ptPreviousRef3"
+                    [(ngModel)]="buyer.ptPreviousRef3"
+                    [selectedText]="buyer.ptPreviousRef3?buyer.ptPreviousRef3.ptDesc:''"
+                  >
+                    <ion-select-option *ngFor="let p of paymodeList" [value]="p"
+                      >{{p.ptDesc}}</ion-select-option
+                    >
+                  </ion-select>
+  
+                  <ion-label position="floating">Outstanding </ion-label>
+                  <ion-input
+                    type="number"
+                    [(ngModel)]="buyer.cldOutstanding3"
+                    name="cldOutstanding3"
+                  ></ion-input>
+                  <ion-label position="floating">
+                    Reason for outstanding</ion-label
+                  >
+                  <ion-input
+                    [(ngModel)]="buyer.outstandingReason3"
+                    name="outstandingReason3"
+                  ></ion-input>
+                </ion-item>
+              </ion-card-content>
+            </ion-card>
+          </ion-card>
+
+          
+          
+
+        </ion-col>
+      </ion-row>
+    </ion-grid>
   </div>
 </ion-content>

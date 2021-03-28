@@ -29,6 +29,18 @@ export class ComprehensiveLimitsDetailsEntity {
     public cldDestoods?: string,
     public cldImage?: string,
     public cldImagePath?: string, 
-    public couShortNameE?: string
+    public couShortNameE?: string,
+    public cldYear1?: number,
+    public cldYear2?: number,
+    public cldYear3?:number,
+    public cldOutstanding2?: number,
+    public cldOutstanding3?:number,
+    public ptPreviousRef1?:IPaymentMode,
+    public ptPreviousRef2?:IPaymentMode,
+    public ptPreviousRef3?:IPaymentMode,
+    public outstandingReason1?: string,
+    public outstandingReason2?: string,
+    public outstandingReason3?: string,
+
   ) {}
 }

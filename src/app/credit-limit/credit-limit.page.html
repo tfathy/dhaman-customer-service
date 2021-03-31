@@ -5,7 +5,7 @@
     <ion-buttons slot="start" *ngIf="!showSearchbar">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title *ngIf="!showSearchbar"> Credit Limit </ion-title>
+    <ion-title *ngIf="!showSearchbar"> Search </ion-title>
     <ion-searchbar
       *ngIf="showSearchbar"
       showCancelButton="always"
@@ -74,3 +74,8 @@
     </ion-item-group>
   </ion-list>
 </ion-content>
+<ion-footer class="ion-no-border">
+  <ion-toolbar color="primary">
+    <ion-title>Credit Limit</ion-title>
+  </ion-toolbar>
+</ion-footer>

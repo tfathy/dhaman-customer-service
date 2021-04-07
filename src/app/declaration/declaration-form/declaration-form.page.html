@@ -1,56 +1,52 @@
 <ion-header>
-  <app-primary-toolbar [moduleTitle]="'Add New Buyer Shipment '">
+  <app-primary-toolbar
+    [showHomeButton]="false"
+    [showMainMenuButton]="false"
+    [moduleTitle]="title"
+  >
   </app-primary-toolbar>
   <ion-toolbar color="secondary">
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title>Add New Buyer Shipment </ion-title>
+    <ion-title> Declaration </ion-title>
+    <ion-buttons slot="end">
+      <ion-button color="dark" (click)="addDeclarationDetail()">
+        <ion-icon name="add-circle"></ion-icon>
+        Add Shipment</ion-button
+      >
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-
 <ion-content>
-  <form>
-    <ion-item>
-      <ion-label position="floating">Buyer Name</ion-label>
-      <ion-select>
-        <ion-select-option> Buyer 1 </ion-select-option>
-        <ion-select-option> Buyer 2 </ion-select-option>
-      </ion-select>
-    </ion-item>
-    <ion-item>
-      <ion-label position="floating">Revolving</ion-label>
-     <ion-input></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label position="floating">Rate</ion-label>
-      <ion-input></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label position="floating">Invoice Number </ion-label>
-      <ion-input></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label position="floating">invoice Value</ion-label>
-      <ion-input></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label position="floating">Premuium Value</ion-label>
-      <ion-input></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label position="floating">Shipment Date</ion-label>
-      <ion-datetime></ion-datetime>
-    </ion-item>
-    <ion-item>
-      <ion-label position="floating">Maturity Date</ion-label>
-      <ion-datetime></ion-datetime>
-    </ion-item>
-    <div class="ion-text-center">
-      <ion-button color="success">Save</ion-button>
-      <ion-button color="danger">Submit</ion-button>
-    </div>
+  <form #form="ngForm" validate>
+    <ion-card button color="tertiary">
+      <ion-card-header>
+        <ion-item lines="none">
+          <h6>Policy No: {{model.policyNo}}</h6>
+          <div class="ion-padding ion-text-start">
+            <h6>Currency:{{model.currency?model.currency.cuCode:''}}</h6>
+            <h6>Period:{{model.dcPeriod |date:'MM/yyyy' }}</h6>
+          </div>
+        </ion-item>
+      </ion-card-header>
+    </ion-card>
+    <ion-list>
+      <ion-list-header><h3>Shipments</h3></ion-list-header>
+      <ion-item *ngFor="let dtl of model.declarationsDetailEntity" button>
+        <div class="ion-text-start">
+          <h6>Invoice No. {{dtl.ddInvNo}}</h6>
+          <h6>Ship Date. {{dtl.ddShipDate | date:'mediumDate'}}</h6>
+          <h6>Mat. Date {{dtl.ddMaturityDate | date:'mediumDate'}}</h6>
+          <h6>Invoice Val. {{dtl.ddInvoiceValue}}</h6>
+        </div>
+      </ion-item>
+    </ion-list>
   </form>
-
 </ion-content>
+<ion-footer class="ion-no-border">
+  <ion-toolbar color="primary">
+    <ion-title>Declaration Details</ion-title>
+  </ion-toolbar>
+</ion-footer>

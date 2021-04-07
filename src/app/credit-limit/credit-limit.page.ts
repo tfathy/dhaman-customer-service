@@ -43,7 +43,7 @@ export class CreditLimitPage implements OnInit {
   ) {}
 
   async ngOnInit() {
-    // this.ios = this.config.get('mode') === 'ios';
+    
     this.authToken = await getSessionInfo("authData");
     this.loadingCtrl
       .create({

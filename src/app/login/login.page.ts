@@ -26,8 +26,7 @@ export class LoginPage implements OnInit {
 
 
   ngOnInit() {}
-  onLogin(form: NgForm) {
-    this.submitted = true;
+  onLogin(form: NgForm) {   
     this.loadingCtrl
       .create({ message: "Authenticating .. please wait" })
       .then((loadingElement) => {
@@ -36,10 +35,18 @@ export class LoginPage implements OnInit {
           .authLogin(this.creds.loginName, this.creds.password)
           .pipe(first())
           .subscribe((respData: HttpResponse<any>) => {
-             form.reset;
-  
+            console.log("respData>>>>>>>");
+            console.log(respData);
+            if(respData.ok){
+               form.reset;  
             loadingElement.dismiss();            
             this.router.navigateByUrl("/home");
+            }else{
+              loadingElement.dismiss();              
+              this.showAlert('Invalid username or password. Login denied');
+              return;
+            }
+            
           }),
           (error) => {
             console.log("Login error >>" );
@@ -53,7 +60,7 @@ export class LoginPage implements OnInit {
     private showAlert(err: string) {
       this.alertCtrl
         .create({
-          header: "Authentication Failed",
+          header: "Authentication Failed ",
           message: err,
           buttons: ["ok"],
         })

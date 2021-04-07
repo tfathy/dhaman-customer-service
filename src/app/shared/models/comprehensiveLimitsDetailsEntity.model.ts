@@ -1,6 +1,7 @@
 import { ICountry } from "./country.model";
 import { IPaymentMode } from "./payment.mode";
 import { IRelationDebtor } from "./relationDebtor.model";
+import { WhoColumns } from "./who-columns.model";
 
 export class ComprehensiveLimitsDetailsEntity {
   constructor(
@@ -41,6 +42,6 @@ export class ComprehensiveLimitsDetailsEntity {
     public outstandingReason1?: string,
     public outstandingReason2?: string,
     public outstandingReason3?: string,
-
+    public  whoColumns?: WhoColumns
   ) {}
 }

@@ -1,8 +1,8 @@
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable, OnDestroy } from '@angular/core';
-import { Plugins } from "@capacitor/core";
+import {Storage} from '@capacitor/storage';
 import { BehaviorSubject, from, Observable, of } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import {  map, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { UserModel } from '../shared/models/user.model';
 
@@ -131,14 +131,14 @@ export class AuthService implements OnDestroy{
       compRef: compRef
     });    
     
-      Plugins.Storage.set({ key: "authData", value: data });
+      Storage.set({ key: "authData", value: data });
 
       const loginCustomer = JSON.stringify({       
         compNameA: compNameA,
         compNameE: compNameE,
         compRef: compRef
       });
-      Plugins.Storage.set({ key: "customer", value: loginCustomer });
+      Storage.set({ key: "customer", value: loginCustomer });
       
       await sessionStorage.setItem('loginName', loginName);
       await sessionStorage.setItem('compNameA', compNameA);
@@ -163,11 +163,11 @@ export class AuthService implements OnDestroy{
       clearTimeout(this.activeLogoutTimer);
     }
   //  this._user.next(null);
-   // Plugins.Storage.remove({ key: "authData" });
+   // Storage.remove({ key: "authData" });
   }
 
   autoLogin() {
-    return from(Plugins.Storage.get({ key: "authData" })).pipe(
+    return from(Storage.get({ key: "authData" })).pipe(
       map((storedDate) => {
         if (!storedDate || !storedDate.value) {
           console.log("******** cannot find storage authData***** ")

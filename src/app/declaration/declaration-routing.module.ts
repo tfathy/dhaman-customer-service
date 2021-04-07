@@ -11,6 +11,10 @@ const routes: Routes = [
   {
     path: 'declaration-form',
     loadChildren: () => import('./declaration-form/declaration-form.module').then( m => m.DeclarationFormPageModule)
+  },
+  {
+    path: 'declaration-form/:id',
+    loadChildren: () => import('./declaration-form/declaration-form.module').then( m => m.DeclarationFormPageModule)
   }
 ];
 

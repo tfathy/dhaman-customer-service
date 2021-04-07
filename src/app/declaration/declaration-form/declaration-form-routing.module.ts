@@ -7,6 +7,10 @@ const routes: Routes = [
   {
     path: '',
     component: DeclarationFormPage
+  },
+  {
+    path: 'declaration-detail',
+    loadChildren: () => import('./declaration-detail/declaration-detail.module').then( m => m.DeclarationDetailPageModule)
   }
 ];
 

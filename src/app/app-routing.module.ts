@@ -31,6 +31,10 @@ const routes: Routes = [
   {
     path: 'user-profile',
     loadChildren: () => import('./user-profile/user-profile.module').then( m => m.UserProfilePageModule)
+  },
+  {
+    path: 'application-status',
+    loadChildren: () => import('./application-status/application-status.module').then( m => m.ApplicationStatusPageModule)
   }
 ];
 

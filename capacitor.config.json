@@ -1,6 +1,6 @@
 {
-  "appId": "org.dhaman.customer.service",
-  "appName": "dhaman-customer-service",
+  "appId": "org.dhaman.customer",
+  "appName": "Dhaman Customer Services",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "www",

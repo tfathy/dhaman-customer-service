@@ -3,19 +3,24 @@
 </ion-header>
 <ion-content>  
   <div class="app-logo">
-  </div>
-<div class="ion-padding ion-text-center">
-  <h3>The Arab Investment & Export credit guarantee Corporation</h3>
+
+        </div>  
+            <!-- 
+    <div class="ion-padding ion-text-center">
+  <h6>Enter user name and password</h6>
 </div>
-  <ion-grid >
+    -->
+
+  
+
+  <ion-grid class="ion-padding ion-text-center">
     <ion-row>
-      <ion-col class="ion-text-center">
-       
+            <ion-col >       
         <form #loginForm="ngForm" novalidate>
           <ion-list>
             <!--  User name -->
             <ion-item>
-              <ion-label position="stacked" color="primary">Username</ion-label>
+              <ion-label position="floating" color="primary">Username</ion-label>
               <ion-input [(ngModel)]="creds.loginName" name="loginName" #loginName="ngModel" type="text"  spellcheck="false"
                 autocapitalize="off" required >
               </ion-input>
@@ -24,7 +29,7 @@
             
             <!--  password -->
             <ion-item>
-              <ion-label position="stacked" color="primary">Password</ion-label>
+              <ion-label position="floating" color="primary">Password</ion-label>
               <ion-input [(ngModel)]="creds.password" name="password" type="password" #password="ngModel" required>
               </ion-input>
             </ion-item>

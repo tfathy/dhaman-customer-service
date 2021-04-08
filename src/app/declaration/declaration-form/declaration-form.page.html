@@ -21,11 +21,11 @@
 
 <ion-content>
   <form #form="ngForm" validate>
-    <ion-card button color="tertiary">
+    <ion-card button >
       <ion-card-header>
-        <ion-item lines="none">
-          <h6>Policy No: {{model.policyNo}}</h6>
+        <ion-item lines="none">         
           <div class="ion-padding ion-text-start">
+            <h4>Policy No: {{model.policyNo}}</h4>
             <h6>Currency:{{model.currency?model.currency.cuCode:''}}</h6>
             <h6>Period:{{model.dcPeriod |date:'MM/yyyy' }}</h6>
           </div>

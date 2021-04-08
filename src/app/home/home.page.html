@@ -10,37 +10,88 @@
 <ion-content>
   <ion-grid>
     <ion-row>
-      <ion-col size="12" size-md="3">
-        <ion-card button [routerLink]="['/credit-limit']">
-          <ion-item class="ion-padding" color="primary">
+      <ion-col size="12" size-md="3">        
+          <ion-item class="menu-item" button [routerLink]="['/credit-limit']" lines="none">
             <ion-img             
               slot="start"
               class="small"
-              src="assets/icon/increase.svg"
+              src="assets/icon/increase-lines.png"
             ></ion-img>
             <div>
-              <ion-label color="light">Credit Limit</ion-label>
-              <ion-note color="light" slot="start"> Click to add new Buyer</ion-note>
+              <ion-label >Credit Limit</ion-label>
+              <ion-note  slot="start"> Click to add new Buyer</ion-note>
             </div>
           </ion-item>
-        </ion-card>
+   
       </ion-col>
 
       <ion-col size="12" size-md="3">
-        <ion-card button [routerLink]="['/declaration']">
-          <ion-item class="ion-padding" color="primary">
+        
+          <ion-item class="menu-item"  button [routerLink]="['/declaration']" lines="none">
             <ion-img             
               slot="start"
               class="small"
-              src="assets/icon/ship.svg"
+              src="assets/icon/ship-border.png"
             ></ion-img>
             <div>
-              <ion-label color="light">Declaration</ion-label>
-              <ion-note color="light" slot="start"> Click here for Periodic Declaration</ion-note>
+              <ion-label >Declaration</ion-label>
+              <ion-note  slot="start"> Click here for Periodic Declaration</ion-note>
             </div>
           </ion-item>
-        </ion-card>       
+           
       </ion-col>
+      <ion-col size="12" size-md="3">
+         <ion-item class="menu-item"  button [routerLink]="['/application-status']" lines="none">
+            <ion-img             
+              slot="start"
+              class="small"
+              src="assets/icon/application-status.png"
+            ></ion-img>
+            <div>
+              <ion-label >Application Status</ion-label>
+              <ion-note  slot="start"> Click here to inquery about the status of an application</ion-note>
+            </div>
+          </ion-item>
+      </ion-col>
+      <ion-col size="12" size-md="3">
+        <ion-item class="menu-item"  button [routerLink]="['/declaration']" lines="none">
+           <ion-img             
+             slot="start"
+             class="small"
+             src="assets/icon/overdue-shipment.png"
+           ></ion-img>
+           <div>
+             <ion-label >Overdue Shipments</ion-label>
+             <ion-note  slot="start"> Click here to view Overdue Shipments</ion-note>
+           </div>
+         </ion-item>
+     </ion-col>
+     <ion-col size="12" size-md="3">
+      <ion-item class="menu-item"  button [routerLink]="['/declaration']" lines="none">
+         <ion-img             
+           slot="start"
+           class="small"
+           src="assets/icon/contract-overview.png"
+         ></ion-img>
+         <div>
+           <ion-label >Contract Overview</ion-label>
+           <ion-note  slot="start"> Click here for Contract Overview</ion-note>
+         </div>
+       </ion-item>
+   </ion-col>
+   <ion-col size="12" size-md="3">
+    <ion-item class="menu-item"  button [routerLink]="['/declaration']" lines="none">
+       <ion-img             
+         slot="start"
+         class="small"
+         src="assets/icon/contract-summary.png"
+       ></ion-img>
+       <div>
+         <ion-label >Contract Summary</ion-label>
+         <ion-note  slot="start"> Click here to inquery contract Summary</ion-note>
+       </div>
+     </ion-item>
+ </ion-col>
     </ion-row>
     <!--
 <ion-row>
@@ -113,6 +164,9 @@
 </ion-content>
 <ion-footer class="ion-no-border">
   <ion-toolbar color="primary">
-    <ion-title>Main Menu</ion-title>
+    <ion-title>Home</ion-title>   
+    <ion-buttons slot="start">
+      <ion-icon name="home" class="ion-padding"></ion-icon>
+    </ion-buttons>
   </ion-toolbar>
 </ion-footer>

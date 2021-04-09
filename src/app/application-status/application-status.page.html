@@ -54,7 +54,7 @@
   </ion-segment>
   <div [ngSwitch]="segmentModel">
     <ion-list *ngSwitchCase="'inProcess'">
-      <ion-card *ngFor="let app of inProcessApplications" button>
+      <ion-card *ngFor="let app of inProcessApplications" button (click)="openModal(app)">
         <ion-card-header>
           <ion-title>{{app.importerNameE}}</ion-title>
         </ion-card-header>

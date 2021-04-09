@@ -4,7 +4,8 @@ import { ApplicationStatus } from "../shared/models/application-status";
 import { getSessionInfo, sessionData } from "../shared/shared/session.storage";
 import { SegmentChangeEventDetail } from "@ionic/core";
 import { QueryService } from "../services/query.service";
-import { LoadingController } from "@ionic/angular";
+import { LoadingController, ModalController } from "@ionic/angular";
+import { AppStatusDetailComponent } from "./app-status-detail/app-status-detail.component";
 
 @Component({
   selector: "app-application-status",
@@ -24,7 +25,8 @@ export class ApplicationStatusPage implements OnInit {
 
   constructor(
     private queryService: QueryService,
-    private loadingCtrl: LoadingController
+    private loadingCtrl: LoadingController,
+    private modalCtrl: ModalController
   ) {}
 
   ngOnInit() {
@@ -104,5 +106,29 @@ export class ApplicationStatusPage implements OnInit {
           event.target.complete();
         });
     });
+  }
+  openModal(app: ApplicationStatus){
+    this.modalCtrl.create({
+      component: AppStatusDetailComponent,
+      componentProps: {
+        "applicationNo":app.applicationsRoPk.applicationNo,
+        "cntDescription":app.cntDescription,
+        "applicationDate": app.applicationDate,
+        "countRisksCovered":app.countRisksCovered,
+        "importerNameE": app.importerNameE,
+        "importerCountryE":app.importerCountryE,
+        "applicationCurrency":app.applicationCurrency,
+        "applicationAmt":app.applicationAmt,
+        "applValueUsd":app.applValueUsd,
+        "decisionAmount":app.decisionAmount,
+        "decisionCurrency":app.decisionCurrency,
+        "creditPeriod":app.creditPeriod,
+        "term":app.term,
+        "currentStatus":app.currentStatus,
+        "ocSpecialConditions":app.ocSpecialConditions
+      }
+    }).then(async madalEl=>{
+      return await madalEl.present();
+    })
   }
 }

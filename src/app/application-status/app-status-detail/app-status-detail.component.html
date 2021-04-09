@@ -1,0 +1,29 @@
+<ion-header>
+<ion-toolbar color="secondary">
+  <ion-title>Application Details</ion-title>
+  <ion-buttons slot="end">
+    <ion-button (click)="onDismiss()">close</ion-button>
+  </ion-buttons>
+</ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label color="primary" position="stacked">Application No.</ion-label>
+          <ion-input readonly>{{applicationNo}}</ion-input>
+        </ion-item>
+      </ion-col>      
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label color="primary" position="stacked">Contract Description</ion-label>
+          <ion-input readonly>{{cntDescription}}</ion-input>
+        </ion-item>
+      </ion-col>      
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

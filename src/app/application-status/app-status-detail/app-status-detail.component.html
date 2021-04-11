@@ -1,5 +1,5 @@
 <ion-header>
-<ion-toolbar color="secondary">
+<ion-toolbar color="warning">
   <ion-title>Application Details</ion-title>
   <ion-buttons slot="end">
     <ion-button (click)="onDismiss()">close</ion-button>
@@ -14,7 +14,13 @@
           <ion-label color="primary" position="stacked">Application No.</ion-label>
           <ion-input readonly>{{applicationNo}}</ion-input>
         </ion-item>
-      </ion-col>      
+      </ion-col> 
+      <ion-col>
+        <ion-item>
+          <ion-label color="primary" position="stacked"> Status</ion-label>
+          <ion-input readonly>{{statusDesc}}</ion-input>
+        </ion-item>
+      </ion-col>     
     </ion-row>
     <ion-row>
       <ion-col>
@@ -24,6 +30,85 @@
         </ion-item>
       </ion-col>      
     </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label color="primary" position="stacked">Application Date</ion-label>
+          <ion-input readonly>{{applicationDate | date :'dd/MM/yyyy'}}</ion-input>
+        </ion-item>
+      </ion-col>   
+      <ion-col>
+        <ion-item>
+          <ion-label color="primary" position="stacked">Risks Covered</ion-label>
+          <ion-input readonly>{{countRisksCovered}}</ion-input>
+        </ion-item>
+      </ion-col>       
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label color="primary" position="stacked">Importer Name</ion-label>
+          <ion-input readonly>{{importerNameE | lowercase}}</ion-input>
+        </ion-item>
+      </ion-col>      
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label color="primary" position="stacked">Importer Country</ion-label>
+          <ion-input readonly>{{importerCountryE |lowercase}}</ion-input>
+        </ion-item>
+      </ion-col>      
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label color="primary" position="stacked">Application Amount</ion-label>
+          <ion-input readonly>{{applicationAmt | currency}} : {{applicationCurrency}}</ion-input>
+        </ion-item>
+      </ion-col>      
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label color="primary" position="stacked">USD Value</ion-label>
+          <ion-input readonly>{{applValueUsd | currency}}</ion-input>
+        </ion-item>
+      </ion-col>      
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label color="primary" position="stacked">Decision Amount</ion-label>
+          <ion-input color="danger" readonly>{{decisionAmount | currency}} : {{decisionCurrency}}</ion-input>
+        </ion-item>
+      </ion-col>      
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label color="primary" position="stacked">Credit Period</ion-label>
+          <ion-input readonly>{{creditPeriod}}</ion-input>
+        </ion-item>
+      </ion-col>      
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label color="primary" position="stacked">Term</ion-label>
+          <ion-input readonly>{{term}}</ion-input>
+        </ion-item>
+      </ion-col>      
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label color="primary" position="stacked">Special Consitions</ion-label>
+          <ion-text readonly>{{ocSpecialConditions | lowercase}}</ion-text>
+        </ion-item>
+      </ion-col>      
+    </ion-row>   
   </ion-grid>
 
 </ion-content>

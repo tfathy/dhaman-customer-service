@@ -5,6 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Storage } from '@capacitor/storage';
 import { Router } from '@angular/router';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -51,7 +52,8 @@ export class AppComponent implements OnInit {
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) {
     this.initializeApp();
   }
@@ -70,10 +72,14 @@ export class AppComponent implements OnInit {
     }
   }
   logOut(){
-    Storage.remove({ key: "authData" }).then( res=>{
-      console.log("Storage cleaned");
+    const promise1 = Promise.resolve(Storage.remove({ key: "authData" }));
+    const promise2 = Promise.resolve(Storage.remove({ key: "customer" }));
+    Promise.all([promise1,promise2]).then(data=>{
+       console.log("Storage cleaned");
+       this.authService.logout();
       this.router.navigateByUrl('/login');
-    });
+    })
+ 
 
   }
 }

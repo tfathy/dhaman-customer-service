@@ -1,0 +1,116 @@
+<ion-header>
+  <ion-toolbar color="warning">
+    <ion-title>Contract Summary</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="onDismiss()">close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label color="primary" position="stacked">Contract No.</ion-label>
+          <ion-input readonly>{{ contractNo }}</ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col>
+        <ion-item>
+          <ion-label color="primary" position="stacked"
+            >Contract Date</ion-label
+          >
+          <ion-input readonly>{{ contDate | date: "dd/MM/yyyy" }}</ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label color="primary" position="stacked">Importer</ion-label>
+          <ion-input readonly>{{ buyerName | lowercase }}</ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label color="primary" position="stacked"
+            >Importer Nationality</ion-label
+          >
+          <ion-input readonly>{{ buyerNationality }}</ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label color="primary" position="stacked"
+            >Maxminum Amount</ion-label
+          >
+          <ion-input readonly>{{ maxAmount | currency }}</ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col>
+        <ion-item>
+          <ion-label color="primary" position="stacked">Revolving</ion-label>
+          <ion-input readonly>{{ revolving | currency }}</ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label color="primary" position="stacked">Outstanding</ion-label>
+          <ion-input readonly>{{ outstanding | currency }}</ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label color="primary" position="stacked"
+            >Current Revolving</ion-label
+          >
+          <ion-input readonly>{{ currentRevolving | currency }}</ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label color="primary" position="stacked">Shipments</ion-label>
+          <ion-input readonly>{{ ship | currency }} </ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label color="primary" position="stacked">Un Settled</ion-label>
+          <ion-input readonly>{{ unsettled | currency }}</ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label color="primary" position="stacked">User Name</ion-label>
+          <ion-input color="danger" readonly>{{ uName | lowercase }}</ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label color="primary" position="stacked"
+            >Contract Currency</ion-label
+          >
+          <ion-input readonly>{{ contCurrency }}</ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

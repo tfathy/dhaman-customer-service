@@ -3,6 +3,8 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { environment } from "src/environments/environment";
 import { ApplicationStatus } from "../shared/models/application-status";
+import { ContractSummary } from "../shared/models/contract-summary";
+import { OverdueShipmentModel } from "../shared/models/overdue-shipment-model";
 
 @Injectable({
   providedIn: "root",
@@ -35,6 +37,32 @@ export class QueryService {
     });
     return this.http.get<ApplicationStatus[]>(
       `${environment.backendUrl}/crm-operations/query/customer-applications/${customerRef}`,
+      { headers: headerInfo }
+    );
+  }
+
+  findContractSummaryByCustomerRef(
+    token: string,
+    customerRef: string
+  ): Observable<ContractSummary[]> {
+    const headerInfo = new HttpHeaders({
+      Authorization: token,
+    });
+    return this.http.get<ContractSummary[]>(
+      `${environment.backendUrl}/crm-operations/query/contract-summary/${customerRef}`,
+      { headers: headerInfo }
+    );
+  }
+
+  findOverdueShipment(
+    token: string,
+    customerRef: number
+  ): Observable<OverdueShipmentModel[]> {
+    const headerInfo = new HttpHeaders({
+      Authorization: token,
+    });
+    return this.http.get<OverdueShipmentModel[]>(
+      `${environment.backendUrl}/crm-operations/query/overdue-ship/${customerRef}`,
       { headers: headerInfo }
     );
   }

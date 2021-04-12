@@ -1,4 +1,4 @@
-package org.dhaman.customer.service;
+package org.dhaman.customer;
 
 import com.getcapacitor.BridgeActivity;
 

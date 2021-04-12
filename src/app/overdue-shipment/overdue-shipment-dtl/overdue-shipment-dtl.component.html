@@ -1,0 +1,78 @@
+<ion-header>
+  <ion-toolbar color="warning">
+    <ion-title>Contract Summary</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="onDismiss()">close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label color="primary" position="stacked">Buyer</ion-label>
+          <ion-input readonly>{{buyerNameE |lowercase}}</ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row> 
+    
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label color="primary" position="stacked">Ship.Date</ion-label>
+          <ion-input readonly>{{ cmsShipDate |date:'dd/MM/yyyy'}}</ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col>
+        <ion-item>
+          <ion-label color="primary" position="stacked">Ship.Amount</ion-label>
+          <ion-input readonly>{{ cmsdAmount |currency}}</ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row> 
+    
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label color="primary" position="stacked">Contract No.</ion-label>
+          <ion-input readonly>{{ contractNo }}</ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col>
+        <ion-item>
+          <ion-label color="primary" position="stacked">Contract Date.</ion-label>
+          <ion-input readonly>{{ contDate |date:'dd/MM/yyyy'}}</ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label color="primary" position="stacked">Invoice.No</ion-label>
+          <ion-input readonly>{{cmsInvoiceNo}}</ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col>
+        <ion-item>
+          <ion-label color="primary" position="stacked">Currency</ion-label>
+          <ion-input readonly>{{cmsCurrency}}</ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label color="primary" position="stacked">Contract End Date</ion-label>
+          <ion-input readonly>{{contEndDate |date:'dd/MM/yyyy'}}</ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col>
+        <ion-item>
+          <ion-label color="primary" position="stacked">Maturity Date</ion-label>
+          <ion-input readonly>{{cmsdMaturityDate |date:'dd/MM/yyyy'}}</ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

@@ -35,6 +35,14 @@ const routes: Routes = [
   {
     path: 'application-status',
     loadChildren: () => import('./application-status/application-status.module').then( m => m.ApplicationStatusPageModule)
+  },
+  {
+    path: 'contract-summary',
+    loadChildren: () => import('./contract-summary/contract-summary.module').then( m => m.ContractSummaryPageModule)
+  },
+  {
+    path: 'overdue-shipment',
+    loadChildren: () => import('./overdue-shipment/overdue-shipment.module').then( m => m.OverdueShipmentPageModule)
   }
 ];
 

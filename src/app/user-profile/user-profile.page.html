@@ -8,7 +8,27 @@
 </ion-header>
 
 <ion-content>
-
+<ion-grid> 
+  <h4>Company Info</h4> 
+  <ion-row>
+    <ion-item>
+      <ion-label color="primary" position="stacked">Company Name (En)</ion-label>
+      <ion-input readonly>{{compNameE |lowercase}}</ion-input>
+    </ion-item>
+  </ion-row>
+  <ion-row>
+    <ion-item>
+      <ion-label color="primary" position="stacked">Company Name(Ar)</ion-label>
+      <ion-input readonly>{{compNameA}}</ion-input>
+    </ion-item>
+  </ion-row>
+  <ion-row>
+    <ion-item>
+      <ion-label color="primary" position="stacked">Company Ref#</ion-label>
+      <ion-input readonly>{{compRef}}</ion-input>
+    </ion-item>
+  </ion-row>
+</ion-grid>
 </ion-content>
 <ion-footer class="ion-no-border">
   <ion-toolbar color="primary">

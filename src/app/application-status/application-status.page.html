@@ -79,7 +79,7 @@
     </ion-list>
 <!--   rejected-->
     <ion-list *ngSwitchCase="'rejected'">
-      <ion-card *ngFor="let app of rejectedApplications" button>
+      <ion-card *ngFor="let app of rejectedApplications" button  (click)="openModal(app)">
         <ion-card-header>
           <ion-title>{{app.importerNameE}}</ion-title>
         </ion-card-header>
@@ -104,7 +104,7 @@
     </ion-list>
     <!--  accepted-->
     <ion-list *ngSwitchCase="'accepted'">
-      <ion-card *ngFor="let app of acceptedApplications" button>
+      <ion-card *ngFor="let app of acceptedApplications" button  (click)="openModal(app)">
         <ion-card-header>
           <ion-title>{{app.importerNameE}}</ion-title>
         </ion-card-header>

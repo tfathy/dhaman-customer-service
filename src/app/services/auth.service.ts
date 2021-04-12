@@ -1,10 +1,10 @@
-import { HttpClient, HttpResponse } from '@angular/common/http';
-import { Injectable, OnDestroy } from '@angular/core';
-import {Storage} from '@capacitor/storage';
-import { BehaviorSubject, from, Observable, of } from 'rxjs';
-import {  map, tap } from 'rxjs/operators';
-import { environment } from 'src/environments/environment';
-import { UserModel } from '../shared/models/user.model';
+import { HttpClient, HttpResponse } from "@angular/common/http";
+import { Injectable, OnDestroy } from "@angular/core";
+import { Storage } from "@capacitor/storage";
+import { BehaviorSubject, from, Observable, of } from "rxjs";
+import { map, tap } from "rxjs/operators";
+import { environment } from "src/environments/environment";
+import { UserModel } from "../shared/models/user.model";
 
 export interface AuthResponseData {
   token: string;
@@ -16,17 +16,16 @@ export interface AuthResponseData {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
-export class AuthService implements OnDestroy{
+export class AuthService implements OnDestroy {
   private _user = new BehaviorSubject<UserModel>(null);
   private activeLogoutTimer: any;
-  public springToken: string = '';
-  
-  constructor(private http: HttpClient){}
+  public springToken: string = "";
+
+  constructor(private http: HttpClient) {}
 
   authLogin(loginEmail: string, loginPassword: string) {
-  
     return this.http
       .post<any>(
         `${environment.backendUrl}/crm-security/users/login`,
@@ -34,12 +33,9 @@ export class AuthService implements OnDestroy{
           loginName: loginEmail,
           customerPass: loginPassword,
         },
-        { observe: 'response' }
+        { observe: "response" }
       )
-      .pipe(tap(  res =>     
-        this.setUserData(res)       
-        )
-        );
+      .pipe(tap((res) => this.setUserData(res)));
   }
   get userIsAuthenticated() {
     return this._user.asObservable().pipe(
@@ -79,12 +75,12 @@ export class AuthService implements OnDestroy{
   private setUserData(userData: HttpResponse<AuthResponseData>) {
     console.log(userData);
     let currentime = new Date().getTime();
-    let ms = currentime+ +userData.headers.get('expires') * 1000;
-    
-    const expirationTime  = new Date(currentime+ +ms);
- 
+    let ms = currentime + +userData.headers.get("expires") * 1000;
+
+    const expirationTime = new Date(currentime + +ms);
+
     console.log(expirationTime);
-    
+
     const user = new UserModel(
       userData.headers.get("loginName"),
       userData.headers.get("userId"),
@@ -94,7 +90,7 @@ export class AuthService implements OnDestroy{
       userData.headers.get("token"),
       expirationTime
     );
-    
+
     this.storeAuthData(
       userData.headers.get("userId"),
       userData.headers.get("token"),
@@ -107,11 +103,9 @@ export class AuthService implements OnDestroy{
 
     this._user.next(user);
     this.autoLogout(user.tokenDuration);
-   
-    
   }
 
-  private   async storeAuthData(
+  private async storeAuthData(
     userId: string,
     token: string,
     tokenExpirationDate: string,
@@ -120,7 +114,6 @@ export class AuthService implements OnDestroy{
     compNameE: string,
     compRef: string
   ) {
-    
     const data = JSON.stringify({
       userId: userId,
       token: token,
@@ -128,29 +121,27 @@ export class AuthService implements OnDestroy{
       loginName: loginName,
       compNameA: compNameA,
       compNameE: compNameE,
-      compRef: compRef
-    });    
-    
-      Storage.set({ key: "authData", value: data });
+      compRef: compRef,
+    });
 
-      const loginCustomer = JSON.stringify({       
-        compNameA: compNameA,
-        compNameE: compNameE,
-        compRef: compRef
-      });
-      Storage.set({ key: "customer", value: loginCustomer });
-      
-      await sessionStorage.setItem('loginName', loginName);
-      await sessionStorage.setItem('compNameA', compNameA);
-      await sessionStorage.setItem('compNameE', compNameE);
-      await sessionStorage.setItem('compRef', compRef);
+    Storage.set({ key: "authData", value: data });
 
-   
+    const loginCustomer = JSON.stringify({
+      compNameA: compNameA,
+      compNameE: compNameE,
+      compRef: compRef,
+    });
+    Storage.set({ key: "customer", value: loginCustomer });
+
+    await sessionStorage.setItem("loginName", loginName);
+    await sessionStorage.setItem("compNameA", compNameA);
+    await sessionStorage.setItem("compNameE", compNameE);
+    await sessionStorage.setItem("compRef", compRef);
   }
 
   private autoLogout(duration: number) {
-    console.log("*******autoLogout executed********")
-   if (this.activeLogoutTimer) {
+    console.log("*******autoLogout executed********");
+    if (this.activeLogoutTimer) {
       clearTimeout(this.activeLogoutTimer);
     }
     this.activeLogoutTimer = setTimeout(() => {
@@ -162,15 +153,15 @@ export class AuthService implements OnDestroy{
     if (this.activeLogoutTimer) {
       clearTimeout(this.activeLogoutTimer);
     }
-  //  this._user.next(null);
-   // Storage.remove({ key: "authData" });
+     this._user.next(null);
+    // Storage.remove({ key: "authData" });
   }
 
   autoLogin() {
     return from(Storage.get({ key: "authData" })).pipe(
       map((storedDate) => {
         if (!storedDate || !storedDate.value) {
-          console.log("******** cannot find storage authData***** ")
+          console.log("******** cannot find storage authData***** ");
           return null;
         }
         const parsData = JSON.parse(storedDate.value) as {
@@ -178,8 +169,8 @@ export class AuthService implements OnDestroy{
           tokenExpirationDate: string;
           userId: string;
           loginName: string;
-          compNameA:string;
-          compNameE:string;
+          compNameA: string;
+          compNameE: string;
           compRef: string;
         };
         const tokenExpirationTime = new Date(parsData.tokenExpirationDate);
@@ -195,7 +186,7 @@ export class AuthService implements OnDestroy{
           parsData.token,
           tokenExpirationTime
         );
-        console.log("User stored is:"+user)
+        console.log("User stored is:" + user);
         return user;
       }),
       tap((user) => {
@@ -215,5 +206,4 @@ export class AuthService implements OnDestroy{
       clearTimeout(this.activeLogoutTimer);
     }
   }
-
 }

@@ -54,7 +54,7 @@
           </ion-item>
       </ion-col>
       <ion-col size="12" size-md="3">
-        <ion-item class="menu-item"  button [routerLink]="['/declaration']" lines="none">
+        <ion-item class="menu-item"  button [routerLink]="['/overdue-shipment']" lines="none">
            <ion-img             
              slot="start"
              class="small"
@@ -67,6 +67,19 @@
          </ion-item>
      </ion-col>
      <ion-col size="12" size-md="3">
+      <ion-item class="menu-item"  button [routerLink]="['/']" lines="none">
+         <ion-img             
+           slot="start"
+           class="small"
+           src="assets/icon/ship-red.png"
+         ></ion-img>
+         <div>
+           <ion-label >Issured Shipments</ion-label>
+           <ion-note  slot="start"> Click here to view issured Shipments</ion-note>
+         </div>
+       </ion-item>
+   </ion-col>
+     <ion-col size="12" size-md="3">
       <ion-item class="menu-item"  button [routerLink]="['/declaration']" lines="none">
          <ion-img             
            slot="start"
@@ -74,21 +87,21 @@
            src="assets/icon/contract-overview.png"
          ></ion-img>
          <div>
-           <ion-label >Contract Overview</ion-label>
-           <ion-note  slot="start"> Click here for Contract Overview</ion-note>
+           <ion-label >Contract Summary</ion-label>
+           <ion-note  slot="start"> Click here for Contract Summary</ion-note>
          </div>
        </ion-item>
    </ion-col>
    <ion-col size="12" size-md="3">
-    <ion-item class="menu-item"  button [routerLink]="['/declaration']" lines="none">
+    <ion-item class="menu-item"  button [routerLink]="['/contract-summary']" lines="none">
        <ion-img             
          slot="start"
          class="small"
          src="assets/icon/contract-summary.png"
        ></ion-img>
        <div>
-         <ion-label >Contract Summary</ion-label>
-         <ion-note  slot="start"> Click here to inquery contract Summary</ion-note>
+         <ion-label >Contract Overview</ion-label>
+         <ion-note  slot="start"> Click here to inquery contract Overview</ion-note>
        </div>
      </ion-item>
  </ion-col>

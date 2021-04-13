@@ -1,0 +1,116 @@
+<ion-header>
+  <ion-toolbar color="warning">
+    <ion-title>Insured Shipment</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="onDismiss()">close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label color="primary" position="stacked">Contract No.</ion-label>
+          <ion-input readonly>{{ contractNo }}</ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col>
+        <ion-item>
+          <ion-label color="primary" position="stacked"
+            >Contract Date</ion-label
+          >
+          <ion-input readonly>{{ contDate | date: "dd/MM/yyyy" }}</ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label color="primary" position="stacked">Company</ion-label>
+          <ion-input readonly>{{ companyName | lowercase }}</ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label color="primary" position="stacked"
+            >Company Nationality</ion-label
+          >
+          <ion-input readonly>{{ compNationality }}</ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label color="primary" position="stacked"
+            >Shipment Amount</ion-label
+          >
+          <ion-input readonly>{{ cmsdShipAmount | currency }}</ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col>
+        <ion-item>
+          <ion-label color="primary" position="stacked">Shipment Date</ion-label>
+          <ion-input readonly>{{ cmsShipDate | date:'dd/MM/yyyy' }}</ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label color="primary" position="stacked">Status</ion-label>
+          <ion-input readonly>{{ shipStatus  }}</ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label color="primary" position="stacked"
+            >Mat.Amount</ion-label
+          >
+          <ion-input readonly>{{ cmsdMaturedAmount | currency }}</ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label color="primary" position="stacked">Form Year</ion-label>
+          <ion-input readonly>{{ cmsdFormYear  }} </ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label color="primary" position="stacked">Shipment No.</ion-label>
+          <ion-input readonly>{{ cmsdShipmentNo  }}</ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label color="primary" position="stacked">Invoice No.</ion-label>
+          <ion-input color="danger" readonly>{{ cmsInvoiceNo | lowercase }}</ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label color="primary" position="stacked"
+            >Form No.</ion-label
+          >
+          <ion-input readonly>{{ cmsdFormNo }}</ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

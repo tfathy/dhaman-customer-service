@@ -15,9 +15,10 @@ import { ContractSummaryDtlComponent } from "./contract-summary/contract-summary
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import { CrmHttpInterceptor } from "./crm-http-interceptor";
 import { OverdueShipmentDtlComponent } from "./overdue-shipment/overdue-shipment-dtl/overdue-shipment-dtl.component";
+import { InsuredShipmetsDtlComponent } from "./isured-shipments/insured-shipmets-dtl/insured-shipmets-dtl.component";
 
 @NgModule({
-  declarations: [AppComponent,AppStatusDetailComponent,ContractSummaryDtlComponent,OverdueShipmentDtlComponent],
+  declarations: [AppComponent,AppStatusDetailComponent,ContractSummaryDtlComponent,OverdueShipmentDtlComponent, InsuredShipmetsDtlComponent],
   entryComponents: [],
   imports: [
     BrowserModule,

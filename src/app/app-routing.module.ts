@@ -30,19 +30,23 @@ const routes: Routes = [
   },
   {
     path: 'user-profile',
-    loadChildren: () => import('./user-profile/user-profile.module').then( m => m.UserProfilePageModule)
+    loadChildren: () => import('./user-profile/user-profile.module').then( m => m.UserProfilePageModule),canLoad:[AuthGuard]
   },
   {
     path: 'application-status',
-    loadChildren: () => import('./application-status/application-status.module').then( m => m.ApplicationStatusPageModule)
+    loadChildren: () => import('./application-status/application-status.module').then( m => m.ApplicationStatusPageModule),canLoad:[AuthGuard]
   },
   {
     path: 'contract-summary',
-    loadChildren: () => import('./contract-summary/contract-summary.module').then( m => m.ContractSummaryPageModule)
+    loadChildren: () => import('./contract-summary/contract-summary.module').then( m => m.ContractSummaryPageModule),canLoad:[AuthGuard]
   },
   {
     path: 'overdue-shipment',
-    loadChildren: () => import('./overdue-shipment/overdue-shipment.module').then( m => m.OverdueShipmentPageModule)
+    loadChildren: () => import('./overdue-shipment/overdue-shipment.module').then( m => m.OverdueShipmentPageModule),canLoad:[AuthGuard]
+  },
+  {
+    path: 'isured-shipments',
+    loadChildren: () => import('./isured-shipments/isured-shipments.module').then( m => m.IsuredShipmentsPageModule),canLoad:[AuthGuard]
   }
 ];
 

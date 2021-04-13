@@ -1,5 +1,5 @@
 {
-  "appId": "org.dhaman.customer",
+  "appId": "customer.dhaman.org",
   "appName": "Dhaman Customer Services",
   "bundledWebRuntime": false,
   "npmClient": "npm",

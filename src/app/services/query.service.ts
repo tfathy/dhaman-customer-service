@@ -4,6 +4,7 @@ import { Observable } from "rxjs";
 import { environment } from "src/environments/environment";
 import { ApplicationStatus } from "../shared/models/application-status";
 import { ContractSummary } from "../shared/models/contract-summary";
+import { IsuredShipmentsModel } from "../shared/models/isured-shipments-model";
 import { OverdueShipmentModel } from "../shared/models/overdue-shipment-model";
 
 @Injectable({
@@ -63,6 +64,19 @@ export class QueryService {
     });
     return this.http.get<OverdueShipmentModel[]>(
       `${environment.backendUrl}/crm-operations/query/overdue-ship/${customerRef}`,
+      { headers: headerInfo }
+    );
+  }
+
+  findIsueredShipments(
+    token: string,
+    customerRef: number
+  ): Observable<IsuredShipmentsModel[]> {
+    const headerInfo = new HttpHeaders({
+      Authorization: token,
+    });
+    return this.http.get<IsuredShipmentsModel[]>(
+      `${environment.backendUrl}/crm-operations/query/issued-shipments/${customerRef}`,
       { headers: headerInfo }
     );
   }

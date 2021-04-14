@@ -1,39 +1,36 @@
-import { Component, OnInit } from "@angular/core";
-import { LoadingController, ModalController } from "@ionic/angular";
-import { of } from "rxjs";
-import { QueryService } from "../services/query.service";
-import { ContractSummary } from "../shared/models/contract-summary";
-import { getSessionInfo, sessionData } from "../shared/shared/session.storage";
-import { ContractSummaryDtlComponent } from "./contract-summary-dtl/contract-summary-dtl.component";
+import { Component, OnInit } from '@angular/core';
+import { LoadingController, ModalController } from '@ionic/angular';
+import { of } from 'rxjs';
+import { QueryService } from '../services/query.service';
+import { ContractAnnexModel } from '../shared/models/contract-annex-model';
+import { getSessionInfo, sessionData } from '../shared/shared/session.storage';
+import { ContractAnnexDtlComponent } from './contract-annex-dtl/contract-annex-dtl.component';
 
 @Component({
-  selector: "app-contract-summary",
-  templateUrl: "./contract-summary.page.html",
-  styleUrls: ["./contract-summary.page.scss"],
+  selector: 'app-contract-annex',
+  templateUrl: './contract-annex.page.html',
+  styleUrls: ['./contract-annex.page.scss'],
 })
-export class ContractSummaryPage implements OnInit {
+export class ContractAnnexPage implements OnInit {
   authToken: sessionData;
-  contractList: ContractSummary[] = [];
+  contractList: ContractAnnexModel[] =[];
   showSearchbar: boolean = false;
   queryText = "";
   ios: boolean;
-  constructor(
-    private queryService: QueryService,
+  constructor( private queryService: QueryService,
     private loadingCtrl: LoadingController,
-    private modalCtrl: ModalController
-  ) {}
+    private modalCtrl: ModalController) { }
 
-  
   ngOnInit() {
-    let compRef;
+    let contApplicant;
     this.loadingCtrl.create({
       message: 'Loadind contracts .. please wait'
     }).then(loadingElement=>{
       loadingElement.present();
       this.readToken();
       getSessionInfo("authData").then(customerInfo =>{
-        compRef = customerInfo.compRef;
-        this.queryService.findContractSummaryByCustomerRef( "Bearer " + this.authToken.token,compRef)
+        contApplicant = customerInfo.compRef;
+        this.queryService.findContractAnnex( "Bearer " + this.authToken.token,contApplicant)
         .subscribe(responseData=>{
           this.contractList = responseData;
           loadingElement.dismiss();
@@ -41,14 +38,12 @@ export class ContractSummaryPage implements OnInit {
       })
     })
   }
-
   onCancelSearch() {
     of(false).subscribe((data) => {
       console.log(data);
       this.showSearchbar = data;
     });
   }
-
   findCustomer(event) {
     let query: string = event.detail.value;
     let tempAppData;
@@ -77,7 +72,7 @@ export class ContractSummaryPage implements OnInit {
     getSessionInfo("customer").then((customerInfo) => {
       compRef = customerInfo.compRef;
       this.queryService
-        .findContractSummaryByCustomerRef(
+        .findContractAnnex(
           "Bearer " + this.authToken.token,
           compRef
         )
@@ -87,31 +82,37 @@ export class ContractSummaryPage implements OnInit {
         });
     });
   }
-  openModal(contract: ContractSummary){
+  openModal(contract: ContractAnnexModel){
     this.modalCtrl.create({
-      component: ContractSummaryDtlComponent,
+      component: ContractAnnexDtlComponent,
       componentProps:{
-        "contractNo": contract.contractShipmentsSummaryPk.contractNo,
-        "buyerName":contract.buyerName,
-        "buyerNationality":contract.buyerNationality,
-        "maxAmount":contract.maxAmount,
-        "revolving":contract.revolving,
-        "outstanding":contract.outstanding,
-        "currentRevolving":contract.currentRevolving,
-        "ship":contract.ship,
-        "unsettled":contract.unsettled,
-        "uName":contract.uName,
+        "contractNo": contract.contractAnnexPk.contractNo,
+        "contDate":contract.contDate,
+        "contEndDate":contract.contEndDate,
         "contCurrency":contract.contCurrency,
-        "contDate":contract.contDate
+        "contTypeE":contract.contTypeE,
+        "exporterE":contract.exporterE,
+        "compNameE":contract.compNameE,
+        "guarValue":contract.guarValue,
+        "contRevolving":contract.contRevolving,
+        "decision":contract.decision,
+        "decisionDate":contract.decisionDate,
+        "contCreditPeriod":contract.contCreditPeriod,
+        "premuim": contract.premuim,
+        "term": contract.term,
+        "claimsComm":contract.claimsComm,
+        "claimsNoncomm": contract.claimsNoncomm,
+        "compNationalityE":contract.compNationalityE,
+        "contStatus":contract.contStatus
       }
     }).then(modalElmnt=>{
       modalElmnt.present();
     })
   }
+
   private readToken(){
     getSessionInfo("authData").then(data=>{
       this.authToken = data;
     })
   }
-
 }

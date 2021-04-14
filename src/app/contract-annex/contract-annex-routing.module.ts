@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { ApplicationFormPage } from './application-form.page';
+import { ContractAnnexPage } from './contract-annex.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: ApplicationFormPage
+    component: ContractAnnexPage
   }
 ];
 
@@ -14,4 +14,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class ApplicationFormPageRoutingModule {}
+export class ContractAnnexPageRoutingModule {}

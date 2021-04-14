@@ -1,0 +1,66 @@
+<ion-header>
+  <app-primary-toolbar></app-primary-toolbar>
+
+  <ion-toolbar color="secondary">
+    <ion-buttons slot="start" *ngIf="!showSearchbar">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title *ngIf="!showSearchbar"> Search </ion-title>
+    <ion-searchbar
+      *ngIf="showSearchbar"
+      showCancelButton="always"
+      [(ngModel)]="queryText"
+      (ionChange)="findCustomer($event)"
+      (ionCancel)="onCancelSearch()"
+      placeholder="Enter Buyer Name"
+    ></ion-searchbar>
+    <ion-buttons slot="end">
+      <ion-button *ngIf="!ios && !showSearchbar" (click)="showSearchbar = true">
+        <ion-icon slot="icon-only" name="search"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="chevron-down-circle-outline"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing..."
+    >
+    </ion-refresher-content>
+  </ion-refresher>
+  
+    <ion-list>
+      <ion-card *ngFor="let contract of contractList" button (click)="openModal(contract)">
+        <ion-card-header>
+          <ion-title>{{contract.compNameE |lowercase}}</ion-title>         
+        </ion-card-header>       
+        <ion-card-content>
+          <ion-item lines="none">                                
+            <div class="side-div">
+              <ion-label color="primary">Contract No.{{contract.contractAnnexPk.contractNo}}</ion-label>
+              <ion-label >Date: {{contract.contDate|date:'dd/MM/yyyy'}}
+                </ion-label>              
+              <ion-label >Type:{{contract.contTypeE}}</ion-label>
+              <ion-label> Guar.Value:
+                {{contract.guarValue |currency}}</ion-label >
+              <ion-label>Revolving: {{contract.contRevolving}} </ion-label>
+            </div>
+          </ion-item>
+        </ion-card-content>
+      </ion-card>
+    </ion-list>
+
+</ion-content>
+
+<ion-footer class="ion-no-border">
+  <ion-toolbar color="primary">
+    <ion-title>Contract Summary(Annex4)</ion-title>
+    <ion-buttons slot="start">
+      <ion-icon name="aperture" class="ion-padding"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

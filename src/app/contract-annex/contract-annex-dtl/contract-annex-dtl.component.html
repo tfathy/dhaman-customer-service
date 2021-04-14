@@ -1,0 +1,131 @@
+<ion-header>
+  <ion-toolbar color="warning">
+    <ion-title>Contract Summary</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="onDismiss()">close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label color="primary" position="stacked">Contract No.</ion-label>
+          <ion-input readonly>{{ contractNo }}</ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col>
+        <ion-item>
+          <ion-label color="primary" position="stacked">Status</ion-label>
+          <ion-input readonly>{{ contStatus }}</ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col>
+        <ion-item>
+          <ion-label color="primary" position="stacked"
+            >Contract Date</ion-label
+          >
+          <ion-input readonly>{{ contDate | date: "dd/MM/yyyy" }}</ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label color="primary" position="stacked"
+            >Contract Type</ion-label
+          >
+          <ion-input readonly>{{ contTypeE | lowercase }}</ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label color="primary" position="stacked">Importer</ion-label>
+          <ion-input readonly>{{ compNameE | lowercase }}</ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label color="primary" position="stacked"
+            >Importer Nationality</ion-label
+          >
+          <ion-input readonly>{{ compNationalityE | lowercase }}</ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label color="primary" position="stacked"
+            >Guarantee Amount</ion-label
+          >
+          <ion-input readonly>{{ guarValue | currency }}</ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col>
+        <ion-item>
+          <ion-label color="primary" position="stacked">Revolving</ion-label>
+          <ion-input readonly>{{ contRevolving | currency }}</ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label color="primary" position="stacked">Decision</ion-label>
+          <ion-input readonly>{{ decision }}</ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col>
+        <ion-item>
+          <ion-label color="primary" position="stacked"
+            >Contract Currency</ion-label
+          >
+          <ion-input readonly>{{ contCurrency }}</ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label color="primary" position="stacked"
+            >Decision Date</ion-label
+          >
+          <ion-input readonly>{{
+            decisionDate | date: "dd/MM/yyyy"
+          }}</ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label color="primary" position="stacked"
+            >Credit Period</ion-label
+          >
+          <ion-input readonly>{{ contCreditPeriod }} </ion-input>
+        </ion-item>
+      </ion-col>
+       <ion-col>
+        <ion-item>
+          <ion-label color="primary" position="stacked">premuim</ion-label>
+          <ion-input readonly>{{ premuim | currency }}</ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+   
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label color="primary" position="stacked">term</ion-label>
+          <ion-input color="danger" readonly>{{ term }}</ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>   
+  </ion-grid>
+</ion-content>

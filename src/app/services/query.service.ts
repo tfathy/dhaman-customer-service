@@ -1,8 +1,10 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+
 import { Observable } from "rxjs";
 import { environment } from "src/environments/environment";
 import { ApplicationStatus } from "../shared/models/application-status";
+import { ContractAnnexModel } from "../shared/models/contract-annex-model";
 import { ContractSummary } from "../shared/models/contract-summary";
 import { IsuredShipmentsModel } from "../shared/models/isured-shipments-model";
 import { OverdueShipmentModel } from "../shared/models/overdue-shipment-model";
@@ -77,6 +79,21 @@ export class QueryService {
     });
     return this.http.get<IsuredShipmentsModel[]>(
       `${environment.backendUrl}/crm-operations/query/issued-shipments/${customerRef}`,
+      { headers: headerInfo }
+    );
+  }
+  /*
+  contract annex
+  */
+  findContractAnnex(
+    token: string,
+    contApplicant: number
+  ): Observable<ContractAnnexModel[]> {
+    const headerInfo = new HttpHeaders({
+      Authorization: token,
+    });
+    return this.http.get<ContractAnnexModel[]>(
+      `${environment.backendUrl}/crm-operations/query/contract-annex/${contApplicant}`,
       { headers: headerInfo }
     );
   }

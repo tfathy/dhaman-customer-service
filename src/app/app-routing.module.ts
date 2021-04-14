@@ -47,6 +47,10 @@ const routes: Routes = [
   {
     path: 'isured-shipments',
     loadChildren: () => import('./isured-shipments/isured-shipments.module').then( m => m.IsuredShipmentsPageModule),canLoad:[AuthGuard]
+  },
+  {
+    path: 'contract-annex',
+    loadChildren: () => import('./contract-annex/contract-annex.module').then( m => m.ContractAnnexPageModule)
   }
 ];
 

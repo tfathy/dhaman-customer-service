@@ -38,8 +38,10 @@
           </ion-list>
           <!--  login button -->
           <ion-row>
-            <ion-col>
-              <ion-button  (click)="onLogin(loginForm)" expand="block" fill="outline" >Login</ion-button>
+            <ion-col>             
+              <ion-button  (click)="onLogin(loginForm)" expand="block" fill="outline" shape="round" >
+                <ion-icon slot="start" name="log-in"></ion-icon>
+                Login</ion-button>
             </ion-col>            
           </ion-row>
           

@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
-import { NavController, ToastController } from "@ionic/angular";
+import { LoadingController, NavController, ToastController } from "@ionic/angular";
 import { IonicSelectableComponent } from "ionic-selectable";
 import { ApplicationService } from "src/app/services/application.service";
 import { CurrencyService } from "src/app/services/currency.service";
@@ -32,20 +32,27 @@ export class CreditLimitFormPage implements OnInit {
     private toastCtrl: ToastController,
     private applicationService: ApplicationService,
     private currencyService: CurrencyService,
-    private router: Router
+    private router: Router,
+    private loadingCtrl: LoadingController
   ) {}
 
   async ngOnInit() {
-    console.log(">>>>> Credit-limit-form");
-    await getSessionInfo("authData").then((result) => {
+    this.loadingCtrl.create({
+      message: 'loading data ...'
+    }).then(loadingElm=>{
+      loadingElm.present();
+      getSessionInfo("authData").then((result) => {
       this.authToken = result;
       this.populateCurrencies();
+      loadingElm.dismiss();
     });
+    })
+    
   }
   ionViewWillEnter() {
-    this.route.paramMap.subscribe((param) => {
-      this.applicationId = (param.get("applicationId") as unknown) as number;
-      console.log("this.applicationId =" + this.applicationId);
+    
+      this.route.paramMap.subscribe((param) => {
+      this.applicationId = (param.get("applicationId") as unknown) as number;     
       if (this.applicationId > 0) {
         this.queryMasterRecord();
       } else {
@@ -53,10 +60,17 @@ export class CreditLimitFormPage implements OnInit {
           "open in entery mode. you should pass -1 as a parameter to the save action"
         );
       }
+      
     });
+   
+    
   }
   private queryMasterRecord() {
-    this.applicationService
+    this.loadingCtrl.create({
+      message: 'please wait...'
+    }).then(loadingEl=>{
+      loadingEl.present();
+      this.applicationService
       .findById("Bearer " + this.authToken.token, this.applicationId)
       .subscribe((data) => {
         this.model.clRef = data.clRef;
@@ -69,10 +83,14 @@ export class CreditLimitFormPage implements OnInit {
         this.model.whoColumns = data.whoColumns;
         this.model.comprehensiveLimitsDetailsEntity =
           data.comprehensiveLimitsDetailsEntity;
+          loadingEl.dismiss();
       }),
       (error) => {
         console.log(error);
+        loadingEl.dismiss();
       };
+    })
+    
   }
   private populateCurrencies() {
     this.currencyService

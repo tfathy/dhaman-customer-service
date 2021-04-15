@@ -1,17 +1,25 @@
 <ion-header>
   <app-primary-toolbar > </app-primary-toolbar>
   <ion-toolbar color="secondary" >
-    <ion-buttons slot="start">
+
+    <ion-buttons slot="start" *ngIf="!showSearchbar">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title>
-         Search
-    </ion-title>
+    <ion-title *ngIf="!showSearchbar"> Search </ion-title>
+    <ion-searchbar
+      *ngIf="showSearchbar"
+      showCancelButton="always"
+      [(ngModel)]="queryText"
+      (ionChange)="findCustomer($event)"
+      (ionCancel)="onCancelSearch()"
+      placeholder="Enter Buyer Name"
+    ></ion-searchbar>
     <ion-buttons slot="end">
-      <ion-button>
-        <ion-icon name="search"></ion-icon>
+      <ion-button *ngIf="!ios && !showSearchbar" (click)="showSearchbar = true">
+        <ion-icon slot="icon-only" name="search"></ion-icon>
       </ion-button>
     </ion-buttons>
+
   </ion-toolbar>
 </ion-header>
 

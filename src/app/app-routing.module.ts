@@ -25,10 +25,6 @@ const routes: Routes = [
     loadChildren: () => import('./declaration/declaration.module').then( m => m.DeclarationPageModule),canLoad:[AuthGuard]
   },
   {
-    path: 'credit-limit-filter',
-    loadChildren: () => import('./credit-limit-filter/credit-limit-filter.module').then( m => m.CreditLimitFilterPageModule)
-  },
-  {
     path: 'user-profile',
     loadChildren: () => import('./user-profile/user-profile.module').then( m => m.UserProfilePageModule),canLoad:[AuthGuard]
   },

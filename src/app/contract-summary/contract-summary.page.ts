@@ -51,27 +51,24 @@ export class ContractSummaryPage implements OnInit {
 
   findCustomer(event) {
     let query: string = event.detail.value;
-    let tempAppData;
+    console.log("************************")
+    console.log(query);  
+    let filteredData; 
     if (!query) {
       this.ngOnInit();
-    } /*
-    let filteredData = query
-      ? this.allApplications.filter((item) =>
-          item.comprehensiveLimitsDetailsEntity?.some(
-            (row) =>
-              row.cldDebtorNameEn.toLowerCase().indexOf(query.toLowerCase()) >
-              -1
-          )
-        )
-      : tempAppData;
+    }else{
+      filteredData =   this.contractList.filter(
+          (row) =>  row.buyerName.toLocaleLowerCase().indexOf(query.toLocaleLowerCase()) > -1
+        );
 
-    return of(filteredData).subscribe((data) => {
-      console.log(data);
-      this.allApplications = data;
+        return of(filteredData).subscribe(
+          data=>{
+            this.contractList = data;
+          }
+        )
     }
-    );
-    */
   }
+
   doRefresh(event){
     let compRef;
     getSessionInfo("customer").then((customerInfo) => {

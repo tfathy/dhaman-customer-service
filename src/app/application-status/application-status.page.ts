@@ -49,6 +49,7 @@ export class ApplicationStatusPage implements OnInit {
               .subscribe((responseData) => {
                 this.allApplications = responseData;
                 this.inProcessApplications = responseData.filter(data=> data.currentStatus === 1);
+                this.acceptedApplications = responseData.filter(data=> data.currentStatus ===2);
                 this.rejectedApplications = responseData.filter(data=> data.currentStatus ===3);
                 loadingElement.dismiss();
               });

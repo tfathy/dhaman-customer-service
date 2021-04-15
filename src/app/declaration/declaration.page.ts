@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { LoadingController } from "@ionic/angular";
+import { of } from "rxjs";
 import { DeclarationService } from "../services/declaration.service";
 import { DeclarationResponseModel } from "../shared/models/declaration.response.model";
 import { getSessionInfo, sessionData } from "../shared/shared/session.storage";
@@ -13,6 +14,9 @@ import { getSessionInfo, sessionData } from "../shared/shared/session.storage";
 export class DeclarationPage implements OnInit {
   declarations: DeclarationResponseModel[] = [];
   authToken: sessionData;
+  showSearchbar: boolean = false;
+  queryText = "";
+  ios: boolean;
   constructor(
     private router: Router,
     private declarationService: DeclarationService,
@@ -53,4 +57,31 @@ export class DeclarationPage implements OnInit {
     ]);
   }
 
+  onCancelSearch() {
+    of(false).subscribe((data) => {
+      console.log(data);
+      this.showSearchbar = data;
+    });
+  }
+
+  findCustomer(event) {
+    let query: string = event.detail.value;
+    console.log("************************")
+    console.log(query);  
+    let filteredData; 
+    if (!query) {
+      this.ngOnInit();
+    }else{
+      filteredData =   this.declarations.filter(
+          (row) =>  row.company.compNameE.toLocaleLowerCase().indexOf(query.toLocaleLowerCase()) > -1
+        );
+
+        return of(filteredData).subscribe(
+          data=>{
+            this.declarations = data;
+          }
+        )
+    }
+  }
+  
 }

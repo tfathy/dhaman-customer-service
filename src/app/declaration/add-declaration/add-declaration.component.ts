@@ -1,0 +1,113 @@
+import { Component, Input, OnInit } from "@angular/core";
+import {
+  LoadingController,
+  ModalController,
+  ToastController,
+} from "@ionic/angular";
+import { IonicSelectableComponent } from "ionic-selectable";
+import { DeclarationService } from "src/app/services/declaration.service";
+import { LookUpService } from "src/app/services/look-up.service";
+import { BuyerInPolicyModel } from "src/app/shared/models/buyer-in-policy.model";
+import { BuyerRequestModel } from "src/app/shared/models/buyer.request.model";
+import { ICompany } from "src/app/shared/models/company.model";
+import { CurrencyResponseModel } from "src/app/shared/models/currency.model";
+import { DeclarationResponseModel } from "src/app/shared/models/declaration.response.model";
+import { PolicyResponseModel } from "src/app/shared/models/policy.reponse.model";
+import { WhoColumns } from "src/app/shared/models/who-columns.model";
+import {
+  getSessionInfo,
+  sessionData,
+} from "src/app/shared/shared/session.storage";
+
+@Component({
+  selector: "app-add-declaration",
+  templateUrl: "./add-declaration.component.html",
+  styleUrls: ["./add-declaration.component.scss"],
+})
+export class AddDeclarationComponent implements OnInit {
+  @Input() model: DeclarationResponseModel;
+  @Input() mode: string;
+  @Input() idx: number;
+  authToken: sessionData;
+
+  buyerList: BuyerInPolicyModel[] = [];
+  constructor(
+    private modalCtrl: ModalController,
+    private lookupService: LookUpService,
+    private loadingCtrl: LoadingController,
+    private declarationService: DeclarationService,
+    private toast: ToastController
+  ) {}
+
+  ngOnInit() {
+    console.log("idx="+this.idx);
+    console.log("mode="+this.mode);
+    console.log(this.model);
+
+    this.loadingCtrl
+      .create({
+        message: "loading ..",
+      })
+      .then((loadingElm) => {
+        loadingElm.present();
+        getSessionInfo("authData").then((authData) => {
+          this.authToken = authData;
+          this.lookupService
+            .findBuyersInPolicy(
+              "Bearer " + this.authToken.token,
+              this.model.policyNo
+            )
+            .subscribe((resData) => {
+              this.buyerList = resData;
+              console.log(this.buyerList);
+              loadingElm.dismiss();
+            });
+        });
+      });
+  }
+
+  save() {   
+      this.model.declarationsDetailEntity[this.idx].whoColumns = this.model.whoColumns;
+      this.model.declarationsDetailEntity[this.idx].dcRef = this.model.dcRef;   
+
+    console.log(this.model);
+    this.loadingCtrl
+      .create({
+        message: "Saving record...",
+      })
+      .then((loadingElmnt) => {
+        loadingElmnt.present();
+        this.declarationService
+          .create("Bearer " + this.authToken.token, this.model)
+          .subscribe((resData) => {
+            console.log(resData);
+            this.toast
+              .create({
+                message: "Transaction Saved successfully",
+                position: "middle",
+                duration: 1000,
+              })
+              .then((toastCtrl) => {
+                toastCtrl.present();
+              });
+            loadingElmnt.dismiss();
+            this.modalCtrl.dismiss({
+              saved: true,
+              newid: resData.dcRef,
+            });
+          });
+      });
+  }
+  cancel() {
+    this.modalCtrl.dismiss({
+      saved: false,
+    });
+  }
+
+  onBuyerChange(event: { component: IonicSelectableComponent; value: any }) {
+    console.log(event.value);
+    this.model.declarationsDetailEntity[this.idx].ddPrmRate = event.value.prmRate;
+    this.model.declarationsDetailEntity[this.idx].debtorRef = event.value
+      .compRef as number;
+  }
+}

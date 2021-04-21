@@ -17,6 +17,7 @@ import { CrmHttpInterceptor } from "./crm-http-interceptor";
 import { OverdueShipmentDtlComponent } from "./overdue-shipment/overdue-shipment-dtl/overdue-shipment-dtl.component";
 import { InsuredShipmetsDtlComponent } from "./isured-shipments/insured-shipmets-dtl/insured-shipmets-dtl.component";
 import { ContractAnnexDtlComponent } from "./contract-annex/contract-annex-dtl/contract-annex-dtl.component";
+import { AddDeclarationComponent } from "./declaration/add-declaration/add-declaration.component";
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { ContractAnnexDtlComponent } from "./contract-annex/contract-annex-dtl/c
     OverdueShipmentDtlComponent,
     InsuredShipmetsDtlComponent,
     ContractAnnexDtlComponent,
+    AddDeclarationComponent
   ],
   entryComponents: [],
   imports: [

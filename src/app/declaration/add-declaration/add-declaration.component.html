@@ -1,0 +1,81 @@
+<ion-header>
+  <ion-toolbar color="tertiary">
+    <ion-title>Declaration</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="save()">
+        save
+        <ion-icon color="danger" slot="end" name="save"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="start">
+      <ion-button (click)="cancel()">
+        close
+        <ion-icon slot="start" name="exit"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+ <ion-grid>
+   <ion-row>
+     <ion-col>
+      <ion-item>
+        <ion-label position="floating">Buyer</ion-label>
+        <ionic-selectable
+        name="compRef"
+        [items]="buyerList"
+        [canSearch]="true"  
+        itemTextField ="compNameE"
+        itemValueField="compRef"
+        (onChange) = "onBuyerChange($event)"
+        >
+        </ionic-selectable>
+      </ion-item>
+     </ion-col>
+   </ion-row>
+   <ion-row>
+     <ion-col>
+       <ion-item>
+         <ion-label position="floating">Invoice Value</ion-label>
+         <ion-input name="ddInvoiceValue" [(ngModel)]="model.declarationsDetailEntity[idx].ddInvoiceValue"></ion-input>
+       </ion-item>
+     </ion-col>
+     <ion-col>
+      <ion-item>
+        <ion-label position="floating">Invoice No</ion-label>
+        <ion-input name="ddInvoiceValue" [(ngModel)]="model.declarationsDetailEntity[idx].ddInvNo"></ion-input>
+      </ion-item>
+    </ion-col>
+   </ion-row>
+   <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating">Ship Date</ion-label>
+        <ion-datetime displayFormat="DD MM YY" name="ddInvoiceValue" [(ngModel)]="model.declarationsDetailEntity[idx].ddShipDate"></ion-datetime>
+      </ion-item>
+    </ion-col>
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating">Mat.Date</ion-label>
+        <ion-datetime displayFormat="DD MM YY" name="ddInvoiceValue" [(ngModel)]="model.declarationsDetailEntity[idx].ddMaturityDate"></ion-datetime>
+      </ion-item>
+    </ion-col>
+   </ion-row>
+   <ion-row>   
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating">Rate</ion-label>
+        <ion-input name="ddInvoiceValue" [(ngModel)]="model.declarationsDetailEntity[idx].ddPrmRate"></ion-input>
+      </ion-item>
+    </ion-col>
+   </ion-row>
+   <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating">Premuim Value</ion-label>
+        <ion-input name="ddInvoiceValue" [(ngModel)]="model.declarationsDetailEntity[idx].ddPremium"></ion-input>
+      </ion-item>
+    </ion-col>
+   </ion-row>
+ </ion-grid>
+</ion-content>

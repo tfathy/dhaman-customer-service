@@ -8,8 +8,7 @@
   <ion-toolbar color="secondary">
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
-    </ion-buttons>
-    <ion-title> Declaration </ion-title>
+    </ion-buttons>   
     <ion-buttons slot="end">
       <ion-button color="dark" (click)="addDeclarationDetail()">
         <ion-icon name="add-circle"></ion-icon>
@@ -21,24 +20,52 @@
 
 <ion-content>
   <form #form="ngForm" validate>
-    <ion-card button >
-      <ion-card-header>
-        <ion-item lines="none">         
-          <div class="ion-padding ion-text-start">
-            <h4>Policy No: {{model.policyNo}}</h4>
-            <h6>Currency:{{model.currency?model.currency.cuCode:''}}</h6>
-            <h6>Period:{{model.dcPeriod |date:'MM/yyyy' }}</h6>
-          </div>
-        </ion-item>
-      </ion-card-header>
-    </ion-card>
+    
+      <ng-container *ngIf="!id">
+      <ion-item>
+        <ion-label position="stacked" color="primary">Policy Number</ion-label>
+        <ionic-selectable     
+          name="policyNo"
+          [items]="policyList"     
+          [canSearch]="true"  
+          itemTextField ="policyNumber"
+          itemValueField="policyNumber"
+          (onChange) = "onItemChange($event)"
+        ></ionic-selectable>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked" color="primary"> Currency</ion-label>
+        <ion-input readonly  name="currency">{{selectedCurrency? selectedCurrency.cuCode : ''}}</ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked" color="primary"> Period</ion-label>
+        <ion-input placeholder="MM/YYYY" [(ngModel)]="selectedPeriod"
+        name="dcPeriod"></ion-input>     
+      </ion-item>
+    </ng-container>
+    <ng-container *ngIf="id">
+       <ion-item lines="none"> 
+            <ion-label position="staked" color="primary">Policy Number</ion-label>
+            <ion-input readonly >{{model.policyNo}}</ion-input>
+          </ion-item>
+          <ion-item>
+             <ion-label> Currency</ion-label>
+             <ion-input readonly>{{model.currency?model.currency.cuCode:''}}</ion-input>            
+          </ion-item>
+           <ion-item>
+             <ion-label position="staked">Period</ion-label>
+             <ion-input readonly>{{model.dcPeriod |date:'MM/yyyy' }}</ion-input>
+           </ion-item>
+    </ng-container>
+      
+  
     <ion-list>
       <ion-list-header><h3>Shipments</h3></ion-list-header>
       <ion-item *ngFor="let dtl of model.declarationsDetailEntity" button>
         <div class="ion-text-start">
           <h6>Invoice No. {{dtl.ddInvNo}}</h6>
-          <h6>Ship Date. {{dtl.ddShipDate | date:'mediumDate'}}</h6>
-          <h6>Mat. Date {{dtl.ddMaturityDate | date:'mediumDate'}}</h6>
+          <h6>Ship Date. {{dtl.ddShipDate | date:'dd/MM/yyyy'}}</h6>
+          <h6>Mat. Date {{dtl.ddMaturityDate | date:'dd/MM/yyyy'}}</h6>
           <h6>Invoice Val. {{dtl.ddInvoiceValue}}</h6>
         </div>
       </ion-item>

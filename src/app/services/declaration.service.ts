@@ -35,4 +35,15 @@ export class DeclarationService {
       { headers: headerInfo }
     );
   }
+
+  create(token: string, body: DeclarationResponseModel) {
+    const headerInfo = new HttpHeaders({
+      Authorization: token,
+    });
+    return this.http.post<DeclarationResponseModel>(
+      `${environment.backendUrl}/crm-operations/declaration`,
+      body,
+      { headers: headerInfo }
+    );
+  }
 }

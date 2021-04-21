@@ -1,10 +1,12 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
-import { LoadingController } from "@ionic/angular";
+import { LoadingController, ModalController } from "@ionic/angular";
 import { of } from "rxjs";
 import { DeclarationService } from "../services/declaration.service";
 import { DeclarationResponseModel } from "../shared/models/declaration.response.model";
+import { WhoColumns } from "../shared/models/who-columns.model";
 import { getSessionInfo, sessionData } from "../shared/shared/session.storage";
+import { AddDeclarationComponent } from "./add-declaration/add-declaration.component";
 
 @Component({
   selector: "app-declaration",
@@ -20,7 +22,8 @@ export class DeclarationPage implements OnInit {
   constructor(
     private router: Router,
     private declarationService: DeclarationService,
-    private loadingCtrl: LoadingController
+    private loadingCtrl: LoadingController,
+    private modalCtrl: ModalController
   ) {}
 
   async ngOnInit() {
@@ -35,26 +38,55 @@ export class DeclarationPage implements OnInit {
           await this.declarationService.findCustomerDelcarations(
             "Bearer " + this.authToken.token
           )
-        ).subscribe((data) => {
-          this.declarations = data;
-          loadingElement.dismiss();
-        },error=>{
-          loadingElement.dismiss();
-          console.log(error);
-        });
+        ).subscribe(
+          (data) => {
+            this.declarations = data;
+            loadingElement.dismiss();
+          },
+          (error) => {
+            loadingElement.dismiss();
+            console.log(error);
+          }
+        );
       });
   }
   createDeclaration() {
     this.router.navigate(["/", "declaration", "declaration-form"]);
+/*
+    getSessionInfo("customer").then((data) => {
+      this.modalCtrl
+        .create({
+          component: AddDeclarationComponent,
+          componentProps: {
+            company: data,
+            transType: 2,
+            status: "SAV",
+            whoColumns: new WhoColumns(
+              new Date(),
+              this.authToken.loginName,
+              "",
+              new Date(),
+              "",
+              ""
+            ),
+          },
+        })
+        .then((modalElm) => {
+          modalElm.present();
+          modalElm.onDidDismiss().then(dismissedData=>{
+            console.log(dismissedData.data.saved);
+            if(dismissedData.data.saved===true){
+              console.log("data saved");
+              this.ngOnInit();
+            }
+          })
+        });
+    });
+*/
   }
   viewRecord(id) {
     console.log(id);
-    this.router.navigate([
-      "/",
-      "declaration",
-      "declaration-form",
-      id,
-    ]);
+    this.router.navigate(["/", "declaration", "declaration-form", id]);
   }
 
   onCancelSearch() {
@@ -66,22 +98,22 @@ export class DeclarationPage implements OnInit {
 
   findCustomer(event) {
     let query: string = event.detail.value;
-    console.log("************************")
-    console.log(query);  
-    let filteredData; 
+    console.log("************************");
+    console.log(query);
+    let filteredData;
     if (!query) {
       this.ngOnInit();
-    }else{
-      filteredData =   this.declarations.filter(
-          (row) =>  row.company.compNameE.toLocaleLowerCase().indexOf(query.toLocaleLowerCase()) > -1
-        );
+    } else {
+      filteredData = this.declarations.filter(
+        (row) =>
+          row.company.compNameE
+            .toLocaleLowerCase()
+            .indexOf(query.toLocaleLowerCase()) > -1
+      );
 
-        return of(filteredData).subscribe(
-          data=>{
-            this.declarations = data;
-          }
-        )
+      return of(filteredData).subscribe((data) => {
+        this.declarations = data;
+      });
     }
   }
-  
 }

@@ -2,7 +2,8 @@ export interface IPolocy{
     policyPk: PolicyPk;
     contNo: number;
     contYear: number;
-    contDate: Date;
+    contDate: Date;   
+    contCurrency: string; 
 }
 interface PolicyPk{
     policyNo: string;

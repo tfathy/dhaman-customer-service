@@ -8,13 +8,15 @@
   <ion-toolbar color="secondary" >
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
+      <ion-button *ngIf="model.status==='SAV'" (click)="submit();">
+        <ion-icon  slot="start" color="light" name="checkmark-circle"></ion-icon>  
+        Submit
+      </ion-button>
     </ion-buttons>    
-    <ion-title>
-      Credit Limit
-    </ion-title>
+    
     <ion-buttons slot="end">
-      <ion-button  color="dark" (click)="addBuyer()" >
-        <ion-icon name="add-circle"></ion-icon>
+      <ion-button  color="light" (click)="addBuyer()" >
+        <ion-icon color="light" name="add-circle"></ion-icon>
         Add Buyer</ion-button>   
     </ion-buttons>
   </ion-toolbar>
@@ -59,8 +61,8 @@
         </ion-col>
       </ion-row>         
     </ion-grid>
-  <ion-list>
-    <ion-list-header *ngIf="model.comprehensiveLimitsDetailsEntity"><h2>List of Buyers</h2></ion-list-header>
+  <ion-list class="ion-margin">
+    <ion-list-header *ngIf="model.comprehensiveLimitsDetailsEntity"><h6>List of Buyers</h6></ion-list-header>
     <div class="ion-text-center" *ngIf="!model.comprehensiveLimitsDetailsEntity || model.comprehensiveLimitsDetailsEntity.length==0">
       <p class="ion-padding"> No Buyers found in this request. Click add Buyer button</p>
     </div>

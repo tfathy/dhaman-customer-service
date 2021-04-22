@@ -8,12 +8,7 @@ import { IonicSelectableComponent } from "ionic-selectable";
 import { DeclarationService } from "src/app/services/declaration.service";
 import { LookUpService } from "src/app/services/look-up.service";
 import { BuyerInPolicyModel } from "src/app/shared/models/buyer-in-policy.model";
-import { BuyerRequestModel } from "src/app/shared/models/buyer.request.model";
-import { ICompany } from "src/app/shared/models/company.model";
-import { CurrencyResponseModel } from "src/app/shared/models/currency.model";
 import { DeclarationResponseModel } from "src/app/shared/models/declaration.response.model";
-import { PolicyResponseModel } from "src/app/shared/models/policy.reponse.model";
-import { WhoColumns } from "src/app/shared/models/who-columns.model";
 import {
   getSessionInfo,
   sessionData,
@@ -28,6 +23,7 @@ export class AddDeclarationComponent implements OnInit {
   @Input() model: DeclarationResponseModel;
   @Input() mode: string;
   @Input() idx: number;
+  @Input() ddRef: number;
   authToken: sessionData;
 
   buyerList: BuyerInPolicyModel[] = [];
@@ -40,11 +36,7 @@ export class AddDeclarationComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    console.log("idx="+this.idx);
-    console.log("mode="+this.mode);
-    console.log(this.model);
-
-    this.loadingCtrl
+      this.loadingCtrl
       .create({
         message: "loading ..",
       })
@@ -52,6 +44,9 @@ export class AddDeclarationComponent implements OnInit {
         loadingElm.present();
         getSessionInfo("authData").then((authData) => {
           this.authToken = authData;
+          if(this.ddRef){
+            this.fetchShipmentDtl(this.ddRef);
+          }
           this.lookupService
             .findBuyersInPolicy(
               "Bearer " + this.authToken.token,
@@ -63,7 +58,9 @@ export class AddDeclarationComponent implements OnInit {
               loadingElm.dismiss();
             });
         });
+        
       });
+      
   }
 
   save() {   
@@ -107,7 +104,13 @@ export class AddDeclarationComponent implements OnInit {
   onBuyerChange(event: { component: IonicSelectableComponent; value: any }) {
     console.log(event.value);
     this.model.declarationsDetailEntity[this.idx].ddPrmRate = event.value.prmRate;
-    this.model.declarationsDetailEntity[this.idx].debtorRef = event.value
-      .compRef as number;
+   // this.model.declarationsDetailEntity[this.idx].debtorRef = event.value.compRef as number;
+  }
+
+  private fetchShipmentDtl(ddRef: number){
+    this.declarationService.findShipmentById("Bearer "+this.authToken.token,ddRef)
+    .subscribe(data=>{     
+      this.model.declarationsDetailEntity[this.idx] = data;
+    })
   }
 }

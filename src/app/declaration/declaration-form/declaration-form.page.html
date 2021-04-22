@@ -7,71 +7,126 @@
   </app-primary-toolbar>
   <ion-toolbar color="secondary">
     <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
-    </ion-buttons>   
+      <ion-back-button></ion-back-button>   
+      <ion-button color="light" *ngIf="model.status==='SAV'" (click)="submit()">
+        <ion-icon slot="end" name="checkmark-circle"></ion-icon>
+        Submit
+      </ion-button> 
+    </ion-buttons>
     <ion-buttons slot="end">
-      <ion-button color="dark" (click)="addDeclarationDetail()">
-        <ion-icon name="add-circle"></ion-icon>
+      <ion-button color="light" (click)="addDeclarationDetail()" *ngIf="model.status==='SAV' || !model.status " >
+        <ion-icon color="light" name="add-circle" slot="end"></ion-icon>
         Add Shipment</ion-button
       >
     </ion-buttons>
+  
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <form #form="ngForm" validate>
-    
-      <ng-container *ngIf="!id">
-      <ion-item>
-        <ion-label position="stacked" color="primary">Policy Number</ion-label>
-        <ionic-selectable     
-          name="policyNo"
-          [items]="policyList"     
-          [canSearch]="true"  
-          itemTextField ="policyNumber"
-          itemValueField="policyNumber"
-          (onChange) = "onItemChange($event)"
-        ></ionic-selectable>
-      </ion-item>
-      <ion-item>
-        <ion-label position="stacked" color="primary"> Currency</ion-label>
-        <ion-input readonly  name="currency">{{selectedCurrency? selectedCurrency.cuCode : ''}}</ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label position="stacked" color="primary"> Period</ion-label>
-        <ion-input placeholder="MM/YYYY" [(ngModel)]="selectedPeriod"
-        name="dcPeriod"></ion-input>     
-      </ion-item>
+    <ng-container *ngIf="!id">
+      <ion-grid>
+        <ion-row>
+          <ion-col size="9">
+            <ion-item>
+              <ion-label position="floating" color="primary">Policy</ion-label>
+              <ionic-selectable
+                name="policyNo"
+                [items]="policyList"
+                [canSearch]="true"
+                itemTextField="policyNumber"
+                itemValueField="policyNumber"
+                (onChange)="onItemChange($event)"
+              ></ionic-selectable>
+            </ion-item>
+          </ion-col>
+          <ion-col size="3">
+            <ion-item lines="none">
+              <ion-input readonly name="currency"
+                >{{selectedCurrency? selectedCurrency.cuCode : ''}}</ion-input
+              >
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating">Period</ion-label>
+              <ion-datetime
+                displayFormat="MM/YYYY"
+                [(ngModel)]="selectedPeriod"
+                name="dcPeriod"
+              ></ion-datetime>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     </ng-container>
+
     <ng-container *ngIf="id">
-       <ion-item lines="none"> 
-            <ion-label position="staked" color="primary">Policy Number</ion-label>
-            <ion-input readonly >{{model.policyNo}}</ion-input>
-          </ion-item>
-          <ion-item>
-             <ion-label> Currency</ion-label>
-             <ion-input readonly>{{model.currency?model.currency.cuCode:''}}</ion-input>            
-          </ion-item>
-           <ion-item>
-             <ion-label position="staked">Period</ion-label>
-             <ion-input readonly>{{model.dcPeriod |date:'MM/yyyy' }}</ion-input>
-           </ion-item>
+      <ion-grid>
+        <ion-row>
+          <ion-col size="8">
+            <ion-item>
+              <ion-label position="fixed" color="primary">Policy</ion-label>
+              <ion-input readonly>{{model.policyNo}}</ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="4">
+            <ion-item>
+              <ion-input readonly
+                >{{model.currency?model.currency.cuCode:''}}</ion-input
+              >
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label position="fixed">Period</ion-label>
+              <ion-input readonly
+                >{{model.dcPeriod |date:'MM/yyyy' }}</ion-input
+              >
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     </ng-container>
-      
-  
-    <ion-list>
-      <ion-list-header><h3>Shipments</h3></ion-list-header>
-      <ion-item *ngFor="let dtl of model.declarationsDetailEntity" button>
-        <div class="ion-text-start">
-          <h6>Invoice No. {{dtl.ddInvNo}}</h6>
-          <h6>Ship Date. {{dtl.ddShipDate | date:'dd/MM/yyyy'}}</h6>
-          <h6>Mat. Date {{dtl.ddMaturityDate | date:'dd/MM/yyyy'}}</h6>
-          <h6>Invoice Val. {{dtl.ddInvoiceValue}}</h6>
-        </div>
+
+    <ion-list class="ion-margin">
+      <ion-list-header><h6>Shipments</h6></ion-list-header>
+      <ion-item *ngFor="let dtl of model.declarationsDetailEntity; index as i" button (click)="viewShipment(dtl,i)">
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <h6>{{model.declarationsDetailEntity[i].company.compNameE}}</h6>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="6">
+              <ion-label position="stacked">Inv No.</ion-label>
+              <ion-input readonly>{{dtl.ddInvNo}}</ion-input>
+            </ion-col>
+            <ion-col size="6">
+              <ion-label position="stacked">Shipped.</ion-label>
+              <ion-input readonly
+                >{{dtl.ddShipDate | date:'dd/MM/yyyy'}}</ion-input
+              >
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-label position="stacked">Value.</ion-label>
+              <ion-input readonly>{{dtl.ddInvoiceValue | currency}}</ion-input>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
       </ion-item>
     </ion-list>
   </form>
 </ion-content>
+
 <ion-footer class="ion-no-border">
   <ion-toolbar color="primary">
     <ion-title>Declaration Details</ion-title>

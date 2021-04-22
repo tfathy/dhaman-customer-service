@@ -4,9 +4,9 @@ import { LoadingController, ModalController } from "@ionic/angular";
 import { of } from "rxjs";
 import { DeclarationService } from "../services/declaration.service";
 import { DeclarationResponseModel } from "../shared/models/declaration.response.model";
-import { WhoColumns } from "../shared/models/who-columns.model";
+
 import { getSessionInfo, sessionData } from "../shared/shared/session.storage";
-import { AddDeclarationComponent } from "./add-declaration/add-declaration.component";
+
 
 @Component({
   selector: "app-declaration",
@@ -98,22 +98,24 @@ export class DeclarationPage implements OnInit {
 
   findCustomer(event) {
     let query: string = event.detail.value;
-    console.log("************************");
-    console.log(query);
-    let filteredData;
+    let tempAppData;
     if (!query) {
       this.ngOnInit();
-    } else {
-      filteredData = this.declarations.filter(
-        (row) =>
-          row.company.compNameE
-            .toLocaleLowerCase()
-            .indexOf(query.toLocaleLowerCase()) > -1
-      );
-
-      return of(filteredData).subscribe((data) => {
-        this.declarations = data;
-      });
     }
+    let filteredData = query
+      ? this.declarations.filter((item) =>
+          item.declarationsDetailEntity?.some(
+            (row) =>
+              row.company?.compNameE.toLowerCase().indexOf(query.toLowerCase()) >
+              -1
+          )
+        )
+      : tempAppData;
+
+    return of(filteredData).subscribe((data) => {
+      console.log(data);
+      this.declarations = data;
+    });
   }
+
 }

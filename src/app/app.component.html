@@ -7,19 +7,13 @@
   >
     <ion-content>
       <div class="app-logo"></div>
-      <ion-list id="inbox-list">
+      <ion-list class="ion-margin">
+        <ion-list-header> Transactions</ion-list-header>
         <ion-menu-toggle>
           <ion-item lines="none" button [routerLink]="'/'">
             <ion-icon slot="start" name="aperture-outline"></ion-icon>
             <ion-label>Home</ion-label>
           </ion-item>
-<!--  
-  <ion-item lines="none" button [routerLink]="'application-search'">
-            <ion-icon slot="start" name="aperture-outline"></ion-icon>
-            <ion-label>New Application</ion-label>
-          </ion-item>
--->
-          
 
           <ion-item lines="none" button [routerLink]="'credit-limit'">
             <ion-icon slot="start" name="create-outline"></ion-icon>
@@ -32,29 +26,29 @@
         </ion-menu-toggle>
       </ion-list>
 
-      <ion-list id="labels-list">
-        <ion-list-header>Reports</ion-list-header>
+      <ion-list class="ion-margin">
+        <ion-list-header >Reports</ion-list-header>
         <ion-menu-toggle>
-          <ion-item lines="none" button routerDirection="root">
+          <ion-item lines="none" button [routerLink]="'application-status'">
             <ion-icon slot="start" name="aperture-outline"></ion-icon>
             <ion-label>Application Status</ion-label>
           </ion-item>
-          <ion-item lines="none" button routerDirection="root">
+          <ion-item lines="none" button [routerLink]="['/contract-summary']">
             <ion-icon slot="start" name="create-outline"></ion-icon>
             <ion-label>Contract Overview</ion-label>
           </ion-item>
-          <ion-item lines="none" button routerDirection="root">
+          <ion-item lines="none" button [routerLink]="['/contract-annex']">
             <ion-icon slot="start" name="boat-outline"></ion-icon>
             <ion-label>Contract Summary</ion-label>
           </ion-item>
-          <ion-item lines="none" button routerDirection="root">
+          <ion-item lines="none" button [routerLink]="'overdue-shipment'">
             <ion-icon slot="start" name="cloud-circle-outline"></ion-icon>
             <ion-label>Overdue Shipments</ion-label>
           </ion-item>
         </ion-menu-toggle>
       </ion-list>
 
-      <ion-list>
+      <ion-list class="ion-margin">
         <ion-list-header>Settings </ion-list-header>
         <ion-menu-toggle>
           <ion-item lines="none" button [routerLink]="'user-profile'">

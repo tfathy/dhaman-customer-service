@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
-import { LoadingController, NavController, ToastController } from "@ionic/angular";
+import { AlertController, LoadingController, NavController, ToastController } from "@ionic/angular";
 import { IonicSelectableComponent } from "ionic-selectable";
 import { ApplicationService } from "src/app/services/application.service";
 import { CurrencyService } from "src/app/services/currency.service";
@@ -33,7 +33,8 @@ export class CreditLimitFormPage implements OnInit {
     private applicationService: ApplicationService,
     private currencyService: CurrencyService,
     private router: Router,
-    private loadingCtrl: LoadingController
+    private loadingCtrl: LoadingController,
+    private alertCtrl: AlertController
   ) {}
 
   async ngOnInit() {
@@ -166,5 +167,28 @@ export class CreditLimitFormPage implements OnInit {
       .then((toastEl) => {
         toastEl.present();
       });
+  }
+
+  async submit(){
+    const alert = await this.alertCtrl.create({
+      header: 'Submit Transaction',
+      message: 'Would you like to submit the transaction?',
+      buttons: [{
+        text: 'No',       
+      },{
+        text: 'Yes',
+        handler: ()=>{          
+            this.submitTransaction(this.model);
+        }
+      }]
+    });
+    await alert.present();
+  }
+  private submitTransaction(app: ComprehensiveLimit){
+    this.applicationService.submit("Bearer "+this.authToken.token,app.clRef,app).subscribe(data=>{
+      this.showToast("Transaction Submitted");
+      this.router.navigate([ "/",
+      "credit-limit"])
+    });
   }
 }

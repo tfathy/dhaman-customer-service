@@ -1,9 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
-import { ModalController, ToastController } from "@ionic/angular";
+import { LoadingController, ModalController, ToastController } from "@ionic/angular";
 import { IonicSelectableComponent } from "ionic-selectable";
-import { error } from "selenium-webdriver";
-import { BuyerService } from "src/app/services/buyer.service";
 import { CurrencyService } from "src/app/services/currency.service";
 import { DeclarationService } from "src/app/services/declaration.service";
 import { LookUpService } from "src/app/services/look-up.service";
@@ -12,7 +10,7 @@ import { CurrencyResponseModel } from "src/app/shared/models/currency.model";
 import { DeclarationsDetailResponse } from "src/app/shared/models/declaration-detail.response";
 import { DeclarationResponseModel } from "src/app/shared/models/declaration.response.model";
 import { ICurrency } from "src/app/shared/models/icurrency.model";
-import { IPolocy } from "src/app/shared/models/policy";
+
 import { PolicyResponseModel } from "src/app/shared/models/policy.reponse.model";
 import { WhoColumns } from "src/app/shared/models/who-columns.model";
 import {
@@ -37,7 +35,7 @@ export class DeclarationFormPage implements OnInit {
   currencyList: ICurrency[] = [];
   policyList: PolicyResponseModel[] = [];
   selectedPolicyNo: string;
-  selectedPeriod: string;
+  selectedPeriod: Date;
   selectedContNo: number;
   selectedContYear: number;
   pageStaus = "new";
@@ -45,12 +43,27 @@ export class DeclarationFormPage implements OnInit {
     private route: ActivatedRoute,
     private toastCtrl: ToastController,
     private declationService: DeclarationService,
-    private currencyService: CurrencyService,
     private lookupServices: LookUpService,
     private router: Router,
-    private modalCtrl: ModalController
+    private modalCtrl: ModalController,
+    private loadingCtrl: LoadingController
   ) {}
-
+  submit() {
+    this.loadingCtrl.create({
+      message: 'Submitting request ... please wait'
+    }).then( loadingElmnt=>{
+      loadingElmnt.present();
+        this.declationService
+      .submit("Bearer " + this.authToken.token, this.model, this.model.dcRef)
+      .subscribe(responseData=>{
+        console.log(responseData);
+        loadingElmnt.dismiss();        
+        this.router.navigate([ "/","declaration",]);
+        this.showToast("Transaction Submitted. Status: ");
+      });
+    })
+  
+  }
   async ngOnInit() {
     await getSessionInfo("authData").then((result) => {
       this.authToken = result;
@@ -85,7 +98,6 @@ export class DeclarationFormPage implements OnInit {
 
     let idx = 0;
     let mode = this.model.dcRef ? "detail" : "masterDetail";
-    let period = new Date("01/" + this.selectedPeriod);
     getSessionInfo("customer").then((data) => {
       let dtl = [
         new DeclarationsDetailResponse(
@@ -109,7 +121,7 @@ export class DeclarationFormPage implements OnInit {
           data,
           2,
           this.selectedPolicyNo,
-          period,
+          this.selectedPeriod,
           this.selectedCurrency,
           "SAV",
           this.selectedContNo,
@@ -124,7 +136,7 @@ export class DeclarationFormPage implements OnInit {
           )
         );
       } else {
-        idx = this.model.declarationsDetailEntity.length ;
+        idx = this.model.declarationsDetailEntity.length;
         this.model.declarationsDetailEntity.push(
           new DeclarationsDetailResponse(
             null,
@@ -157,10 +169,12 @@ export class DeclarationFormPage implements OnInit {
               this.id = dismissedData.data.newid;
               console.log("this.id=" + this.id);
               this.queryMasterRecord();
+            } else {
+              this.queryMasterRecord();
             }
           });
         });
-    });   
+    });
   }
 
   openDeclationDetailPage(detailId: number) {
@@ -175,7 +189,6 @@ export class DeclarationFormPage implements OnInit {
     ]);
   }
 
-  
   private populatePolicyList() {
     getSessionInfo("customer").then((data) => {
       let customerRef = data.compRef;
@@ -214,7 +227,6 @@ export class DeclarationFormPage implements OnInit {
         console.log(error);
       };
   }
-  
 
   private showToast(msg: string) {
     this.toastCtrl
@@ -234,5 +246,25 @@ export class DeclarationFormPage implements OnInit {
     this.selectedPolicyNo = event.value.policyNumber;
     this.selectedContNo = event.value.contNo;
     this.selectedContYear = event.value.contYear;
+  }
+
+  viewShipment(dtl: DeclarationsDetailResponse, index) {
+    console.log(dtl);
+    let mode = "query";
+    this.queryMasterRecord();
+    this.modalCtrl
+      .create({
+        component: AddDeclarationComponent,
+        componentProps: {
+          ddRef: dtl.ddRef,
+          mode: mode,
+          model: this.model,
+          idx: index,
+        },
+      })
+      .then((modalElmnt) => {
+        modalElmnt.present();
+        modalElmnt.onDidDismiss().then((dismissData) => {});
+      });
   }
 }

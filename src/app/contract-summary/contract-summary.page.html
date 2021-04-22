@@ -33,7 +33,7 @@
     </ion-refresher-content>
   </ion-refresher>
   
-    <ion-list>
+    <ion-list class="ion-margin">
       <ion-card *ngFor="let contract of contractList" button (click)="openModal(contract)">
         <ion-card-header>
           <ion-title>{{contract.buyerName}}</ion-title>

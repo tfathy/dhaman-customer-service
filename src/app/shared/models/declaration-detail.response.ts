@@ -1,10 +1,11 @@
+import { ICompany } from "./company.model";
 import { WhoColumns } from "./who-columns.model";
 
 export class DeclarationsDetailResponse{
     constructor(
         public ddRef?: number,
         public dcRef?: number,
-        public debtorRef?: number,
+        public company?: ICompany,
         public ddInvoiceValue?: number,
         public ddPremium?: number,
         public ddInvNo?: string,

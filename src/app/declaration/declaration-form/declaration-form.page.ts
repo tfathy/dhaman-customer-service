@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { LoadingController, ModalController, ToastController } from "@ionic/angular";
 import { IonicSelectableComponent } from "ionic-selectable";
-import { CurrencyService } from "src/app/services/currency.service";
+
 import { DeclarationService } from "src/app/services/declaration.service";
 import { LookUpService } from "src/app/services/look-up.service";
 import { BuyerRequestModel } from "src/app/shared/models/buyer.request.model";
@@ -28,7 +28,7 @@ export class DeclarationFormPage implements OnInit {
   authToken: sessionData;
   model: DeclarationResponseModel = new DeclarationResponseModel();
   newModel: DeclarationResponseModel;
-  title = "Credit Limit";
+  title = "Declarations";
   id: number;
   selectedCurrency: CurrencyResponseModel;
   buyerList: BuyerRequestModel[] = [];
@@ -267,4 +267,8 @@ export class DeclarationFormPage implements OnInit {
         modalElmnt.onDidDismiss().then((dismissData) => {});
       });
   }
+  back(){
+    this.router.navigate(['/','declaration']);
+  }
+
 }

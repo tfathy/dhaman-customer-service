@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { sessionData } from '../../shared/session.storage';
 
@@ -18,12 +19,14 @@ export class PrimaryToolbarComponent implements OnInit {
 
   authToken: sessionData;
 
-  constructor(private authService: AuthService) { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
     this._companyName = sessionStorage.getItem("compNameE");
     this._userName = sessionStorage.getItem("loginName");
   
   }
-
+  goHome(){
+    this.router.navigate(['/home']);
+  }
 }

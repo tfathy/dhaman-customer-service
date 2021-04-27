@@ -24,9 +24,9 @@ export class LoginPage implements OnInit {
     private alertCtrl: AlertController
   ) {}
 
-
   ngOnInit() {}
-  onLogin(form: NgForm) {   
+
+  onLogin(form: NgForm) {
     this.loadingCtrl
       .create({ message: "Authenticating .. please wait" })
       .then((loadingElement) => {
@@ -34,38 +34,31 @@ export class LoginPage implements OnInit {
         this.authService
           .authLogin(this.creds.loginName, this.creds.password)
           .pipe(first())
-          .subscribe((respData: HttpResponse<any>) => {
-            console.log("respData>>>>>>>");
-            console.log(respData);
-            if(respData.ok){
-               form.reset;  
-            loadingElement.dismiss();            
-            this.router.navigateByUrl("/home");
-            }else{
-              loadingElement.dismiss();              
-              this.showAlert('Invalid username or password. Login denied');
-              return;
+          .subscribe(
+            (respData) => {
+              console.log(respData);
+              form.reset;
+              loadingElement.dismiss();
+              this.router.navigateByUrl("/home");
+            },
+            (error: HttpResponse<any>) => {
+              loadingElement.dismiss();
+              console.log("error" + error.status);
+              this.showAlert(error.status+": Login Error: "+error.statusText);
             }
-            
-          }),
-          (error) => {
-            console.log("Login error >>" );
-            console.log(error);
-            loadingElement.dismiss();
-            this.showAlert(error);
-          };
+          );
       });
-    }
+  }
 
-    private showAlert(err: string) {
-      this.alertCtrl
-        .create({
-          header: "Authentication Failed ",
-          message: err,
-          buttons: ["ok"],
-        })
-        .then((alertElemnt) => {
-          alertElemnt.present();
-        });
-    }
+  private showAlert(err: string) {
+    this.alertCtrl
+      .create({
+        header: "Authentication Failed ",
+        message: err,
+        buttons: ["ok"],
+      })
+      .then((alertElemnt) => {
+        alertElemnt.present();
+      });
+  }
 }

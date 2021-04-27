@@ -117,5 +117,8 @@ export class DeclarationPage implements OnInit {
       this.declarations = data;
     });
   }
-
+	 
+  back(){
+    this.router.navigate(['/','home']);
+  }
 }

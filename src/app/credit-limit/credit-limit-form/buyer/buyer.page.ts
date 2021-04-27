@@ -218,4 +218,7 @@ export class BuyerPage implements OnInit {
         toastElemnt.present();
       });
   }
+  back(){
+    this.router.navigate(['/','credit-limit','credit-limit-form',this.clRef]);
+  }
 }

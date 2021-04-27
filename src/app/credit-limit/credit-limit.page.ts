@@ -2,14 +2,12 @@ import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import {
   AlertController,
-  Config,
-  IonRouterOutlet,
+  Config,  
   LoadingController,
   ModalController,
   ToastController,
 } from "@ionic/angular";
 import { of } from "rxjs";
-
 
 import {
   getSessionInfo,
@@ -35,15 +33,15 @@ export class CreditLimitPage implements OnInit {
     private applicationService: ApplicationService,
     private router: Router,
     public config: Config,
-    public modalCtrl: ModalController,
-    public routerOutlet: IonRouterOutlet,
+    public modalCtrl: ModalController,    
     private loadingCtrl: LoadingController,
     private alertCtrl: AlertController,
     private toastCtrl: ToastController
   ) {}
 
-  async ngOnInit() {
-    
+   ngOnInit() {   
+  }
+  async ionViewWillEnter(){
     this.authToken = await getSessionInfo("authData");
     this.loadingCtrl
       .create({
@@ -61,7 +59,10 @@ export class CreditLimitPage implements OnInit {
             this.applicationData = data;
             loadingElement.dismiss();
           },
-          (error) => loadingElement.dismiss()
+          (error) => {
+            loadingElement.dismiss();
+            this.showToast(error.statusText);
+          }
         );
       });
   }
@@ -76,7 +77,7 @@ export class CreditLimitPage implements OnInit {
     ]);
   }
   createApp() {
-    this.router.navigate(["/", "credit-limit", "credit-limit-form",-1]);
+    this.router.navigate(["/", "credit-limit", "credit-limit-form", -1]);
   }
   async doRefresh(event) {
     this.authToken = await getSessionInfo("authData");
@@ -121,62 +122,41 @@ export class CreditLimitPage implements OnInit {
       console.log(data);
       this.applicationData = data;
     });
-
-    /*
-    this.authToken = await getSessionInfo("authData");
-    this.loadingCtrl
-      .create({
-        message: "Searching .... please wait",
-      })
-      .then(async (loadingElmnt) => {
-        loadingElmnt.present();
-        (
-          await this.applicationService.filterAll(
-            "Bearer " + this.authToken.token,
-            query
-          )
-        ).subscribe((data) => {
-          console.log(data);
-          this.applicationData = data;
-          loadingElmnt.dismiss();
-        } , err => {
-          console.log(err);
-          loadingElmnt.dismiss();
-        }
-        );
-      });
-      */
   }
-  onCancelSearch(){
-    of(false).subscribe(data=>{
+  onCancelSearch() {
+    of(false).subscribe((data) => {
       console.log(data);
-       this.showSearchbar = data;
-
-    }
-      
-       );
+      this.showSearchbar = data;
+    });
   }
-  async submit(slidingItem ,app){
+  async submit(slidingItem, app) {
     const alert = await this.alertCtrl.create({
-      header: 'Submit Transaction',
-      message: 'Would you like to submit the transaction?',
-      buttons: [{
-        text: 'No',
-        handler: ()=>{slidingItem.close()}
-      },{
-        text: 'Yes',
-        handler: ()=>{
-           slidingItem.close();
+      header: "Submit Transaction",
+      message: "Would you like to submit the transaction?",
+      buttons: [
+        {
+          text: "No",
+          handler: () => {
+            slidingItem.close();
+          },
+        },
+        {
+          text: "Yes",
+          handler: () => {
+            slidingItem.close();
             this.submitTransaction(app);
-        }
-      }]
+          },
+        },
+      ],
     });
     await alert.present();
   }
-  private submitTransaction(app: ComprehensiveLimit){
-    this.applicationService.submit("Bearer "+this.authToken.token,app.clRef,app).subscribe(data=>{
-      this.showToast("Transaction Submitted");
-    })
+  private submitTransaction(app: ComprehensiveLimit) {
+    this.applicationService
+      .submit("Bearer " + this.authToken.token, app.clRef, app)
+      .subscribe((data) => {
+        this.showToast("Transaction Submitted");
+      });
   }
   private showToast(msg: string) {
     this.toastCtrl
@@ -188,5 +168,8 @@ export class CreditLimitPage implements OnInit {
       .then((toastEl) => {
         toastEl.present();
       });
+  }
+  back(){
+    this.router.navigate(['/','home']);
   }
 }

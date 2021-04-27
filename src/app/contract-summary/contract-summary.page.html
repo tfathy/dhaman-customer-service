@@ -1,5 +1,5 @@
 <ion-header>
-  <app-primary-toolbar></app-primary-toolbar>
+  <app-primary-toolbar [moduleTitle]="'Contract Overview'"></app-primary-toolbar>
 
   <ion-toolbar color="secondary">
     <ion-buttons slot="start" *ngIf="!showSearchbar">
@@ -56,9 +56,12 @@
 
 <ion-footer class="ion-no-border">
   <ion-toolbar color="primary">
-    <ion-title>Contract Summary</ion-title>
-    <ion-buttons slot="start">
-      <ion-icon name="aperture" class="ion-padding"></ion-icon>
-    </ion-buttons>
+   
+  <ion-buttons slot="end">
+    <ion-button (click)="back()">
+      <ion-icon name="arrow-back"></ion-icon>
+      Back
+     </ion-button>
+</ion-buttons>  
   </ion-toolbar>
 </ion-footer>

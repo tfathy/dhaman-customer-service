@@ -1,5 +1,5 @@
 <ion-header>
-  <app-primary-toolbar></app-primary-toolbar>
+  <app-primary-toolbar [moduleTitle]="'Credit Limit'"></app-primary-toolbar>
 
   <ion-toolbar color="secondary">
     <ion-buttons slot="start" *ngIf="!showSearchbar">
@@ -76,9 +76,12 @@
 </ion-content>
 <ion-footer class="ion-no-border">
   <ion-toolbar color="primary">
-    <ion-title>Credit Limit</ion-title>
-    <ion-buttons slot="start">
-      <ion-icon name="create" class="ion-padding"></ion-icon>
+    <ion-buttons slot="end">
+      <ion-button (click)="back()">
+      <ion-icon name="arrow-back"></ion-icon>
+      Back
+     </ion-button>
     </ion-buttons>
+    
   </ion-toolbar>
 </ion-footer>

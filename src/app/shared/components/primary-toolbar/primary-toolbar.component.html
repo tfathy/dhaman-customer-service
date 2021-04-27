@@ -1,8 +1,13 @@
 <ion-toolbar color="primary">
+  <ion-title>
+    {{moduleTitle}}
+  </ion-title>
   <ion-buttons slot="start">
     <ion-menu-button></ion-menu-button>
   </ion-buttons>
-  <ion-buttons slot="start">
-    <ion-label>{{ _companyName }}</ion-label>
-  </ion-buttons>
+  <ion-buttons slot="end">
+    <ion-button (click)="goHome()">
+      <ion-icon slot="end" name="home" color="light"></ion-icon>
+    </ion-button>
+  </ion-buttons> 
 </ion-toolbar>

@@ -6,6 +6,7 @@ import { SegmentChangeEventDetail } from "@ionic/core";
 import { QueryService } from "../services/query.service";
 import { LoadingController, ModalController } from "@ionic/angular";
 import { AppStatusDetailComponent } from "./app-status-detail/app-status-detail.component";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-application-status",
@@ -26,7 +27,8 @@ export class ApplicationStatusPage implements OnInit {
   constructor(
     private queryService: QueryService,
     private loadingCtrl: LoadingController,
-    private modalCtrl: ModalController
+    private modalCtrl: ModalController,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -68,23 +70,7 @@ export class ApplicationStatusPage implements OnInit {
     let tempAppData;
     if (!query) {
       this.ngOnInit();
-    } /*
-    let filteredData = query
-      ? this.allApplications.filter((item) =>
-          item.comprehensiveLimitsDetailsEntity?.some(
-            (row) =>
-              row.cldDebtorNameEn.toLowerCase().indexOf(query.toLowerCase()) >
-              -1
-          )
-        )
-      : tempAppData;
-
-    return of(filteredData).subscribe((data) => {
-      console.log(data);
-      this.allApplications = data;
     }
-    );
-    */
   }
   onSegmentChanged(event: CustomEvent<SegmentChangeEventDetail>) {
     console.log("Segment changed", event.detail);
@@ -131,5 +117,8 @@ export class ApplicationStatusPage implements OnInit {
     }).then(async madalEl=>{
       return await madalEl.present();
     })
+  }
+  back(){
+    this.router.navigate(['/','home']);
   }
 }

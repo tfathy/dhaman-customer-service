@@ -1,12 +1,12 @@
 <ion-header>
-  <app-primary-toolbar> </app-primary-toolbar>
+  <app-primary-toolbar [moduleTitle]="'Credit Limit'"> </app-primary-toolbar>
   <ion-toolbar color="secondary">
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
     <ion-title> {{title}} </ion-title>
     <ion-buttons slot="end">
-      <ion-button color="primary" (click)="save()">
+      <ion-button color="light" (click)="save()">
         <ion-icon name="save"></ion-icon>
         Save
       </ion-button>
@@ -342,16 +342,15 @@
             </ion-card>
           </ion-card>
 
-          
-          
-
         </ion-col>
       </ion-row>
     </ion-grid>
   </div>
 </ion-content>
 <ion-footer class="ion-no-border">
-  <ion-toolbar color="primary">
-    <ion-title>Main Menu</ion-title>
+  <ion-toolbar color="primary">   
+    <ion-buttons slot="end">
+      <ion-back-button></ion-back-button>
+  </ion-buttons>  
   </ion-toolbar>
 </ion-footer>

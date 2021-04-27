@@ -1,58 +1,79 @@
 <ion-header>
-  <ion-toolbar color="primary"><ion-title>Customer Services</ion-title></ion-toolbar>
+  <ion-toolbar color="primary"
+    ><ion-title>Customer Services</ion-title></ion-toolbar
+  >
 </ion-header>
-<ion-content>  
-  <div class="app-logo">
-
-        </div>  
-            <!-- 
+<ion-content>
+  <div class="app-logo"></div>
+  <!-- 
     <div class="ion-padding ion-text-center">
   <h6>Enter user name and password</h6>
 </div>
     -->
 
-  
-
   <ion-grid class="ion-padding ion-text-center">
     <ion-row>
-            <ion-col >       
+      <ion-col>
         <form #loginForm="ngForm" novalidate>
-          <ion-list class="ion-margin">
-            <!--  User name -->
-            <ion-item>
-              <ion-label position="floating" color="primary">Username</ion-label>
-              <ion-input [(ngModel)]="creds.loginName" name="loginName" #loginName="ngModel" type="text"  spellcheck="false"
-                autocapitalize="off" required >
-              </ion-input>
-            </ion-item>
-
+          <ion-grid>
+            <ion-row>
+              <ion-col sizeSm="12" sizeMd="4" offsetMd="4">
+                <ion-item>
+                  <ion-label position="floating" color="primary"
+                    >Username</ion-label
+                  >
+                  <ion-input
+                    [(ngModel)]="creds.loginName"
+                    name="loginName"
+                    #loginName="ngModel"
+                    type="text"
+                    spellcheck="false"
+                    autocapitalize="off"
+                    required
+                  >
+                  </ion-input>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col sizeSm="12" sizeMd="4" offsetMd="4">
+                <!--  password -->
+                <ion-item>
+                  <ion-label position="floating" color="primary"
+                    >Password</ion-label
+                  >
+                  <ion-input
+                    [(ngModel)]="creds.password"
+                    name="password"
+                    type="password"
+                    #password="ngModel"
+                    required
+                  >
+                  </ion-input>
+                </ion-item>
+              </ion-col>
+            </ion-row>
             
-            <!--  password -->
-            <ion-item>
-              <ion-label position="floating" color="primary">Password</ion-label>
-              <ion-input [(ngModel)]="creds.password" name="password" type="password" #password="ngModel" required>
-              </ion-input>
-            </ion-item>
-
-           
-          </ion-list>
-          <!--  login button -->
-          <ion-row>
-            <ion-col>             
-              <ion-button  (click)="onLogin(loginForm)" expand="block" fill="outline" shape="round" >
-                <ion-icon slot="start" name="log-in"></ion-icon>
-                Login</ion-button>
-            </ion-col>            
-          </ion-row>
-          
+            <ion-row>              
+                <ion-col sizeSm ="12" sizeMd ="4" offsetMd="4">
+                  <ion-button class="loginbtn"
+                    (click)="onLogin(loginForm)"
+                    expand="block"
+                    fill="outline"
+                    shape="round"
+                  >
+                    <ion-icon slot="start" name="log-in"></ion-icon>
+                    Login</ion-button
+                  >
+                </ion-col>             
+            </ion-row>
+          </ion-grid>
         </form>
       </ion-col>
     </ion-row>
   </ion-grid>
-
 </ion-content>
-<ion-footer >
- 
+<ion-footer>
   <ion-toolbar color="primary">
     <ion-title>Login</ion-title>
   </ion-toolbar>

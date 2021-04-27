@@ -1,5 +1,5 @@
 <ion-header>
-  <app-primary-toolbar > </app-primary-toolbar>
+  <app-primary-toolbar [moduleTitle]="'Declarations'"> </app-primary-toolbar>
   <ion-toolbar color="secondary" >
 
     <ion-buttons slot="start" *ngIf="!showSearchbar">
@@ -52,9 +52,13 @@
 </ion-content>
 <ion-footer class="ion-no-border">
   <ion-toolbar color="primary">
-    <ion-title>Declarations</ion-title>
-    <ion-buttons slot="start">
-      <ion-icon  name="boat" class="ion-padding"></ion-icon>
+   
+    <ion-buttons slot="end">
+      <ion-button (click)="back()">
+        <ion-icon name="arrow-back"></ion-icon>
+        Back
+       </ion-button>
     </ion-buttons>
+   
   </ion-toolbar>
 </ion-footer>

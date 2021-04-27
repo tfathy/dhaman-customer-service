@@ -1,6 +1,10 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
-import { AlertController, LoadingController, NavController, ToastController } from "@ionic/angular";
+import {
+  AlertController,
+  LoadingController,  
+  ToastController,
+} from "@ionic/angular";
 import { IonicSelectableComponent } from "ionic-selectable";
 import { ApplicationService } from "src/app/services/application.service";
 import { CurrencyService } from "src/app/services/currency.service";
@@ -38,22 +42,22 @@ export class CreditLimitFormPage implements OnInit {
   ) {}
 
   async ngOnInit() {
-    this.loadingCtrl.create({
-      message: 'loading data ...'
-    }).then(loadingElm=>{
-      loadingElm.present();
-      getSessionInfo("authData").then((result) => {
-      this.authToken = result;
-      this.populateCurrencies();
-      loadingElm.dismiss();
-    });
-    })
-    
+    this.loadingCtrl
+      .create({
+        message: "loading data ...",
+      })
+      .then((loadingElm) => {
+        loadingElm.present();
+        getSessionInfo("authData").then((result) => {
+          this.authToken = result;
+          this.populateCurrencies();
+          loadingElm.dismiss();
+        });
+      });
   }
   ionViewWillEnter() {
-    
-      this.route.paramMap.subscribe((param) => {
-      this.applicationId = (param.get("applicationId") as unknown) as number;     
+    this.route.paramMap.subscribe((param) => {
+      this.applicationId = (param.get("applicationId") as unknown) as number;
       if (this.applicationId > 0) {
         this.queryMasterRecord();
       } else {
@@ -61,37 +65,35 @@ export class CreditLimitFormPage implements OnInit {
           "open in entery mode. you should pass -1 as a parameter to the save action"
         );
       }
-      
     });
-   
-    
   }
   private queryMasterRecord() {
-    this.loadingCtrl.create({
-      message: 'please wait...'
-    }).then(loadingEl=>{
-      loadingEl.present();
-      this.applicationService
-      .findById("Bearer " + this.authToken.token, this.applicationId)
-      .subscribe((data) => {
-        this.model.clRef = data.clRef;
-        this.model.currency = data.currency;
-        this.model.customer = data.customer;
-        this.model.hsCode = data.hsCode;
-        this.model.riskRef = data.riskRef;
-        this.model.status = data.status;
-        this.model.transType = data.transType;
-        this.model.whoColumns = data.whoColumns;
-        this.model.comprehensiveLimitsDetailsEntity =
-          data.comprehensiveLimitsDetailsEntity;
-          loadingEl.dismiss();
-      }),
-      (error) => {
-        console.log(error);
-        loadingEl.dismiss();
-      };
-    })
-    
+    this.loadingCtrl
+      .create({
+        message: "please wait...",
+      })
+      .then((loadingEl) => {
+        loadingEl.present();
+        this.applicationService
+          .findById("Bearer " + this.authToken.token, this.applicationId)
+          .subscribe((data) => {
+            this.model.clRef = data.clRef;
+            this.model.currency = data.currency;
+            this.model.customer = data.customer;
+            this.model.hsCode = data.hsCode;
+            this.model.riskRef = data.riskRef;
+            this.model.status = data.status;
+            this.model.transType = data.transType;
+            this.model.whoColumns = data.whoColumns;
+            this.model.comprehensiveLimitsDetailsEntity =
+              data.comprehensiveLimitsDetailsEntity;
+            loadingEl.dismiss();
+          }),
+          (error) => {
+            console.log(error);
+            loadingEl.dismiss();
+          };
+      });
   }
   private populateCurrencies() {
     this.currencyService
@@ -120,7 +122,7 @@ export class CreditLimitFormPage implements OnInit {
       this.showToast("Fill in Required Fields first");
       return;
     }
-   let masterRecord = this.composeParams();
+    let masterRecord = this.composeParams();
     this.router.navigate(
       [
         "/",
@@ -133,18 +135,17 @@ export class CreditLimitFormPage implements OnInit {
       ],
       {
         queryParams: {
-          modelParam:masterRecord        
+          modelParam: masterRecord,
         },
         queryParamsHandling: "merge",
       }
     );
   }
-  private composeParams(){
+  private composeParams() {
     let currency = this.model.currency;
-    let riskRef =this.model.riskRef;
-    let params = {"currency":currency,"riskRef":riskRef};
+    let riskRef = this.model.riskRef;
+    let params = { currency: currency, riskRef: riskRef };
     return JSON.stringify(params);
-
   }
   openBuyerPage(detailId: number) {
     this.router.navigate([
@@ -169,26 +170,34 @@ export class CreditLimitFormPage implements OnInit {
       });
   }
 
-  async submit(){
+  async submit() {
     const alert = await this.alertCtrl.create({
-      header: 'Submit Transaction',
-      message: 'Would you like to submit the transaction?',
-      buttons: [{
-        text: 'No',       
-      },{
-        text: 'Yes',
-        handler: ()=>{          
+      header: "Submit Transaction",
+      message: "Would you like to submit the transaction?",
+      buttons: [
+        {
+          text: "No",
+        },
+        {
+          text: "Yes",
+          handler: () => {
             this.submitTransaction(this.model);
-        }
-      }]
+          },
+        },
+      ],
     });
     await alert.present();
   }
-  private submitTransaction(app: ComprehensiveLimit){
-    this.applicationService.submit("Bearer "+this.authToken.token,app.clRef,app).subscribe(data=>{
-      this.showToast("Transaction Submitted");
-      this.router.navigate([ "/",
-      "credit-limit"])
-    });
+  private submitTransaction(app: ComprehensiveLimit) {
+    this.applicationService
+      .submit("Bearer " + this.authToken.token, app.clRef, app)
+      .subscribe((data) => {
+        this.showToast("Transaction Submitted");
+        this.router.navigate(["/", "credit-limit"]);
+      }
+      );
+  }
+  back(){
+    this.router.navigate(['/','credit-limit']);
   }
 }

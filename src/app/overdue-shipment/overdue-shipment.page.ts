@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { LoadingController, ModalController } from '@ionic/angular';
 import { of } from 'rxjs';
 import { QueryService } from '../services/query.service';
@@ -19,7 +20,8 @@ export class OverdueShipmentPage implements OnInit {
   ios: boolean;
   constructor( private queryService: QueryService,
     private loadingCtrl: LoadingController,
-    private modalCtrl: ModalController) { }
+    private modalCtrl: ModalController,
+    private router: Router) { }
 
   ngOnInit() {
     let compRef;
@@ -99,6 +101,9 @@ export class OverdueShipmentPage implements OnInit {
     getSessionInfo("authData").then(data=>{
       this.authToken = data;
     })
+  }
+  back(){
+    this.router.navigate(['/','home']);
   }
 
 }

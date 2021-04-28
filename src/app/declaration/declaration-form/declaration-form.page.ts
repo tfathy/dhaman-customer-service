@@ -60,6 +60,9 @@ export class DeclarationFormPage implements OnInit {
         loadingElmnt.dismiss();        
         this.router.navigate([ "/","declaration",]);
         this.showToast("Transaction Submitted. Status: ");
+      },error=>{
+        loadingElmnt.dismiss();       
+        console.log(error);
       });
     })
   
@@ -170,7 +173,8 @@ export class DeclarationFormPage implements OnInit {
               console.log("this.id=" + this.id);
               this.queryMasterRecord();
             } else {
-              this.queryMasterRecord();
+              console.log("data Not saved");
+              this.router.navigate(['/','declaration']);           
             }
           });
         });
@@ -210,8 +214,7 @@ export class DeclarationFormPage implements OnInit {
   private queryMasterRecord() {
     this.declationService
       .findById("Bearer " + this.authToken.token, this.id)
-      .subscribe((data) => {
-        console.log(data);
+      .subscribe((data) => {       
         this.model.dcRef = data.dcRef;
         this.model.company = data.company;
         this.model.currency = data.currency;
@@ -222,10 +225,10 @@ export class DeclarationFormPage implements OnInit {
         this.model.whoColumns = data.whoColumns;
         this.model.status = data.status;
         this.model.declarationsDetailEntity = data.declarationsDetailEntity;
-      }),
-      (error) => {
+      },error=>{
         console.log(error);
-      };
+      })
+     
   }
 
   private showToast(msg: string) {

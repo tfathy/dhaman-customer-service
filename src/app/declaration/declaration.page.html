@@ -1,10 +1,6 @@
 <ion-header>
   <app-primary-toolbar [moduleTitle]="'Declarations'"> </app-primary-toolbar>
-  <ion-toolbar color="secondary" >
-
-    <ion-buttons slot="start" *ngIf="!showSearchbar">
-      <ion-back-button></ion-back-button>
-    </ion-buttons>
+  <ion-toolbar color="secondary">   
     <ion-title *ngIf="!showSearchbar"> Search </ion-title>
     <ion-searchbar
       *ngIf="showSearchbar"
@@ -19,11 +15,19 @@
         <ion-icon slot="icon-only" name="search"></ion-icon>
       </ion-button>
     </ion-buttons>
-
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="chevron-down-circle-outline"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing..."
+    >
+    </ion-refresher-content>
+  </ion-refresher>
   <!-- fab placed to the (vertical) center and end -->
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button color="success" (click)="createDeclaration()">
@@ -31,34 +35,37 @@
     </ion-fab-button>
   </ion-fab>
 
-  <ion-list class="ion-margin">  
-    <ion-item-sliding *ngFor="let dec of declarations" #slidingItem>
-      <ion-item button (click)="viewRecord(dec.dcRef)">
-        <ion-label>
-          <h1>
-            {{ dec.policyNo }}
-          </h1>
-          <div>Currency :{{ dec.currency.cuDescriptionE }}</div>
-          <div>Period :{{ dec.dcPeriod |date:'MM/yyyy' }}</div>         
-        </ion-label>
-      </ion-item>
-      <ion-item-options side="end">
-        <ion-item-option color="secondary"
-          >Delete</ion-item-option
-        >
-      </ion-item-options>
-    </ion-item-sliding>
+  <ion-list class="ion-margin">
+    <ion-grid>
+      <ion-row *ngFor="let dec of declarations" (click)="viewRecord(dec.dcRef)">
+        <ion-col>
+          <ion-item button>
+            <ion-label position="stacked" color="primary">Policy No </ion-label>
+            <ion-input readonly> {{ dec.policyNo }}</ion-input>
+            <ion-label color="primary" position="stacked">Ref#</ion-label>
+            <ion-input readonly> {{ dec.dcRef }}</ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item button>
+            <ion-label position="stacked">Period</ion-label>
+            <ion-input readonly> {{ dec.dcPeriod |date:'MM/yyyy' }}</ion-input>
+            <ion-label  position="stacked">status</ion-label>
+            <ion-input readonly>{{dec.status==='SAV'?'Submit Required':'Submitted'}}</ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
   </ion-list>
 </ion-content>
+
 <ion-footer class="ion-no-border">
   <ion-toolbar color="primary">
-   
     <ion-buttons slot="end">
       <ion-button (click)="back()">
         <ion-icon name="arrow-back"></ion-icon>
         Back
-       </ion-button>
+      </ion-button>
     </ion-buttons>
-   
   </ion-toolbar>
 </ion-footer>

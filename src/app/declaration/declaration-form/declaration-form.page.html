@@ -6,8 +6,7 @@
   >
   </app-primary-toolbar>
   <ion-toolbar color="secondary">
-    <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>   
+    <ion-buttons slot="start">     
       <ion-button color="light" *ngIf="model.status==='SAV'" (click)="submit()">
         <ion-icon slot="end" name="checkmark-circle"></ion-icon>
         Submit

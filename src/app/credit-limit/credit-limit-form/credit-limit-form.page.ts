@@ -65,6 +65,8 @@ export class CreditLimitFormPage implements OnInit {
           "open in entery mode. you should pass -1 as a parameter to the save action"
         );
       }
+    },error=>{
+      console.log(error);
     });
   }
   private queryMasterRecord() {
@@ -76,7 +78,7 @@ export class CreditLimitFormPage implements OnInit {
         loadingEl.present();
         this.applicationService
           .findById("Bearer " + this.authToken.token, this.applicationId)
-          .subscribe((data) => {
+          .subscribe(data => {
             this.model.clRef = data.clRef;
             this.model.currency = data.currency;
             this.model.customer = data.customer;
@@ -88,11 +90,11 @@ export class CreditLimitFormPage implements OnInit {
             this.model.comprehensiveLimitsDetailsEntity =
               data.comprehensiveLimitsDetailsEntity;
             loadingEl.dismiss();
-          }),
-          (error) => {
+          },error=>{
             console.log(error);
             loadingEl.dismiss();
-          };
+          })
+         
       });
   }
   private populateCurrencies() {
@@ -100,6 +102,8 @@ export class CreditLimitFormPage implements OnInit {
       .findAll("Bearer " + this.authToken.token)
       .subscribe((data) => {
         this.currencyList = data;
+      },error=>{
+        console.log(error);
       });
   }
   getSelectedDesc(id: number) {
@@ -194,6 +198,8 @@ export class CreditLimitFormPage implements OnInit {
       .subscribe((data) => {
         this.showToast("Transaction Submitted");
         this.router.navigate(["/", "credit-limit"]);
+      },error=>{
+        console.log(error);
       }
       );
   }

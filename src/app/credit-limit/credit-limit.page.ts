@@ -87,6 +87,9 @@ export class CreditLimitPage implements OnInit {
       console.log(data);
       this.applicationData = data;
       event.target.complete();
+    },error=>{
+      event.target.complete();
+      console.log(error);
     });
   }
   getRiskName(id): string {
@@ -156,6 +159,9 @@ export class CreditLimitPage implements OnInit {
       .submit("Bearer " + this.authToken.token, app.clRef, app)
       .subscribe((data) => {
         this.showToast("Transaction Submitted");
+      },error=>{
+        console.log(error);
+        this.showToast(error.statusText);
       });
   }
   private showToast(msg: string) {

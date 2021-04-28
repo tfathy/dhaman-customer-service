@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import {  map } from "rxjs/operators";
+import {  filter, map, tap } from "rxjs/operators";
 import { environment } from "src/environments/environment";
 import { ComprehensiveLimit } from "../shared/models/comp-limit.model";
 import { ComprehensiveLimitsDetailsEntity } from "../shared/models/comprehensiveLimitsDetailsEntity.model";
@@ -29,8 +29,9 @@ export class ApplicationService {
         { headers: headerInfo }
       )
       .pipe(
-        map((responseArray) => {
-          return responseArray.map((record) => {
+         map(items => items.filter(item => item.status === 'SAV'))
+       , map((responseArray) => {         
+          return responseArray.map((record) => {            
             return new ComprehensiveLimit(
               record.clRef,
               record.transType,
@@ -43,8 +44,13 @@ export class ApplicationService {
               record.comprehensiveLimitsDetailsEntity,
               record.comprehensiveLimitsDetailsEntity.length
             );
+          
           });
         })
+        ,tap(result => result.sort( (a,b)=>  b.clRef -a.clRef
+
+        )
+        )
       );
   }
 

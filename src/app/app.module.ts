@@ -18,6 +18,7 @@ import { OverdueShipmentDtlComponent } from "./overdue-shipment/overdue-shipment
 import { InsuredShipmetsDtlComponent } from "./isured-shipments/insured-shipmets-dtl/insured-shipmets-dtl.component";
 import { ContractAnnexDtlComponent } from "./contract-annex/contract-annex-dtl/contract-annex-dtl.component";
 import { AddDeclarationComponent } from "./declaration/add-declaration/add-declaration.component";
+import { PrimaryFooterComponent } from "./shared/components/primary-footer/primary-footer.component";
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { AddDeclarationComponent } from "./declaration/add-declaration/add-decla
     OverdueShipmentDtlComponent,
     InsuredShipmetsDtlComponent,
     ContractAnnexDtlComponent,
-    AddDeclarationComponent
+    AddDeclarationComponent,
+    PrimaryFooterComponent
   ],
   entryComponents: [],
   imports: [

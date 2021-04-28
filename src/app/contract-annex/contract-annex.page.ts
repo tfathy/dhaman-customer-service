@@ -36,6 +36,9 @@ export class ContractAnnexPage implements OnInit {
         .subscribe(responseData=>{
           this.contractList = responseData;
           loadingElement.dismiss();
+        },error=>{
+          console.log(error);
+          loadingElement.dismiss();
         })
       })
     })
@@ -44,11 +47,12 @@ export class ContractAnnexPage implements OnInit {
     of(false).subscribe((data) => {
       console.log(data);
       this.showSearchbar = data;
+    },error=>{
+      console.log(error);
     });
   }
   findCustomer(event) {
-    let query: string = event.detail.value;
-    console.log("************************")
+    let query: string = event.detail.value;    
     console.log(query);  
     let filteredData; 
     if (!query) {
@@ -61,6 +65,8 @@ export class ContractAnnexPage implements OnInit {
         return of(filteredData).subscribe(
           data=>{
             this.contractList = data;
+          },error=>{
+            console.log(error);
           }
         )
     }
@@ -76,6 +82,9 @@ export class ContractAnnexPage implements OnInit {
         )
         .subscribe((responseData) => {
          this.contractList = responseData;
+          event.target.complete();
+        },error=>{
+          console.log(error);
           event.target.complete();
         });
     });

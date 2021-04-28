@@ -54,6 +54,9 @@ export class ApplicationStatusPage implements OnInit {
                 this.acceptedApplications = responseData.filter(data=> data.currentStatus ===2);
                 this.rejectedApplications = responseData.filter(data=> data.currentStatus === 3 || !data.currentStatus );
                 loadingElement.dismiss();
+              },error=>{
+                loadingElement.dismiss();
+                console.log(error);
               });
           });
         });
@@ -63,6 +66,8 @@ export class ApplicationStatusPage implements OnInit {
     of(false).subscribe((data) => {
       console.log(data);
       this.showSearchbar = data;
+    },error=>{
+      console.log(error);      
     });
   }
   findCustomer(event) {
@@ -90,6 +95,9 @@ export class ApplicationStatusPage implements OnInit {
           this.allApplications = responseData;
           this.inProcessApplications = responseData.filter(data=> data.currentStatus === 1);
           this.rejectedApplications = responseData.filter(data=> data.currentStatus ===3);
+          event.target.complete();
+        },error=>{
+          console.log(error);
           event.target.complete();
         });
     });

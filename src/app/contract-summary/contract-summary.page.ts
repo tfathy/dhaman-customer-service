@@ -39,6 +39,9 @@ export class ContractSummaryPage implements OnInit {
         .subscribe(responseData=>{
           this.contractList = responseData;
           loadingElement.dismiss();
+        },error=>{
+          loadingElement.dismiss();
+          console.log(error);
         })
       })
     })
@@ -48,13 +51,13 @@ export class ContractSummaryPage implements OnInit {
     of(false).subscribe((data) => {
       console.log(data);
       this.showSearchbar = data;
+    },error=>{
+      console.log(error);
     });
   }
 
   findCustomer(event) {
-    let query: string = event.detail.value;
-    console.log("************************")
-    console.log(query);  
+    let query: string = event.detail.value;        
     let filteredData; 
     if (!query) {
       this.ngOnInit();
@@ -66,6 +69,8 @@ export class ContractSummaryPage implements OnInit {
         return of(filteredData).subscribe(
           data=>{
             this.contractList = data;
+          },error=>{
+            console.log(error);
           }
         )
     }
@@ -83,6 +88,9 @@ export class ContractSummaryPage implements OnInit {
         .subscribe((responseData) => {
          this.contractList = responseData;
           event.target.complete();
+        },error=>{
+          event.target.complete();
+          console.log(error);
         });
     });
   }

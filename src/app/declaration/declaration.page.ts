@@ -26,7 +26,11 @@ export class DeclarationPage implements OnInit {
     private modalCtrl: ModalController
   ) {}
 
-  async ngOnInit() {
+  async ngOnInit() { }
+  
+  async ionViewWillEnter(){
+      let customer = await getSessionInfo("customer");
+    let compRef = customer.compRef;
     this.authToken = await getSessionInfo("authData");
     this.loadingCtrl
       .create({
@@ -34,9 +38,9 @@ export class DeclarationPage implements OnInit {
       })
       .then(async (loadingElement) => {
         loadingElement.present();
-        await (
-          await this.declarationService.findCustomerDelcarations(
-            "Bearer " + this.authToken.token
+         (
+           this.declarationService.findCustomerDelcarations(
+            "Bearer " + this.authToken.token,compRef
           )
         ).subscribe(
           (data) => {
@@ -49,6 +53,22 @@ export class DeclarationPage implements OnInit {
           }
         );
       });
+  }
+  doRefresh(event){
+     getSessionInfo("customer").then(data=>{
+       let compRef = data.compRef;
+        this.declarationService.findCustomerDelcarations("Bearer " + this.authToken.token,compRef )
+        .subscribe(resData=>{
+          this.declarations = resData;
+          event.target.complete();
+        },error=>{
+          event.target.complete();
+          console.log(error);
+          
+        })
+     })
+    
+    
   }
   createDeclaration() {
     this.router.navigate(["/", "declaration", "declaration-form"]);

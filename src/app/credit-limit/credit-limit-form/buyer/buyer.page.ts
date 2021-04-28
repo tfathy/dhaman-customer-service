@@ -17,6 +17,7 @@ import { IPaymentMode } from "src/app/shared/models/payment.mode";
 import { LookUpService } from "src/app/services/look-up.service";
 import { IRelationDebtor } from "src/app/shared/models/relationDebtor.model";
 import { WhoColumns } from "src/app/shared/models/who-columns.model";
+import { error } from "selenium-webdriver";
 
 @Component({
   selector: "app-buyer",
@@ -62,6 +63,8 @@ export class BuyerPage implements OnInit {
           this.openForInsertMasterDetail();
         }
       }
+    },error=>{
+      console.log(error);
     });
   }
   private openForInsertMasterDetail() {
@@ -73,6 +76,8 @@ export class BuyerPage implements OnInit {
       console.log(params.modelParam);
       this.model = JSON.parse(params.modelParam);
       console.log(this.model);
+    },error=>{
+      console.log(error);
     });
   }
   populateBuyerRelationList() {
@@ -80,6 +85,8 @@ export class BuyerPage implements OnInit {
       .findAllBuyerRelation("Bearer " + this.authToken.token)
       .subscribe((data) => {
         this.buyerRelationList = data;
+      },error=>{
+        console.log(error);
       });
   }
 
@@ -89,6 +96,8 @@ export class BuyerPage implements OnInit {
       .subscribe((data) => {
         console.log(data);
         this.countryList = data;
+      },error=>{
+        console.log(error);
       });
   }
   populatePaymentMode() {
@@ -97,6 +106,8 @@ export class BuyerPage implements OnInit {
       .subscribe((data) => {
         console.log(data);
         this.paymodeList = data;
+      },error=>{
+        console.log(error);
       });
   }
 
@@ -105,6 +116,8 @@ export class BuyerPage implements OnInit {
       .findByCldId("Bearer " + this.authToken.token, this.cldRef)
       .subscribe((responseData) => {
         this.buyer = responseData;
+      },error=>{
+        console.log(error);
       });
   }
 
@@ -147,9 +160,12 @@ export class BuyerPage implements OnInit {
           console.log(this.model);
           this.applicationService
             .save("Bearer " + this.authToken.token, this.model)
-            .subscribe((resData) => {
+            .subscribe(resData => {
               this.showToast("Transaction saved successfully");
               this.router.navigate(["/", "credit-limit"]);
+              loadingEl.dismiss();
+            },error=>{
+              console.log(error);
               loadingEl.dismiss();
             });
         });
@@ -167,9 +183,10 @@ export class BuyerPage implements OnInit {
           .updateDetail("Bearer " + this.authToken.token, id, this.buyer)
           .subscribe((responseData) => {
             loadinElmnt.dismiss();
-            this.showToast("Record updated successfully");
-            console.log("updated record");
-            console.log(responseData);
+            this.showToast("Record updated successfully");           
+          },error=>{
+            console.log(error);
+            loadinElmnt.dismiss();
           });
       });
   }
@@ -186,7 +203,7 @@ export class BuyerPage implements OnInit {
         this.buyer.clRef = this.clRef;
         this.applicationService
           .addDetail("Bearer " + this.authToken.token, this.buyer)
-          .subscribe((respData) => {
+          .subscribe(respData => {
             loadingElement.dismiss();
             this.showToast("New Buyer addedd successfully");
             this.router.navigate([
@@ -195,6 +212,9 @@ export class BuyerPage implements OnInit {
               "credit-limit-form",
               this.clRef,
             ]);
+          }, error=>{
+            console.log(error);
+            loadingElement.dismiss();
           });
       });
 

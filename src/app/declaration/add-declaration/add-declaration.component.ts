@@ -56,6 +56,9 @@ export class AddDeclarationComponent implements OnInit {
               this.buyerList = resData;
               console.log(this.buyerList);
               loadingElm.dismiss();
+            },error=>{
+              loadingElm.dismiss();
+              console.log(error);
             });
         });
         
@@ -76,8 +79,7 @@ export class AddDeclarationComponent implements OnInit {
         loadingElmnt.present();
         this.declarationService
           .create("Bearer " + this.authToken.token, this.model)
-          .subscribe((resData) => {
-            console.log(resData);
+          .subscribe((resData) => {          
             this.toast
               .create({
                 message: "Transaction Saved successfully",
@@ -92,6 +94,9 @@ export class AddDeclarationComponent implements OnInit {
               saved: true,
               newid: resData.dcRef,
             });
+          },error=>{
+            loadingElmnt.dismiss();
+            console.log(error);
           });
       });
   }
@@ -111,6 +116,8 @@ export class AddDeclarationComponent implements OnInit {
     this.declarationService.findShipmentById("Bearer "+this.authToken.token,ddRef)
     .subscribe(data=>{     
       this.model.declarationsDetailEntity[this.idx] = data;
+    },error=>{
+      console.log(error);
     })
   }
 }

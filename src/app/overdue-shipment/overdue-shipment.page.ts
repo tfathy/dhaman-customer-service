@@ -13,6 +13,7 @@ import { OverdueShipmentDtlComponent } from './overdue-shipment-dtl/overdue-ship
   styleUrls: ['./overdue-shipment.page.scss'],
 })
 export class OverdueShipmentPage implements OnInit {
+  loginCompany: string;
   authToken: sessionData;
   shipmentList: OverdueShipmentModel[] = [];
   showSearchbar: boolean = false;
@@ -24,6 +25,7 @@ export class OverdueShipmentPage implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
+    this.getCompanyName();
     let compRef;
     this.loadingCtrl.create({message: 'loading data...'}).then(loadinElement=>{
       loadinElement.present();
@@ -33,6 +35,8 @@ export class OverdueShipmentPage implements OnInit {
         this.queryService.findOverdueShipment('Bearer '+this.authToken.token,compRef)
         .subscribe(responseData=>{
           this.shipmentList = responseData;
+          loadinElement.dismiss();
+        },error=>{
           loadinElement.dismiss();
         })
       })
@@ -47,9 +51,7 @@ export class OverdueShipmentPage implements OnInit {
     });
   }
   findCustomer(event) {
-    let query: string = event.detail.value;
-    console.log("************************")
-    console.log(query);  
+    let query: string = event.detail.value;   
     let filteredData; 
     if (!query) {
       this.ngOnInit();
@@ -72,6 +74,8 @@ export class OverdueShipmentPage implements OnInit {
       this.queryService.findOverdueShipment('Bearer '+this.authToken.token,compRef)
         .subscribe((responseData) => {
          this.shipmentList = responseData;
+          event.target.complete();
+        },error=>{
           event.target.complete();
         });
     });
@@ -106,4 +110,9 @@ export class OverdueShipmentPage implements OnInit {
     this.router.navigate(['/','home']);
   }
 
+  getCompanyName(){
+    getSessionInfo("customer").then(data=>{
+      this.loginCompany = data.compNameE;
+    })
+  }
 }

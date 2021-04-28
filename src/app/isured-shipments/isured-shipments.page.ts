@@ -56,8 +56,6 @@ export class IsuredShipmentsPage implements OnInit {
 
   findCustomer(event) {
     let query: string = event.detail.value;
-    console.log("************************")
-    console.log(query);  
     let filteredData; 
     if (!query) {
       this.ngOnInit();
@@ -124,6 +122,8 @@ export class IsuredShipmentsPage implements OnInit {
         .findIsueredShipments("Bearer " + this.authToken.token, compRef)
         .subscribe((responseData) => {
           this.shipmentList = responseData;
+          event.target.complete();
+        },error=>{
           event.target.complete();
         });
     });

@@ -109,7 +109,17 @@ export class AddDeclarationComponent implements OnInit {
   onBuyerChange(event: { component: IonicSelectableComponent; value: any }) {
     console.log(event.value);
     this.model.declarationsDetailEntity[this.idx].ddPrmRate = event.value.prmRate;
-   // this.model.declarationsDetailEntity[this.idx].debtorRef = event.value.compRef as number;
+    this.model.declarationsDetailEntity[this.idx].ddRevolving = (event.value.prmRate*this.model.declarationsDetailEntity[this.idx].ddInvoiceValue)/100;
+   
+  }
+
+
+  onInvValueChange(event){
+    if(event.value){
+      this.model.declarationsDetailEntity[this.idx].ddRevolving = (event.value.prmRate*this.model.declarationsDetailEntity[this.idx].ddInvoiceValue)/100;
+    }else{
+      this.model.declarationsDetailEntity[this.idx].ddRevolving=0;
+    }
   }
 
   private fetchShipmentDtl(ddRef: number){
@@ -120,4 +130,5 @@ export class AddDeclarationComponent implements OnInit {
       console.log(error);
     })
   }
+ 
 }

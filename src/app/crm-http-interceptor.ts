@@ -9,10 +9,11 @@ import { Observable, throwError as observableThrowError } from "rxjs";
 
 import { catchError } from "rxjs/operators";
 import { AlertController } from "@ionic/angular";
+import { Router } from "@angular/router";
 
 @Injectable()
 export class CrmHttpInterceptor implements HttpInterceptor {
-  constructor(private alertController: AlertController) {}
+  constructor(private alertController: AlertController,private router: Router) {}
 
   intercept(
     req: HttpRequest<any>,
@@ -23,7 +24,8 @@ export class CrmHttpInterceptor implements HttpInterceptor {
       catchError((err) => {
         console.log(err.status);
          if (err.status == 401) {
-            console.log("CrmHttpInterceptor>>login failed: invalid username or password");
+          this.showAlert(err.status,"Token Expired. Re-login to get new token");
+            this.router.navigate(['/login']);
           }
           if(err.status == 503){
             this.showAlert(err.statusText,"Internal Server error:"+err.status);

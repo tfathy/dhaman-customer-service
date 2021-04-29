@@ -10,6 +10,7 @@ export class UserProfilePage implements OnInit {
   compNameA;
   compNameE;
   compRef;
+  username;
   constructor() { }
 
   ngOnInit() {
@@ -17,6 +18,10 @@ export class UserProfilePage implements OnInit {
       this.compNameA = data.compNameA;
       this.compNameE = data.compNameE;
       this.compRef = data.compRef;
+      this.username = data.loginName;
+    })
+    getSessionInfo("authData").then(data=>{      
+      this.username = data.loginName;
     })
   }
 

@@ -169,7 +169,7 @@
               name="country"
               [items]="countryList"
               itemValueField="couReference"
-              itemTextField="couOfficialNameE"
+              itemTextField="couShortNameE"
               [canSearch]="true"
               (onChange)="countryChange($event)"
             >
@@ -230,7 +230,7 @@
                 </ion-select>
 
                 <ion-label position="floating">Outstanding </ion-label>
-                <ion-input
+                <ion-input (change)=outstandingChange($event)
                   type="number"
                   [(ngModel)]="buyer.cldOutstanding"
                   name="cldOutstanding"
@@ -238,7 +238,7 @@
                 <ion-label position="floating">
                   Reason for outstanding</ion-label
                 >
-                <ion-input
+                <ion-input [disabled]="!buyer.cldOutstanding"
                   [(ngModel)]="buyer.outstandingReason1"
                   name="outstandingReason1"
                 ></ion-input>
@@ -278,7 +278,7 @@
                 </ion-select>
 
                 <ion-label position="floating">Outstanding </ion-label>
-                <ion-input
+                <ion-input (change)=outstandingChange2($event)
                   type="number"
                   [(ngModel)]="buyer.cldOutstanding2"
                   name="cldOutstanding2"
@@ -286,7 +286,7 @@
                 <ion-label position="floating">
                   Reason for outstanding</ion-label
                 >
-                <ion-input
+                <ion-input [disabled]="!buyer.cldOutstanding2"
                   [(ngModel)]="buyer.outstandingReason2"
                   name="outstandingReason2"
                 ></ion-input>
@@ -325,7 +325,7 @@
                   </ion-select>
   
                   <ion-label position="floating">Outstanding </ion-label>
-                  <ion-input
+                  <ion-input (change)=outstandingChange3($event)
                     type="number"
                     [(ngModel)]="buyer.cldOutstanding3"
                     name="cldOutstanding3"
@@ -333,7 +333,7 @@
                   <ion-label position="floating">
                     Reason for outstanding</ion-label
                   >
-                  <ion-input
+                  <ion-input [disabled]="!buyer.cldOutstanding3"
                     [(ngModel)]="buyer.outstandingReason3"
                     name="outstandingReason3"
                   ></ion-input>

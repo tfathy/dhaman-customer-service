@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { map } from "rxjs/operators";
+import { map, tap } from "rxjs/operators";
 import { environment } from "src/environments/environment";
 import { BuyerInPolicyModel } from "../shared/models/buyer-in-policy.model";
 import { ICountry } from "../shared/models/country.model";
@@ -21,10 +21,23 @@ export class LookUpService {
     const headerInfo = new HttpHeaders({
       Authorization: token,
     });
-    return this.http.get<ICountry[]>(
-      `${environment.backendUrl}/crm-operations/lookup/country`,
-      { headers: headerInfo }
-    );
+    return this.http
+      .get<ICountry[]>(
+        `${environment.backendUrl}/crm-operations/lookup/country`,
+        { headers: headerInfo }
+      )
+      .pipe(
+        tap((data) =>
+          data.sort((a, b) => {
+            if (a.couShortNameE < b.couShortNameE) {
+              return -1;
+            }
+            if (a.couShortNameE > b.couShortNameE) {
+              return 1;
+            }
+          })
+        )
+      );
   }
 
   findAllBuyerRelation(token: string): Observable<IRelationDebtor[]> {
@@ -65,7 +78,10 @@ export class LookUpService {
       );
   }
 
-  findBuyersInPolicy(token: string, policyNo: string): Observable<BuyerInPolicyModel[]> {
+  findBuyersInPolicy(
+    token: string,
+    policyNo: string
+  ): Observable<BuyerInPolicyModel[]> {
     const HeaderInfo = new HttpHeaders({
       Authorization: token,
     });

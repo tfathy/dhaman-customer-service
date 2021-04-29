@@ -23,7 +23,7 @@
         <ion-label position="floating">Buyer</ion-label>
         <ionic-selectable  [disabled]= "model.status === 'SUB'" 
         [(ngModel)]="model.declarationsDetailEntity[idx].company"
-        name="compRef"
+        name="company"
         [items]="buyerList"
         [canSearch]="true"  
         itemTextField ="compNameE"
@@ -39,13 +39,13 @@
        <ion-item>
          <ion-label position="floating">Invoice Value</ion-label>
          <ion-input [readonly]= "model.status === 'SUB'" type="number" inputmode="decimal"
-          name="ddInvoiceValue" [(ngModel)]="model.declarationsDetailEntity[idx].ddInvoiceValue"></ion-input>
+          (change)="onInvValueChange($event)" name="ddInvoiceValue" [(ngModel)]="model.declarationsDetailEntity[idx].ddInvoiceValue"></ion-input>
        </ion-item>
      </ion-col>
      <ion-col>
       <ion-item>
         <ion-label position="floating">Invoice No</ion-label>
-        <ion-input  [readonly]= "model.status === 'SUB'" name="ddInvoiceValue" [(ngModel)]="model.declarationsDetailEntity[idx].ddInvNo"></ion-input>
+        <ion-input  [readonly]= "model.status === 'SUB'" name="ddInvNo" [(ngModel)]="model.declarationsDetailEntity[idx].ddInvNo"></ion-input>
       </ion-item>
     </ion-col>
    </ion-row>
@@ -53,13 +53,13 @@
     <ion-col>
       <ion-item>
         <ion-label position="floating">Ship Date</ion-label>
-        <ion-datetime  [readonly]= "model.status === 'SUB'" displayFormat="DD MM YY" name="ddInvoiceValue" [(ngModel)]="model.declarationsDetailEntity[idx].ddShipDate"></ion-datetime>
+        <ion-datetime  [readonly]= "model.status === 'SUB'" displayFormat="DD MM YY" name="ddShipDate" [(ngModel)]="model.declarationsDetailEntity[idx].ddShipDate"></ion-datetime>
       </ion-item>
     </ion-col>
     <ion-col>
       <ion-item>
         <ion-label position="floating">Mat.Date</ion-label>
-        <ion-datetime   [readonly]= "model.status === 'SUB'" displayFormat="DD MM YY" name="ddInvoiceValue" [(ngModel)]="model.declarationsDetailEntity[idx].ddMaturityDate"></ion-datetime>
+        <ion-datetime   [readonly]= "model.status === 'SUB'" displayFormat="DD MM YY" name="ddMaturityDate" [(ngModel)]="model.declarationsDetailEntity[idx].ddMaturityDate"></ion-datetime>
       </ion-item>
     </ion-col>
    </ion-row>
@@ -67,15 +67,15 @@
     <ion-col>
       <ion-item>
         <ion-label position="floating">Rate</ion-label>
-        <ion-input  [readonly]= "model.status === 'SUB'" name="ddInvoiceValue" [(ngModel)]="model.declarationsDetailEntity[idx].ddPrmRate"></ion-input>
+        <ion-input  [readonly]= "model.status === 'SUB'" name="ddPrmRate" [(ngModel)]="model.declarationsDetailEntity[idx].ddPrmRate"></ion-input>
       </ion-item>
     </ion-col>
    </ion-row>
    <ion-row>
     <ion-col>
       <ion-item>
-        <ion-label position="floating">Premuim Value</ion-label>
-        <ion-input  [readonly]= "model.status === 'SUB'" name="ddInvoiceValue" [(ngModel)]="model.declarationsDetailEntity[idx].ddPremium"></ion-input>
+        <ion-label position="floating">Revolving</ion-label>
+        <ion-input  [readonly]= "model.status === 'SUB'" name="ddRevolving" [(ngModel)]="model.declarationsDetailEntity[idx].ddRevolving"></ion-input>
       </ion-item>
     </ion-col>
    </ion-row>

@@ -11,22 +11,39 @@
 <ion-grid> 
   <h4>Company Info</h4> 
   <ion-row>
-    <ion-item>
+    <ion-col>
+      <ion-item>
       <ion-label color="primary" position="stacked">Company Name (En)</ion-label>
       <ion-input readonly>{{compNameE |lowercase}}</ion-input>
     </ion-item>
+    </ion-col>
+    
   </ion-row>
   <ion-row>
-    <ion-item>
+    <ion-col>
+       <ion-item>
       <ion-label color="primary" position="stacked">Company Name(Ar)</ion-label>
       <ion-input readonly>{{compNameA}}</ion-input>
     </ion-item>
+    </ion-col>
+   
   </ion-row>
   <ion-row>
-    <ion-item>
+    <ion-col>
+       <ion-item>
       <ion-label color="primary" position="stacked">Company Ref#</ion-label>
       <ion-input readonly>{{compRef}}</ion-input>
     </ion-item>
+    </ion-col>
+   
+  </ion-row>
+  <ion-row> 
+    <ion-col>
+      <ion-item>
+         <ion-label color="primary" position="stacked">User Name</ion-label>
+      <ion-input readonly>{{username}}</ion-input>
+      </ion-item>     
+    </ion-col>
   </ion-row>
 </ion-grid>
 </ion-content>

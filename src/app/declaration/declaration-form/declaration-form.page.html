@@ -93,8 +93,8 @@
       </ion-grid>
     </ng-container>
 
-    <ion-list class="ion-margin">
-      <ion-list-header><h6>Shipments</h6></ion-list-header>
+    <ion-list class="ion-margin" *ngIf="model.declarationsDetailEntity">
+      <ion-list-header ><h6>Shipments</h6></ion-list-header>
       <ion-item *ngFor="let dtl of model.declarationsDetailEntity; index as i" button (click)="viewShipment(dtl,i)">
         <ion-grid>
           <ion-row>

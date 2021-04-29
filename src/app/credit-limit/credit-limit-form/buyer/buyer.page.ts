@@ -241,4 +241,19 @@ export class BuyerPage implements OnInit {
   back(){
     this.router.navigate(['/','credit-limit','credit-limit-form',this.clRef]);
   }
+  outstandingChange(event){
+    if(!event.value){
+      this.buyer.outstandingReason1 = '';
+    }
+  }
+  outstandingChange2(event){
+    if(!event.value){
+      this.buyer.outstandingReason2 = '';
+    }
+  }
+  outstandingChange3(event){
+    if(!event.value){
+      this.buyer.outstandingReason3 = '';
+    }
+  }
 }

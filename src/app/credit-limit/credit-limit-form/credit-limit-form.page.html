@@ -47,15 +47,13 @@
         <ion-col sizeMd="4">
           <ion-item>
             <ion-label position="floating">Currency</ion-label>
-            <ionic-selectable
-              required
+            <ionic-selectable required              
               [(ngModel)]="model.currency"
               name="currency"
               [items]="currencyList"
-              itemValueField="currency"
+              itemValueField="cuCode"
               itemTextField="cuDescriptionE"
-              [canSearch]="true"
-              (onChange)="currencyChange($event)"
+              [canSearch]="true"             
             >
             </ionic-selectable>
           </ion-item>

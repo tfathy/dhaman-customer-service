@@ -12,5 +12,6 @@ export interface IBuyerInPolicy{
      thirdParty: number;
      compNameE: string;
      compNameA: string;
-     prmRate: number
+     prmRate: number;
+     creditLimit: number;
 }

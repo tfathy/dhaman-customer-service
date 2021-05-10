@@ -1,3 +1,4 @@
+import { componentFactoryName } from "@angular/compiler";
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { LoadingController, ModalController, ToastController } from "@ionic/angular";
@@ -6,6 +7,7 @@ import { IonicSelectableComponent } from "ionic-selectable";
 import { DeclarationService } from "src/app/services/declaration.service";
 import { LookUpService } from "src/app/services/look-up.service";
 import { BuyerRequestModel } from "src/app/shared/models/buyer.request.model";
+import { CompanyResponseModel } from "src/app/shared/models/compant.response.model";
 import { CurrencyResponseModel } from "src/app/shared/models/currency.model";
 import { DeclarationsDetailResponse } from "src/app/shared/models/declaration-detail.response";
 import { DeclarationResponseModel } from "src/app/shared/models/declaration.response.model";
@@ -106,7 +108,7 @@ export class DeclarationFormPage implements OnInit {
         new DeclarationsDetailResponse(
           null,
           this.model.dcRef,
-          null,
+          new CompanyResponseModel(),
           0,
           0,
           null,
@@ -144,7 +146,7 @@ export class DeclarationFormPage implements OnInit {
           new DeclarationsDetailResponse(
             null,
             this.model.dcRef,
-            null,
+            new CompanyResponseModel(),
             0,
             0,
             null,

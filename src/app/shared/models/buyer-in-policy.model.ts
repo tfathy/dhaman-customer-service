@@ -10,6 +10,7 @@ export class BuyerInPolicyModel{
        public thirdParty: number,
        public compNameE: string,
        public compNameA: string,
-       public prmRate: number
+       public prmRate: number,
+       public creditLimit: number
     ){}
 }

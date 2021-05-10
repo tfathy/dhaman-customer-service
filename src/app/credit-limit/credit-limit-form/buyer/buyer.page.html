@@ -108,15 +108,15 @@
         <ion-col>
           <ion-item>
             <ion-label position="floating">Vat</ion-label>
-            <ion-input name="cldVat" [(ngModel)]="buyer.cldVat"></ion-input>
+            <ion-input type="number" name="cldVat" [(ngModel)]="buyer.cldVat"></ion-input>
           </ion-item>
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col>
           <ion-item>
-            <ion-label type="number" position="floating">Tenor</ion-label>
-            <ion-input name="cldTenor" [(ngModel)]="buyer.cldTenor"></ion-input>
+            <ion-label type="number"  position="floating">Tenor</ion-label>
+            <ion-input name="cldTenor" [(ngModel)]="buyer.cldTenor" [placeholder]="'Number of days'"></ion-input>
           </ion-item>
         </ion-col>
       </ion-row>

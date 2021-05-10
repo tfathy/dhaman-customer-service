@@ -106,7 +106,8 @@ export class LookUpService {
               record.thirdParty,
               record.compNameE,
               record.compNameA,
-              record.prmRate
+              record.prmRate,
+              record.creditLimit
             );
           });
         })

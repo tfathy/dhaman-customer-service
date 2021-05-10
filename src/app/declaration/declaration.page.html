@@ -1,6 +1,6 @@
 <ion-header>
   <app-primary-toolbar [moduleTitle]="'Declarations'"> </app-primary-toolbar>
-  <ion-toolbar color="secondary">   
+  <ion-toolbar color="secondary">
     <ion-title *ngIf="!showSearchbar"> Search </ion-title>
     <ion-searchbar
       *ngIf="showSearchbar"
@@ -36,26 +36,25 @@
   </ion-fab>
 
   <ion-list class="ion-margin">
-    <ion-grid>
-      <ion-row *ngFor="let dec of declarations" (click)="viewRecord(dec.dcRef)">
-        <ion-col>
-          <ion-item button>
+    <ion-item
+      button
+      *ngFor="let dec of declarations"
+      (click)="viewRecord(dec.dcRef)"
+    >
+    <ion-badge *ngIf="dec.status=='SAV'" slot="end" color="primary" >Submit Required</ion-badge>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
             <ion-label position="stacked" color="primary">Policy No </ion-label>
             <ion-input readonly> {{ dec.policyNo }}</ion-input>
             <ion-label color="primary" position="stacked">Ref#</ion-label>
             <ion-input readonly> {{ dec.dcRef }}</ion-input>
-          </ion-item>
-        </ion-col>
-        <ion-col>
-          <ion-item button>
             <ion-label position="stacked">Period</ion-label>
-            <ion-input readonly> {{ dec.dcPeriod |date:'MM/yyyy' }}</ion-input>
-            <ion-label  position="stacked">status</ion-label>
-            <ion-input readonly>{{dec.status==='SAV'?'Submit Required':'Submitted'}}</ion-input>
-          </ion-item>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
+            <ion-input readonly> {{ dec.dcPeriod |date:'MM/yyyy' }}</ion-input> 
+          </ion-col>        
+        </ion-row>
+      </ion-grid>
+    </ion-item>
   </ion-list>
 </ion-content>
 

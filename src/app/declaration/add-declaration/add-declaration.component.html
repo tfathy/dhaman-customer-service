@@ -22,7 +22,7 @@
       <ion-item>
         <ion-label position="floating">Buyer</ion-label>
         <ionic-selectable  [disabled]= "model.status === 'SUB'" 
-        [(ngModel)]="model.declarationsDetailEntity[idx].company"
+        [(ngModel)]="model?.declarationsDetailEntity[idx].company"
         name="company"
         [items]="buyerList"
         [canSearch]="true"  
@@ -66,7 +66,7 @@
    <ion-row>   
     <ion-col>
       <ion-item>
-        <ion-label position="floating">Rate</ion-label>
+        <ion-label position="floating">Premuim Rate</ion-label>
         <ion-input  [readonly]= "model.status === 'SUB'" name="ddPrmRate" [(ngModel)]="model.declarationsDetailEntity[idx].ddPrmRate"></ion-input>
       </ion-item>
     </ion-col>

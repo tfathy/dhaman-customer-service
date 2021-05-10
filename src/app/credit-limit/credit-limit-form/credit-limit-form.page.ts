@@ -46,9 +46,9 @@ export class CreditLimitFormPage implements OnInit {
       .create({
         message: "loading data ...",
       })
-      .then((loadingElm) => {
+      .then(async (loadingElm) => {
         loadingElm.present();
-        getSessionInfo("authData").then((result) => {
+       await getSessionInfo("authData").then((result) => {
           this.authToken = result;
           this.populateCurrencies();
           loadingElm.dismiss();
@@ -100,7 +100,9 @@ export class CreditLimitFormPage implements OnInit {
   private populateCurrencies() {
     this.currencyService
       .findAll("Bearer " + this.authToken.token)
-      .subscribe((data) => {
+      .subscribe(
+        data => {
+          console.log(data);
         this.currencyList = data;
       },error=>{
         console.log(error);

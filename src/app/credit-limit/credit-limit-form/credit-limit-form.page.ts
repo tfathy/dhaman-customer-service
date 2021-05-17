@@ -208,4 +208,27 @@ export class CreditLimitFormPage implements OnInit {
   back(){
     this.router.navigate(['/','credit-limit']);
   }
+  saveUpdates(){
+    if (!this.model.currency || !this.model.riskRef) {
+      this.showToast("Fill in Required Fields first");
+      return;
+    }
+    this.loadingCtrl
+    .create({
+      message: "posting updates ..",
+    })
+    .then((loadinElmnt) => {
+      loadinElmnt.present();
+      this.applicationService
+        .update("Bearer " + this.authToken.token, this.model.clRef, this.model)
+        .subscribe((responseData) => {
+          loadinElmnt.dismiss();
+          this.router.navigate(['/','credit-limit']);
+          this.showToast("Record updated successfully");           
+        },error=>{
+          console.log(error);
+          loadinElmnt.dismiss();
+        });
+    });
+  }
 }

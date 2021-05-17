@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, Input, OnInit, ViewChild } from "@angular/core";
 import {
   LoadingController,
   ModalController,
@@ -24,8 +24,9 @@ export class AddDeclarationComponent implements OnInit {
   @Input() mode: string;
   @Input() idx: number;
   @Input() ddRef: number;
-  authToken: sessionData;
 
+  authToken: sessionData;
+  premValue: number;
   buyerList: BuyerInPolicyModel[] = [];
   constructor(
     private modalCtrl: ModalController,
@@ -115,18 +116,20 @@ export class AddDeclarationComponent implements OnInit {
   }
 
 
-  onInvValueChange(event){
-  /*  if(event.value){
-      this.model.declarationsDetailEntity[this.idx].ddRevolving = (event.value.prmRate*this.model.declarationsDetailEntity[this.idx].ddInvoiceValue)/100;
-    }else{
-      this.model.declarationsDetailEntity[this.idx].ddRevolving=0;
-    }*/
+  onInvValueChange(event){  
+    if(this.model.declarationsDetailEntity[this.idx].ddInvoiceValue){
+      this.premValue = (this.model.declarationsDetailEntity[this.idx].ddInvoiceValue * this.model.declarationsDetailEntity[this.idx].ddPrmRate)/100;
+    }
   }
-
+  onInvValueFocus(nativeEl){  
+    nativeEl.target.autofocus=true;
+    nativeEl.target.select();
+  }
   private fetchShipmentDtl(ddRef: number){
     this.declarationService.findShipmentById("Bearer "+this.authToken.token,ddRef)
     .subscribe(data=>{     
       this.model.declarationsDetailEntity[this.idx] = data;
+      this.premValue = (this.model.declarationsDetailEntity[this.idx].ddInvoiceValue * this.model.declarationsDetailEntity[this.idx].ddPrmRate)/100;
     },error=>{
       console.log(error);
     })

@@ -38,8 +38,8 @@
      <ion-col>
        <ion-item>
          <ion-label position="floating">Invoice Value</ion-label>
-         <ion-input [readonly]= "model.status === 'SUB'" type="number" inputmode="decimal"
-          (change)="onInvValueChange($event)" name="ddInvoiceValue" [(ngModel)]="model.declarationsDetailEntity[idx].ddInvoiceValue"></ion-input>
+         <ion-input [readonly]= "model.status === 'SUB'" type="number" inputmode="decimal" 
+          (change)="onInvValueChange($event)" (click)="onInvValueFocus($event)" name="ddInvoiceValue" [(ngModel)]="model.declarationsDetailEntity[idx].ddInvoiceValue"></ion-input>
        </ion-item>
      </ion-col>
      <ion-col>
@@ -70,12 +70,19 @@
         <ion-input  [readonly]= "model.status === 'SUB'" name="ddPrmRate" [(ngModel)]="model.declarationsDetailEntity[idx].ddPrmRate"></ion-input>
       </ion-item>
     </ion-col>
+
+    <ion-col>
+      <ion-item>
+        <ion-label position="stacked">Premuim value</ion-label>
+        <ion-input readonly name="ddPrmValue" >{{premValue}}</ion-input>
+      </ion-item>
+    </ion-col>
    </ion-row>
    <ion-row>
     <ion-col>
       <ion-item>
         <ion-label position="floating">Revolving</ion-label>
-        <ion-input  [readonly]= "model.status === 'SUB'" name="ddRevolving" [(ngModel)]="model.declarationsDetailEntity[idx].ddRevolving"></ion-input>
+        <ion-input  readonly name="ddRevolving" [(ngModel)]="model.declarationsDetailEntity[idx].ddRevolving"></ion-input>
       </ion-item>
     </ion-col>
    </ion-row>

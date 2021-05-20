@@ -30,7 +30,7 @@ export class IsuredShipmentsPage implements OnInit {
     let compRef;
     this.loadingCtrl
       .create({
-        message: "Loadind shipments .. please wait",
+        message: "Loading shipments .. please wait",
       })
       .then((loadingElement) => {
         loadingElement.present();

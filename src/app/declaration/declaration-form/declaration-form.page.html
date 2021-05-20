@@ -110,14 +110,14 @@
             <ion-col size="6">
               <ion-label position="stacked">Shipped.</ion-label>
               <ion-input readonly
-                >{{dtl.ddShipDate | date:'dd/MM/yyyy'}}</ion-input
+                >{{dtl.ddShipDate | date:'MM/yyyy'}}</ion-input
               >
             </ion-col>
           </ion-row>
           <ion-row>
             <ion-col>
               <ion-label position="stacked">Value.</ion-label>
-              <ion-input readonly>{{dtl.ddInvoiceValue | currency}}</ion-input>
+              <ion-input readonly>{{dtl.ddInvoiceValue | currency:model.currency.cuCode}}</ion-input>
             </ion-col>
           </ion-row>
         </ion-grid>

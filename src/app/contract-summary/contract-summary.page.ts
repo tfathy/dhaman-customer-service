@@ -29,7 +29,7 @@ export class ContractSummaryPage implements OnInit {
   ngOnInit() {
     let compRef;
     this.loadingCtrl.create({
-      message: 'Loadind contracts .. please wait'
+      message: 'Loading contracts .. please wait'
     }).then(loadingElement=>{
       loadingElement.present();
       this.readToken();

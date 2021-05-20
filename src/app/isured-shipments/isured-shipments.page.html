@@ -40,7 +40,7 @@
         <ion-card-content>
           <ion-item lines="none">                                
             <div class="side-div">
-              <ion-label color="primary">Amount: {{shipment.cmsdShipAmount|currency}}: {{shipment.cmsdCurrency|lowercase}}</ion-label>              
+              <ion-label color="primary">Amount: {{shipment.cmsdShipAmount|currency: shipment.cmsdCurrency}}</ion-label>              
               <ion-label color="primary">Invoice.No:{{shipment.issuredShipmentsPk.cmsInvoiceNo}}</ion-label>
               <ion-label> Ship.Date:
                 {{shipment.cmsShipDate | date: "dd/MM/yyyy"}}</ion-label >

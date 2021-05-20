@@ -64,7 +64,7 @@
       <ion-col>
         <ion-item>
           <ion-label color="primary" position="stacked">Application Amount</ion-label>
-          <ion-input readonly>{{applicationAmt | currency}} : {{applicationCurrency}}</ion-input>
+          <ion-input readonly>{{applicationAmt | currency:applicationCurrency}} </ion-input>
         </ion-item>
       </ion-col>      
     </ion-row>
@@ -81,7 +81,7 @@
       <ion-col>
         <ion-item>
           <ion-label color="primary" position="stacked">Decision Amount</ion-label>
-          <ion-input color="danger" readonly>{{decisionAmount | currency}} : {{decisionCurrency}}</ion-input>
+          <ion-input color="danger" readonly>{{decisionAmount | currency:applicationCurrency}} </ion-input>
         </ion-item>
       </ion-col>      
     </ion-row>

@@ -1,3 +1,4 @@
+import { CurrencyPipe } from "@angular/common";
 import { Component, Input, OnInit, ViewChild } from "@angular/core";
 import {
   LoadingController,
@@ -34,6 +35,7 @@ export class AddDeclarationComponent implements OnInit {
     private loadingCtrl: LoadingController,
     private declarationService: DeclarationService,
     private toast: ToastController
+    
   ) {}
 
   ngOnInit() {
@@ -111,6 +113,7 @@ export class AddDeclarationComponent implements OnInit {
     console.log(event.value);
     this.model.declarationsDetailEntity[this.idx].ddPrmRate = event.value.prmRate;
     this.model.declarationsDetailEntity[this.idx].ddRevolving = event.value.creditLimit;
+    
     // this.model.declarationsDetailEntity[this.idx].r = (event.value.prmRate*this.model.declarationsDetailEntity[this.idx].ddInvoiceValue)/100;
    
   }

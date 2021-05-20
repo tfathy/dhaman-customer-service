@@ -49,13 +49,13 @@
           <ion-label color="primary" position="stacked"
             >Maxminum Amount</ion-label
           >
-          <ion-input readonly>{{ maxAmount | currency }}</ion-input>
+          <ion-input readonly>{{ maxAmount | currency:contCurrency }}</ion-input>
         </ion-item>
       </ion-col>
       <ion-col>
         <ion-item>
           <ion-label color="primary" position="stacked">Revolving</ion-label>
-          <ion-input readonly>{{ revolving | currency }}</ion-input>
+          <ion-input readonly>{{ revolving | currency:contCurrency }}</ion-input>
         </ion-item>
       </ion-col>
     </ion-row>
@@ -63,7 +63,7 @@
       <ion-col>
         <ion-item>
           <ion-label color="primary" position="stacked">Outstanding</ion-label>
-          <ion-input readonly>{{ outstanding | currency }}</ion-input>
+          <ion-input readonly>{{ outstanding | currency:contCurrency }}</ion-input>
         </ion-item>
       </ion-col>
     </ion-row>
@@ -73,7 +73,7 @@
           <ion-label color="primary" position="stacked"
             >Current Revolving</ion-label
           >
-          <ion-input readonly>{{ currentRevolving | currency }}</ion-input>
+          <ion-input readonly>{{ currentRevolving | currency:contCurrency }}</ion-input>
         </ion-item>
       </ion-col>
     </ion-row>
@@ -81,7 +81,7 @@
       <ion-col>
         <ion-item>
           <ion-label color="primary" position="stacked">Shipments</ion-label>
-          <ion-input readonly>{{ ship | currency }} </ion-input>
+          <ion-input readonly>{{ ship | currency:contCurrency }} </ion-input>
         </ion-item>
       </ion-col>
     </ion-row>
@@ -90,7 +90,7 @@
       <ion-col>
         <ion-item>
           <ion-label color="primary" position="stacked">Un Settled</ion-label>
-          <ion-input readonly>{{ unsettled | currency }}</ion-input>
+          <ion-input readonly>{{ unsettled | currency:contCurrency }}</ion-input>
         </ion-item>
       </ion-col>
     </ion-row>

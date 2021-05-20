@@ -64,13 +64,13 @@
           <ion-label color="primary" position="stacked"
             >Guarantee Amount</ion-label
           >
-          <ion-input readonly>{{ guarValue | currency }}</ion-input>
+          <ion-input readonly>{{ guarValue | currency:contCurrency }}</ion-input>
         </ion-item>
       </ion-col>
       <ion-col>
         <ion-item>
           <ion-label color="primary" position="stacked">Revolving</ion-label>
-          <ion-input readonly>{{ contRevolving | currency }}</ion-input>
+          <ion-input readonly>{{ contRevolving | currency:contCurrency }}</ion-input>
         </ion-item>
       </ion-col>
     </ion-row>
@@ -114,7 +114,7 @@
        <ion-col>
         <ion-item>
           <ion-label color="primary" position="stacked">premuim</ion-label>
-          <ion-input readonly>{{ premuim | currency }}</ion-input>
+          <ion-input readonly>{{ premuim | currency:contCurrency }}</ion-input>
         </ion-item>
       </ion-col>
     </ion-row>

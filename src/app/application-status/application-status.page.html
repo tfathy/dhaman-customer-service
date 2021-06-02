@@ -33,8 +33,8 @@
     </ion-segment-button>
   </ion-segment>
   <div [ngSwitch]="segmentModel">
-    <ion-list *ngSwitchCase="'inProcess'" class="ion-margin">
-      <ion-card *ngFor="let app of inProcessApplications" button (click)="openModal(app)">
+    <ion-virtual-scroll [items]="inProcessApplications" *ngSwitchCase="'inProcess'" class="ion-margin" approxItemHeight="320px">
+      <ion-card *virtualItem="let app " button (click)="openModal(app)">
         <ion-card-header>
           <ion-title>{{app.importerNameE}}</ion-title>
         </ion-card-header>
@@ -56,7 +56,7 @@
           </ion-item>
         </ion-card-content>
       </ion-card>
-    </ion-list>
+    </ion-virtual-scroll>
 <!--   rejected-->
     <ion-list *ngSwitchCase="'rejected'" class="ion-margin">
       <ion-card *ngFor="let app of rejectedApplications" button  (click)="openModal(app)">

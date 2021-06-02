@@ -98,7 +98,17 @@ export class AuthService implements OnDestroy {
       userData.headers.get("loginName"),
       userData.headers.get("compNameA"),
       userData.headers.get("compNameE"),
-      userData.headers.get("compRef")
+      userData.headers.get("compRef"),
+
+      userData.headers.get("compcitya"),
+      userData.headers.get("compcitye"),
+      userData.headers.get("compfax"),
+      userData.headers.get("comppoboxa"),
+      userData.headers.get("comppoboxe"),
+      userData.headers.get("comptel"),
+      userData.headers.get("comptel2"),
+      userData.headers.get("compwebaddress"),
+      userData.headers.get("coushortnamee")
     );
 
     this._user.next(user);
@@ -112,7 +122,17 @@ export class AuthService implements OnDestroy {
     loginName: string,
     compNameA: string,
     compNameE: string,
-    compRef: string
+    compRef: string,
+    compcitya: string,
+    compcitye,
+    compfax,
+    comppoboxa,
+    comppoboxe,
+    comptel,
+    comptel2,
+    compwebaddress,
+    coushortnamee
+    
   ) {
     const data = JSON.stringify({
       userId: userId,
@@ -121,7 +141,7 @@ export class AuthService implements OnDestroy {
       loginName: loginName,
       compNameA: compNameA,
       compNameE: compNameE,
-      compRef: compRef,
+      compRef: compRef
     });
 
     Storage.set({ key: "authData", value: data });
@@ -130,6 +150,15 @@ export class AuthService implements OnDestroy {
       compNameA: compNameA,
       compNameE: compNameE,
       compRef: compRef,
+      compcitya: compcitya,
+      compcitye: compcitye,
+      compfax: compfax,
+      comppoboxa: comppoboxa,
+      comppoboxe: comppoboxe,
+      comptel: comptel,
+      comptel2: comptel2,
+      compwebaddress: compwebaddress,
+      coushortnamee: coushortnamee
     });
     Storage.set({ key: "customer", value: loginCustomer });
 
@@ -137,6 +166,18 @@ export class AuthService implements OnDestroy {
     await sessionStorage.setItem("compNameA", compNameA);
     await sessionStorage.setItem("compNameE", compNameE);
     await sessionStorage.setItem("compRef", compRef);
+
+    await sessionStorage.setItem("compcitya",compcitya);
+    await sessionStorage.setItem("compcitye", compcitye);
+    await sessionStorage.setItem("compfax", compfax);
+    await sessionStorage.setItem("comppoboxa", comppoboxa);
+    await sessionStorage.setItem("comppoboxe", comppoboxe);
+
+    await sessionStorage.setItem("comptel", comptel);
+    await sessionStorage.setItem("comptel2", comptel2);
+    await sessionStorage.setItem("compwebaddress", compwebaddress);
+    await sessionStorage.setItem("coushortnamee", coushortnamee);
+
   }
 
   private autoLogout(duration: number) {

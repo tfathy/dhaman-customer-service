@@ -45,6 +45,9 @@
             <ion-label position="floating">Arabic Name</ion-label>
             <ion-input
               name="cldDebtorNameAr"
+              class="required"
+              required
+              [placeholder]="'required'"
               [(ngModel)]="buyer.cldDebtorNameAr"
             ></ion-input>
           </ion-item>
@@ -56,6 +59,8 @@
             <ion-label position="floating">English Name</ion-label>
             <ion-input
               name="cldDebtorNameEn"
+              required
+              [placeholder]="'required'"
               [(ngModel)]="buyer.cldDebtorNameEn"
             ></ion-input>
           </ion-item>
@@ -67,6 +72,8 @@
             <ion-label position="floating">Comm. Registeration</ion-label>
             <ion-input
               name="clsCommercialReg"
+              required
+              [placeholder]="'required'"
               [(ngModel)]="buyer.clsCommercialReg"
             ></ion-input>
           </ion-item>
@@ -79,6 +86,8 @@
             <ion-input
               type="number"
               name="cldAvgShip"
+              required
+              [placeholder]="'required'"
               [(ngModel)]="buyer.cldAvgShip"
             ></ion-input>
           </ion-item>
@@ -91,6 +100,8 @@
             <ion-input
               type="number"
               name="clsCreditLimitRequested"
+              required
+              [placeholder]="'required'"
               [(ngModel)]="buyer.clsCreditLimitRequested"
             ></ion-input>
           </ion-item>
@@ -100,7 +111,8 @@
         <ion-col>
           <ion-item>
             <ion-label position="floating">Bank</ion-label>
-            <ion-input name="cldBank" [(ngModel)]="buyer.cldBank"></ion-input>
+            <ion-input name="cldBank" [(ngModel)]="buyer.cldBank"   required
+            [placeholder]="'required'"></ion-input>
           </ion-item>
         </ion-col>
       </ion-row>
@@ -108,7 +120,8 @@
         <ion-col>
           <ion-item>
             <ion-label position="floating">Vat</ion-label>
-            <ion-input type="number" name="cldVat" [(ngModel)]="buyer.cldVat"></ion-input>
+            <ion-input type="number" name="cldVat" [(ngModel)]="buyer.cldVat"   required
+            [placeholder]="'required'"></ion-input>
           </ion-item>
         </ion-col>
       </ion-row>
@@ -116,7 +129,7 @@
         <ion-col>
           <ion-item>
             <ion-label type="number"  position="floating">Tenor</ion-label>
-            <ion-input name="cldTenor" [(ngModel)]="buyer.cldTenor" [placeholder]="'Number of days'"></ion-input>
+            <ion-input name="cldTenor" [(ngModel)]="buyer.cldTenor" [placeholder]="'Number of days-required'" required></ion-input>
           </ion-item>
         </ion-col>
       </ion-row>
@@ -127,7 +140,8 @@
             <ion-select
               name="paymentMode"
               [(ngModel)]="buyer.paymentMode"
-              [placeholder]="'Tap to select'"
+              required
+              [placeholder]="'required'"
               [selectedText]="buyer.paymentMode?buyer.paymentMode.ptDesc:''"
             >
               <ion-select-option *ngFor="let p of paymodeList" [value]="p"
@@ -144,6 +158,8 @@
             <ion-label position="floating">Relation With Buyer</ion-label>
             <ion-select
               name="cldRelationDebtor"
+              required
+              [placeholder]="'required'"
               [(ngModel)]="buyer.cldRelationDebtor"
               [selectedText]="buyer.cldRelationDebtor?buyer.cldRelationDebtor.brDesc:''"
             >
@@ -167,6 +183,8 @@
             <ionic-selectable
               [(ngModel)]="buyer.country"
               name="country"
+              required
+              [placeholder]="'required'"
               [items]="countryList"
               itemValueField="couReference"
               itemTextField="couShortNameE"
@@ -179,6 +197,8 @@
             <ion-label position="floatin">Phone</ion-label>
             <ion-input
               type="tel"
+              required
+              [placeholder]="'required'"
               name="cldPhone"
               [(ngModel)]="buyer.cldPhone"
             ></ion-input>
@@ -187,6 +207,8 @@
             <ion-label position="floating">Address</ion-label>
             <ion-textarea
               color="dark"
+              required
+              [placeholder]="'required'"
               name="cldAddress"
               [(ngModel)]="buyer.cldAddress"
             ></ion-textarea>

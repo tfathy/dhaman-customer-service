@@ -41,35 +41,44 @@
   <ion-list class="ion-margin">
     <ion-item-group *ngFor="let app of applicationData">
       <ion-card color="ligth">
-        <ion-item-sliding #slidingItem >
-          <ion-item-options side="end">
-            <ion-item-option *ngIf="app.status =='SAV'" color="danger" (click)="submit(slidingItem,app)"
-              >Submit</ion-item-option
-            >
-          </ion-item-options>
-          <ion-item button (click)="viewRecord(app.clRef)">
-            <ion-badge *ngIf="app.status=='SAV'" slot="end" color="primary"
-              >Submit Required</ion-badge
-            >
-            <ion-badge *ngIf="app.status=='SUB'" slot="end" color="success"
-              >Submitted</ion-badge
-            >
-            <div>
-              <ion-label>Ref#: {{ app.clRef }}</ion-label>
-              <ion-label>Risk : {{getRiskName(app.riskRef)}}</ion-label>
-              <ion-label
-                >Currency :{{ app.currency?app.currency.cuDescriptionE:'Unknown'
-                }}</ion-label
+        <ion-card-header>
+          <ion-badge *ngIf="app.status=='SAV'" color="primary"
+            >Submit Required</ion-badge
+          >
+        </ion-card-header>
+        <ion-card-title>
+              <ion-item-sliding #slidingItem>
+            <ion-item-options side="end">
+              <ion-item-option
+                *ngIf="app.status =='SAV'"
+                color="danger"
+                (click)="submit(slidingItem,app)"
+                >Submit</ion-item-option
               >
-              <ion-label *ngIf="app.whoColumns">
-                Date: {{app.whoColumns.updDate}}</ion-label
-              >
-              <ion-label color="primary">
-                No of Buyers: {{app.buyersCount}}</ion-label
-              >
-            </div>
-          </ion-item>
-        </ion-item-sliding>
+            </ion-item-options>
+            <ion-item button (click)="viewRecord(app.clRef)">
+              <div>
+                <ion-label>Ref#: {{ app.clRef }}</ion-label>
+                <ion-label>Risk : {{getRiskName(app.riskRef)}}</ion-label>
+                <ion-label
+                  >Currency :{{
+                  app.currency?app.currency.cuDescriptionE:'Unknown'
+                  }}</ion-label
+                >
+                <ion-label *ngIf="app.whoColumns">
+                  Date: {{app.whoColumns.updDate|date:'dd/MM/yyyy'}}</ion-label
+                >
+                <ion-label color="primary">
+                  No of Buyers: {{app.buyersCount}}</ion-label
+                >
+              </div>
+            </ion-item>
+          </ion-item-sliding>
+        </ion-card-title>   
+
+        <ion-card-content>
+        <ion-note>This request will not be reviewed by DHAMAN ,unless it is submitted.</ion-note>
+        </ion-card-content>
       </ion-card>
     </ion-item-group>
   </ion-list>
@@ -78,10 +87,9 @@
   <ion-toolbar color="primary">
     <ion-buttons slot="end">
       <ion-button (click)="back()">
-      <ion-icon name="arrow-back"></ion-icon>
-      Back
-     </ion-button>
+        <ion-icon name="arrow-back"></ion-icon>
+        Back
+      </ion-button>
     </ion-buttons>
-    
   </ion-toolbar>
 </ion-footer>

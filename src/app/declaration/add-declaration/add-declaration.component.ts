@@ -69,7 +69,8 @@ export class AddDeclarationComponent implements OnInit {
       
   }
 
-  save() {   
+  save() { 
+   
       this.model.declarationsDetailEntity[this.idx].whoColumns = this.model.whoColumns;
       this.model.declarationsDetailEntity[this.idx].dcRef = this.model.dcRef;   
 

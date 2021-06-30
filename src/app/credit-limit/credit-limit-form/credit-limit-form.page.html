@@ -31,6 +31,7 @@
             <ion-label position="floating">Requested Risk</ion-label>
             <ion-select
               required
+              [placeholder]="'Required'"
               name="riskRef"
               [(ngModel)]="model.riskRef"
               [selectedText]="getSelectedDesc(model.riskRef)"
@@ -50,6 +51,8 @@
             <ionic-selectable required              
               [(ngModel)]="model.currency"
               name="currency"
+              required
+              [placeholder]="'Required'"
               [items]="currencyList"
               itemValueField="cuCode"
               itemTextField="cuDescriptionE"

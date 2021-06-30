@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
-import { LoadingController, ToastController } from "@ionic/angular";
+import { AlertController, LoadingController, ToastController } from "@ionic/angular";
 import { ApplicationService } from "src/app/services/application.service";
 import { ComprehensiveLimit } from "src/app/shared/models/comp-limit.model";
 
@@ -43,6 +43,7 @@ export class BuyerPage implements OnInit {
     private loadingCtrl: LoadingController,
     private lookupService: LookUpService,
     private toastCtrl: ToastController,
+    private alertCtrl: AlertController,
     private router: Router
   ) {}
 
@@ -135,6 +136,12 @@ export class BuyerPage implements OnInit {
     });
   }
   private addMasterDetails() {
+    console.log(this.buyer.cldAvgShip,this.buyer.clsCreditLimitRequested );
+
+    if(this.buyer.cldAvgShip > this.buyer.clsCreditLimitRequested){
+      this.showAlert("The avarage shipment value cannot be more that the credit limit value.");
+      return false;
+    }
     const whocolumns: WhoColumns = {
       updUid: this.authToken.loginName,
       lastUpdDate: new Date(),
@@ -143,6 +150,7 @@ export class BuyerPage implements OnInit {
       updDate: new Date(),
       updPc: "Mobile",
     };
+
     this.loadingCtrl
       .create({
         message: "Saving transaction ...",
@@ -173,6 +181,12 @@ export class BuyerPage implements OnInit {
   }
 
   updateDetailsRecord(id) {
+    console.log(this.buyer.cldAvgShip,this.buyer.clsCreditLimitRequested );
+
+    if(this.buyer.cldAvgShip > this.buyer.clsCreditLimitRequested){
+      this.showAlert("The avarage shipment value cannot be more that the credit limit value.");
+      return false;
+    }
     this.loadingCtrl
       .create({
         message: "posting updates ..",
@@ -192,8 +206,12 @@ export class BuyerPage implements OnInit {
   }
 
   addDetailRecord() {
-    // developer a service that post buyer info to the server
-    // then call it
+    console.log(this.buyer.cldAvgShip,this.buyer.clsCreditLimitRequested );
+
+    if(this.buyer.cldAvgShip > this.buyer.clsCreditLimitRequested){
+      this.showAlert("The avarage shipment value cannot be more that the credit limit value.");
+      return false;
+    }
     this.loadingCtrl
       .create({
         message: "adding new buyer ..",
@@ -237,6 +255,14 @@ export class BuyerPage implements OnInit {
       .then((toastElemnt) => {
         toastElemnt.present();
       });
+  }
+  showAlert(msg: string){
+    this.alertCtrl.create({
+      message: msg,
+      buttons:[{text: 'OK'}]
+    }).then(alertElm=>{
+      alertElm.present();
+    })
   }
   back(){
     this.router.navigate(['/','credit-limit','credit-limit-form',this.clRef]);

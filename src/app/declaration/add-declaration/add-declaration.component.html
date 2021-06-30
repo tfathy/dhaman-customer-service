@@ -45,14 +45,14 @@
           <ion-input
             [readonly]="model.status === 'SUB'"
             type="number"
-            inputmode="decimal"            
+            inputmode="decimal"
             required
             (change)="onInvValueChange($event)"
             (click)="onInvValueFocus($event)"
             name="ddInvoiceValue"
             #invVal
             [(ngModel)]="model.declarationsDetailEntity[idx].ddInvoiceValue"
-            [ngModel]="model.declarationsDetailEntity[idx].ddInvoiceValue "
+            [ngModel]="model.declarationsDetailEntity[idx].ddInvoiceValue"
           ></ion-input>
           <span class="error ion-padding" *ngIf="!invVal.value">*required</span>
         </ion-item>
@@ -99,15 +99,19 @@
           <ion-input
             [readonly]="model.status === 'SUB'"
             name="ddPrmRate"
-            [(ngModel)]="model.declarationsDetailEntity[idx].ddPrmRate"            
+            [(ngModel)]="model.declarationsDetailEntity[idx].ddPrmRate"
           ></ion-input>
         </ion-item>
       </ion-col>
-
+    </ion-row>
+    <ion-row>
       <ion-col>
         <ion-item>
           <ion-label position="stacked">Premuim value</ion-label>
-          <ion-input readonly name="ddPrmValue">{{ premValue|number:'1.3-3' }}</ion-input>
+          <ion-input readonly name="ddPrmValue">{{
+            premValue | number: "1.3-3"
+          }}</ion-input>
+          <ion-note>This is just an initial value</ion-note>
         </ion-item>
       </ion-col>
     </ion-row>
@@ -119,7 +123,9 @@
             readonly
             name="ddRevolving"
             [(ngModel)]="model.declarationsDetailEntity[idx].ddRevolving"
-            [ngModel]="model.declarationsDetailEntity[idx].ddRevolving|number:'1.3-3'"
+            [ngModel]="
+              model.declarationsDetailEntity[idx].ddRevolving | number: '1.3-3'
+            "
           ></ion-input>
         </ion-item>
       </ion-col>
